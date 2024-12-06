@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  // font: inherit;
+}
+
+:root {
+  interpolate-size: allow-keywords;
+}
+
+html {
+  hanging-punctuation: first last;
+  color-scheme: dark light;
+}
+
+body {
+  min-height: 100svh;
+  font-feature-settings: "liga" off, "clig" off;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+p,
+li,
+figcaption {
+  text-wrap: pretty;
+  max-width: 65ch;
+}
