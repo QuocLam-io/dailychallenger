@@ -1,0 +1,22 @@
+{
+  "node": {
+    "7f209e26e42a47e9ae6a3ef8755dc411f5dd5ede4d": {
+      "workers": {
+        "app/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Ffrostycakes%2FDesktop%2Fprojects%2Fdaily-challenger%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%5B%227f209e26e42a47e9ae6a3ef8755dc411f5dd5ede4d%22%2C%22invalidateCacheAction%22%5D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        },
+        "app/_not-found/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Ffrostycakes%2FDesktop%2Fprojects%2Fdaily-challenger%2Fnode_modules%2F%40clerk%2Fnextjs%2Fdist%2Fesm%2Fapp-router%2Fserver-actions.js%22%2C%5B%5B%227f209e26e42a47e9ae6a3ef8755dc411f5dd5ede4d%22%2C%22invalidateCacheAction%22%5D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/page": "action-browser",
+        "app/_not-found/page": "action-browser"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "MFkWOqg9TJBOfqciep2I+3Y8RI6B1vCFZKEyTQWXbkQ="
+}
