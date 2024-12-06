@@ -1,0 +1,58 @@
+@use "@/styles/_variables.scss" as *;
+
+.carraige-loader-wrapper {
+  @include flex-column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  height: 100vh;
+  padding: 104px 24px 120px;
+  // border: $border;
+
+  .carraige-text-wrapper {
+    @include flex-column;
+    align-items: center;
+    justify-content: center;
+    justify-content: flex-start;
+    height: 24px;
+    overflow: clip;
+    // border: $violet;
+
+    &-item {
+      background: #fff;
+      color: rgba(26, 26, 26, 0.8);
+      text-align: center;
+      line-height: 24px;
+      font-weight: 700;
+      letter-spacing: 0.16px;
+      animation: carousel 12s linear infinite;
+    }
+  }
+}
+
+@keyframes carousel {
+  0%,
+  15% {
+    transform: translateY(0);
+  }
+  18%,
+  33% {
+    transform: translateY(-100%);
+  }
+  36%,
+  51% {
+    transform: translateY(-200%);
+  }
+  54%,
+  69% {
+    transform: translateY(-300%);
+  }
+  72%,
+  87% {
+    transform: translateY(-400%);
+  }
+  90%,
+  100% {
+    transform: translateY(-500%);
+  }
+}
