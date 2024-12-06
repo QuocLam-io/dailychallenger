@@ -11,7 +11,7 @@
   top: 0;
   z-index: 10;
   background: var(--color-slate-white, #fff);
-  border: $border;
+  // border: $border;
 
   &-logo {
     @include flex-column(2px);
@@ -34,7 +34,8 @@
   &-action-btns {
     padding: 8px 16px;
 
-    button {
+    a {
+      text-decoration: none;
       color: #1a1a1a;
       font-family: "Work Sans";
       font-size: 16px;
@@ -49,5 +50,24 @@
   @media (min-width: $portrait) {
     padding: 16px 48px;
     // border: $border;
+
+    &-logo {
+      @include flex-column(4px);
+      font-weight: 400;
+      line-height: 100%;
+
+      p {
+        font-size: 12px;
+        letter-spacing: 0.12px;
+      }
+      p + p {
+        font-size: 16px;
+        letter-spacing: 0.16px;
+      }
+    }
+
+    &-action-btns {
+      padding: 12px 16px;
+    }
   }
 }
