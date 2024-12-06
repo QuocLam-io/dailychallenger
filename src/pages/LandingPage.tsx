@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CarraigeLoader from "../components/CarraigeLoader";
 import LoadingWrapper from "../components/LoadingWrapper";
+import EmptyLanding from "../components/EmptyLanding";
 // import EmptyLanding from "@/Components/public-landing/EmptyLanding";
 // import FilledLanding from "@/Components/public-landing/FilledLanding";
 
@@ -17,7 +18,6 @@ export interface PublicChallengeTypes {
 const LandingPage = () => {
   const [publicChallenge, setPublicChallenge] =
     useState<PublicChallengeTypes | null>(null);
-
 
   const loadPublicChallenge = async () => {
     const data = localStorage.getItem("publicChallenge");
@@ -56,28 +56,28 @@ const LandingPage = () => {
   console.log(publicChallenge, "publicChallenge, timeLeft");
 
   return (
-    <LoadingWrapper loadFn={loadPublicChallenge} fallback={<CarraigeLoader />}>
-      {/* TODO: Add publicExpired component and logic */}
-      <div
-        style={{
-          padding: "65px",
-        }}
-      >
-        {
-          publicChallenge ? (
-            <h1>Yes</h1>
-          ) : (
-            //     <FilledLanding
-            //       setPublicChallenge={setPublicChallenge}
-            //       publicChallenge={publicChallenge}
-            //     />
-            <h1>No</h1>
-          )
-          // <EmptyLanding />
-        }
-      </div>
-    </LoadingWrapper>
-    // <CarraigeLoader />
+    // <LoadingWrapper loadFn={loadPublicChallenge} fallback={<CarraigeLoader />}>
+    //   {/* TODO: Add publicExpired component and logic */}
+    //   <div
+    //     style={{
+    //       padding: "65px",
+    //     }}
+    //   >
+    //     {
+    //       publicChallenge ? (
+    //         <h1>Yes</h1>
+    //       ) : (
+    //         //     <FilledLanding
+    //         //       setPublicChallenge={setPublicChallenge}
+    //         //       publicChallenge={publicChallenge}
+    //         //     />
+    //         <h1>No</h1>
+    //       )
+    //       // <EmptyLanding />
+    //     }
+    //   </div>
+    // </LoadingWrapper>
+    <EmptyLanding />
   );
 };
 

@@ -1,0 +1,439 @@
+@use "@/styles/_variables.scss" as *;
+
+//Mixin: Example Card
+@mixin example-card($max-width: none) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  width: auto;
+  max-width: $max-width;
+
+  &-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 64px;
+    background: #f1f5f9;
+  }
+
+  &-info {
+    @include flex-column;
+    gap: 4px;
+    flex-grow: 1;
+
+    h4 {
+      color: rgba(26, 26, 26, 0.8);
+      font-family: var(--font-work-sans), sans-serif;
+      line-height: 24px;
+      letter-spacing: 0.16px;
+    }
+    p {
+      color: rgba(26, 26, 26, 0.65);
+      font-family: var(--font-asap), sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0.12px;
+    }
+  }
+
+  &-check {
+    img {
+      margin: 6px;
+    }
+  }
+}
+/* -------------------------------------------------------------------------- */
+
+.public-empty-container {
+  @include flex-column(32px);
+  padding: 88px 24px 172px;
+  // border: $border;
+
+  .public-empty-hero {
+    @include flex-column(20px);
+    align-items: center;
+    text-align: center;
+    // border: $red;
+
+    img {
+      width: 120px;
+      height: 120px;
+    }
+
+    &_titles {
+      @include flex-column;
+      gap: 4px;
+
+      h2 {
+        color: rgba(26, 26, 26, 0.8);
+        font-family: var(--font-work-sans), sans-serif;
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: 0.2px;
+      }
+
+      h1 {
+        color: rgba(26, 26, 26, 0.9);
+        font-family: var(--font-ultra), sans-serif;
+        font-size: 40px;
+        line-height: 56px;
+      }
+    }
+    p {
+      color: rgba(26, 26, 26, 0.8);
+      font-family: var(--font-asap), sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      letter-spacing: 0.14px;
+    }
+  }
+  .public-empty-examples {
+    @include flex-column(12px);
+    opacity: 0.7;
+    // border: $red;
+
+    h3 {
+      color: rgba(26, 26, 26, 0.8);
+      font-family: var(--font-work-sans), sans-serif;
+      line-height: 24px;
+      letter-spacing: 0.16px;
+    }
+
+    .example-card {
+      @include example-card;
+    }
+  }
+
+  .public-empty-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    @include flex-column;
+    gap: 12px;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    padding: 12px 24px 40px;
+    background-color: white;
+    // outline: $lime;
+
+    h3 {
+      color: rgba(26, 26, 26, 0.8);
+      font-family: var(--font-work-sans), sans-serif;
+      font-weight: 700;
+      line-height: 24px; /* 150% */
+      letter-spacing: 0.16px;
+    }
+
+    button {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      padding: 16px 24px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      background: #1a1a1a;
+      box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+
+      p {
+        color: var(--color-50, #fafafa);
+        font-family: var(--font-work-sans), sans-serif;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.16px;
+      }
+    }
+  }
+
+  @media (min-width: $portrait) {
+    gap: 48px;
+    // padding: 80px 48px 64px;
+    padding: 55px 48px 40px;
+    min-height: 100svh;
+    // border: $border;
+
+    .public-empty-hero {
+      @include flex-column;
+      align-items: center;
+      gap: 32px;
+      padding-top: 40px;
+      // border: $red;
+
+      &_titles {
+        gap: 16px;
+
+        h2 {
+          font-size: 24px;
+          line-height: 32px;
+          letter-spacing: 0.24px;
+        }
+
+        h1 {
+          font-size: 64px;
+          line-height: 80px;
+        }
+      }
+
+      p {
+        text-wrap: balance;
+        max-width: 473px;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.16px;
+        // border: $violet;
+      }
+    }
+    .public-empty-examples {
+      display: none;
+    }
+
+    .public-empty-footer {
+      position: static;
+      align-self: center;
+      margin-top: auto;
+      gap: 16px;
+      padding: 0;
+      flex-grow: 0;
+      width: 100%;
+      max-width: 426px;
+      // outline: $lime;
+
+      h3 {
+        font-size: 18px;
+      }
+
+      button {
+        padding: 20px 24px;
+
+        p {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  @media (min-width: $desktop) {
+    // border: $border;
+
+    .public-empty-hero {
+      // border: $red;
+
+      h1 {
+        max-width: 580px;
+      }
+    }
+  }
+}
+
+/* ------------------------- Public Challenger Form ------------------------- */
+
+.public-challenger-form_container {
+  @include flex-column;
+  gap: 32px;
+  width: 100%;
+  // outline: $border;
+
+  .public-challenger-form {
+    @include flex-column;
+    border-radius: 12px;
+    background: var(--color-slate-white, #fff);
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.05);
+
+    &_header {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px;
+      padding-bottom: 8px;
+
+      .public-challenger-form_close-button {
+        display: flex;
+        padding: 8px;
+        // outline: $violet;
+        img {
+          height: 24px;
+          width: 24px;
+        }
+      }
+    }
+    &_body {
+      @include flex-column;
+      gap: 16px;
+      padding: 16px;
+
+      .input-wrapper {
+        position: relative;
+
+        .blinking-caret {
+          animation: blink 1.2s ease-in-out infinite;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          // margin-left: 12px;
+          height: 24px;
+          border: var(--color-slate-900, #0f172a), 1.5px solid;
+        }
+        input {
+          width: 100%;
+          background: transparent;
+          outline-color: transparent;
+          padding: 12px;
+          color: var(--text-primary, #0f172a);
+          font-family: var(--font-work-sans), sans-serif;
+          font-size: 20px;
+          line-height: 28px;
+
+          &:focus {
+            outline: transparent;
+          }
+
+          &::placeholder {
+            color: rgba(26, 26, 26, 0.6);
+            font-family: var(--font-work-sans), sans-serif;
+            font-size: 20px;
+            line-height: 28px;
+            // text-indent: 8px;
+          }
+        }
+
+        &:has(input[value=""]) input {
+          caret-color: transparent;
+        }
+      }
+
+      .pro-example-features {
+        @include flex-column;
+        gap: 8px;
+        padding: 0 12px;
+        // outline: $violet;
+
+        .pro-example-feature {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 12px;
+
+          p {
+            color: var(--color-300, #bdbdbd);
+            font-family: Asap;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+          }
+
+          .pro-fake-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            font-family: (--font-work-sans), sans-serif;
+            border-radius: 9px;
+            background: rgba(26, 26, 26, 0.05);
+            cursor: not-allowed;
+
+            p {
+              color: rgba(26, 26, 26, 0.25);
+              font-size: 15.75px;
+              font-weight: 600;
+              line-height: 22.5px;
+              letter-spacing: 0.158px;
+            }
+
+            div {
+              padding: 4px 6px 4px 7.5px;
+              color: rgba(26, 26, 26, 0.7);
+              font-size: 12px;
+              font-weight: 600;
+              line-height: 16px;
+              letter-spacing: 0.12px;
+              border-radius: 8px;
+              background: var(--color-sunglow-400, #ffcd29);
+            }
+          }
+        }
+      }
+    }
+    &_footer {
+      padding: 12px 16px;
+      // outline: $lime;
+
+      button {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        padding: 12px 24px;
+        background: #1a1a1a;
+        box-shadow: 0px 1px 2px 0px rgba(26, 26, 26, 0.08);
+        color: var(--color-50, #fafafa);
+        font-family: var(--font-work-sans), sans-serif;
+        line-height: 24px;
+        letter-spacing: 0.16px;
+        border-radius: 8px;
+        transition: background 0.3s ease;
+
+        &:disabled {
+          background: rgba(26, 26, 26, 0.15);
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  .public-challenger-form_suggestions {
+    @include flex-column;
+    gap: 12px;
+    padding: 0 12px;
+
+    h3 {
+      color: rgba(250, 250, 250, 0.8);
+      font-family: var(--font-work-sans), sans-serif;
+      line-height: 24px;
+      letter-spacing: 0.16px;
+    }
+    .suggestion-example-cards {
+      @include flex-column;
+      gap: 12px;
+
+      button {
+        text-align: left;
+        .example-card {
+          @include example-card;
+        }
+      }
+    }
+  }
+
+  @media (min-width: $portrait) {
+    justify-content: center;
+    max-width: 532px;
+    // outline: $lime;
+
+    .public-challenger-form_suggestions {
+      width: 378px;
+      margin: 0 auto;
+      // outline: $lime;
+    }
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
