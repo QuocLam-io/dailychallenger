@@ -6,7 +6,10 @@ import { AnimatePresence } from "framer-motion";
 import StrongMan from "../assets/strongest-man-alive.png";
 import ExampleCheckmark from "../assets/checkmark-white-circle-black.png";
 import PlusCircle from "../assets/plus-black-circle-white.png";
-
+import PlusReverse from "../assets/plus-white-circle-black.png";
+import OldTimeyLamp from "../assets/old-timey-lamp.png";
+import CloseXBW from "../assets/close-x-bw.png";
+import ArrowRight from "../assets/arrow-right-bw.png";
 
 //Components
 import Overlay from "./Overlay";
@@ -45,10 +48,7 @@ const EmptyLanding: React.FC = () => {
       <section className="public-empty-footer">
         <h3>Try it out:</h3>
         <button onClick={() => setPublicChallengerModalOpen(true)}>
-          <img
-            src={PlusCircle}
-            alt="Create a challenge plus icon"
-          />
+          <img src={PlusCircle} alt="Create a challenge plus icon" />
           <p>Create a challenge</p>
         </button>
       </section>
@@ -84,7 +84,7 @@ export const ExampleCard: React.FC<ExampleCardProps> = ({ title, dead }) => {
         <p>{dead}</p>
       </div>
       <div className="example-card-check">
-        <img src={ExampleCheckmark} alt="checkmark icon" />
+        <img src={PlusReverse} alt="checkmark icon" />
       </div>
     </div>
   );
@@ -128,16 +128,13 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
         className="public-challenger-form"
       >
         <div className="public-challenger-form_header">
-          <img src="/images/bw-lamp.png" alt="old timey lamp" />{" "}
+          <img src={OldTimeyLamp} alt="old timey lamp" />{" "}
           <button
             type="button"
             className="public-challenger-form_close-button"
             onClick={onClose}
           >
-            <img
-              src="/images/bw-close-x.png"
-              alt="Close challenger form button"
-            />
+            <img src={CloseXBW} alt="Close challenger form button" />
           </button>
         </div>
         <div className="public-challenger-form_body">
@@ -172,10 +169,7 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
         <div className="public-challenger-form_footer">
           <button disabled={!challenge}>
             <p>Create</p>
-            <img
-              src="/images/bw-circle-right-arrow.png"
-              alt="Create a challenge arrow icon"
-            />
+            <img src={ArrowRight} alt="Create a challenge arrow icon" />
           </button>
         </div>
       </form>

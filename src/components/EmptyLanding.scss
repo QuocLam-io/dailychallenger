@@ -8,9 +8,10 @@
   padding: 16px;
   background: #fff;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
   width: auto;
   max-width: $max-width;
+  border-radius: 12px;
+  // border: $border;
 
   &-icon {
     width: 40px;
@@ -26,13 +27,13 @@
 
     h4 {
       color: rgba(26, 26, 26, 0.8);
-      font-family: var(--font-work-sans), sans-serif;
+      font-family: "Work Sans";
       line-height: 24px;
       letter-spacing: 0.16px;
     }
     p {
       color: rgba(26, 26, 26, 0.65);
-      font-family: var(--font-asap), sans-serif;
+      font-family: "Asap";
       font-size: 12px;
       font-weight: 400;
       line-height: 16px;
@@ -43,6 +44,8 @@
   &-check {
     img {
       margin: 6px;
+      width: 40px;
+      height: 40px;
     }
   }
 }
@@ -70,7 +73,7 @@
 
       h2 {
         color: rgba(26, 26, 26, 0.8);
-        font-family: var(--font-work-sans), sans-serif;
+        font-family: "Work sans", sans-serif;
         font-size: 20px;
         line-height: 28px;
         letter-spacing: 0.2px;
@@ -78,14 +81,14 @@
 
       h1 {
         color: rgba(26, 26, 26, 0.9);
-        font-family: var(--font-ultra), sans-serif;
+        font-family: "Ultra", sans-serif;
         font-size: 40px;
         line-height: 56px;
       }
     }
     p {
       color: rgba(26, 26, 26, 0.8);
-      font-family: var(--font-asap), sans-serif;
+      font-family: "Asap", sans-serif;
       font-size: 14px;
       font-weight: 400;
       line-height: 20px;
@@ -99,7 +102,7 @@
 
     h3 {
       color: rgba(26, 26, 26, 0.8);
-      font-family: var(--font-work-sans), sans-serif;
+      font-family: "Work sans", sans-serif;
       line-height: 24px;
       letter-spacing: 0.16px;
     }
@@ -124,7 +127,7 @@
 
     h3 {
       color: rgba(26, 26, 26, 0.8);
-      font-family: var(--font-work-sans), sans-serif;
+      font-family: "Work sans", sans-serif;
       font-weight: 700;
       line-height: 24px; /* 150% */
       letter-spacing: 0.16px;
@@ -148,7 +151,7 @@
 
       p {
         color: var(--color-50, #fafafa);
-        font-family: var(--font-work-sans), sans-serif;
+        font-family: "Work sans", sans-serif;
         font-weight: 600;
         line-height: 24px;
         letter-spacing: 0.16px;
@@ -255,9 +258,17 @@
       padding: 16px;
       padding-bottom: 8px;
 
+      img {
+        width: 48px;
+        height: 48px;
+      }
+
       .public-challenger-form_close-button {
         display: flex;
         padding: 8px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
         // outline: $violet;
         img {
           height: 24px;
@@ -265,9 +276,9 @@
         }
       }
     }
+
     &_body {
-      @include flex-column;
-      gap: 16px;
+      @include flex-column(16px);
       padding: 16px;
 
       .input-wrapper {
@@ -289,9 +300,10 @@
           outline-color: transparent;
           padding: 12px;
           color: var(--text-primary, #0f172a);
-          font-family: var(--font-work-sans), sans-serif;
           font-size: 20px;
+          font-weight: 600;
           line-height: 28px;
+          border: none;
 
           &:focus {
             outline: transparent;
@@ -299,8 +311,8 @@
 
           &::placeholder {
             color: rgba(26, 26, 26, 0.6);
-            font-family: var(--font-work-sans), sans-serif;
             font-size: 20px;
+            font-weight: 600;
             line-height: 28px;
             // text-indent: 8px;
           }
@@ -375,11 +387,22 @@
         background: #1a1a1a;
         box-shadow: 0px 1px 2px 0px rgba(26, 26, 26, 0.08);
         color: var(--color-50, #fafafa);
-        font-family: var(--font-work-sans), sans-serif;
-        line-height: 24px;
-        letter-spacing: 0.16px;
+        cursor: pointer;
         border-radius: 8px;
+        border: none;
         transition: background 0.3s ease;
+
+        p {
+          font-weight: 600;
+          line-height: 24px; /* 150% */
+          font-family: "Work Sans";
+          letter-spacing: 0.16px;
+        }
+
+        img {
+          width: 24px;
+          height: 24px;
+        }
 
         &:disabled {
           background: rgba(26, 26, 26, 0.15);
@@ -396,15 +419,16 @@
 
     h3 {
       color: rgba(250, 250, 250, 0.8);
-      font-family: var(--font-work-sans), sans-serif;
+      font-family: "Work sans", sans-serif;
       line-height: 24px;
       letter-spacing: 0.16px;
     }
     .suggestion-example-cards {
-      @include flex-column;
-      gap: 12px;
+      @include flex-column(12px);
 
       button {
+        border: none;
+        background: transparent;
         text-align: left;
         .example-card {
           @include example-card;
