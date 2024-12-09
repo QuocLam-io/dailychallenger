@@ -2,8 +2,6 @@ import { useState } from "react";
 import CarraigeLoader from "../components/CarraigeLoader";
 import LoadingWrapper from "../components/LoadingWrapper";
 import EmptyLanding from "../components/EmptyLanding";
-// import EmptyLanding from "@/Components/public-landing/EmptyLanding";
-// import FilledLanding from "@/Components/public-landing/FilledLanding";
 
 export interface PublicChallengeTypes {
   challenge: string;
@@ -56,28 +54,18 @@ const LandingPage = () => {
   console.log(publicChallenge, "publicChallenge, timeLeft");
 
   return (
-    // <LoadingWrapper loadFn={loadPublicChallenge} fallback={<CarraigeLoader />}>
-    //   {/* TODO: Add publicExpired component and logic */}
-    //   <div
-    //     style={{
-    //       padding: "65px",
-    //     }}
-    //   >
-    //     {
-    //       publicChallenge ? (
-    //         <h1>Yes</h1>
-    //       ) : (
-    //         //     <FilledLanding
-    //         //       setPublicChallenge={setPublicChallenge}
-    //         //       publicChallenge={publicChallenge}
-    //         //     />
-    //         <h1>No</h1>
-    //       )
-    //       // <EmptyLanding />
-    //     }
-    //   </div>
-    // </LoadingWrapper>
-    <EmptyLanding />
+    <LoadingWrapper loadFn={loadPublicChallenge} fallback={<CarraigeLoader />}>
+      {/* TODO: Add publicExpired component and logic */}
+      {publicChallenge ? (
+        <EmptyLanding />
+        //     <FilledLanding
+        //       setPublicChallenge={setPublicChallenge}
+        //       publicChallenge={publicChallenge}
+        //     />
+      ) : (
+        <EmptyLanding />
+      )}
+    </LoadingWrapper>
   );
 };
 
