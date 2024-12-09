@@ -5,6 +5,7 @@ const CarraigeLoader: React.FC = () => {
   return (
     <div className="carraige-loader-wrapper">
       <img src="/src/assets/carraige.gif" alt="carraige" />
+      <img src="/src/assets/carraige.gif" alt="carraige" />
 
       <div className="carraige-text-wrapper">
         <div className="carraige-text-wrapper-item">

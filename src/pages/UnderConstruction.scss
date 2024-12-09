@@ -1,0 +1,75 @@
+@use "@/styles/_variables.scss" as *;
+
+.under-construction {
+  @include flex-column(40px);
+  padding: 104px 24px 0;
+  // border: $border;
+
+  &-text {
+    color: rgba(26, 26, 26, 0.8);
+    h1 {
+      font-size: 16px;
+      letter-spacing: 0.16px;
+      margin-bottom: 4px;
+      color: rgba(26, 26, 26, 0.8);
+    }
+    p {
+      color: rgba(26, 26, 26, 0.9);
+      font-family: Ultra;
+      font-size: 32px;
+      line-height: 44px; /* 137.5% */
+      margin-bottom: 20px;
+      max-width: 342px;
+    }
+
+    p + p {
+      font-family: Asap;
+      font-size: 14px;
+      line-height: 20px; /* 142.857% */
+      letter-spacing: 0.14px;
+    }
+  }
+
+  img {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  &-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 24px;
+    padding-top: 12px;
+    background: #fff;
+    // border: $border;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      width: 100%;
+      border-radius: 8px;
+      background: #1a1a1a;
+      box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+
+      img {
+        width: 24px;
+        height: 24px;
+        margin: 0;
+      }
+
+      p {
+        color: #fafafa;
+        font-family: "Work Sans";
+        font-size: 16px;
+        letter-spacing: 0.16px;
+        font-weight: 600;
+      }
+    }
+  }
+}
