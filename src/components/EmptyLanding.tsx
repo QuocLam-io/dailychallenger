@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import "./EmptyLanding.scss";
 import { AnimatePresence } from "framer-motion";
 import StrongMan from "../assets/strongest-man-alive.png";
-import ExampleCheckmark from "../assets/checkmark-white-circle-black.png";
 import PlusCircle from "../assets/plus-black-circle-white.png";
 import PlusReverse from "../assets/plus-white-circle-black.png";
 import OldTimeyLamp from "../assets/old-timey-lamp.png";
