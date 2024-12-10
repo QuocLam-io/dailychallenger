@@ -27,13 +27,15 @@
       font-size: 14px;
       line-height: 20px; /* 142.857% */
       letter-spacing: 0.14px;
+      margin-bottom: 0;
     }
   }
 
   img {
     width: 100%;
-    max-width: 400px;
     margin: 0 auto;
+    min-height: 0;
+    // max-width: 400px;
   }
 
   &-footer {
@@ -69,6 +71,98 @@
         font-size: 16px;
         letter-spacing: 0.16px;
         font-weight: 600;
+      }
+    }
+  }
+
+  @media (min-width: $portrait) {
+    min-height: 100svh;
+    gap: 48px;
+    padding: 104px 48px 64px;
+    // border: $border;
+
+    &-text {
+      @include flex-column();
+      align-items: center;
+      text-align: center;
+      // outline: $border;
+
+      h1 {
+        font-size: 20px;
+        letter-spacing: 0.2px;
+        margin-bottom: 16px;
+      }
+      p {
+        font-size: 48px;
+        line-height: 64px; /* 137.5% */
+        margin-bottom: 32px;
+        max-width: 516px;
+      }
+
+      p + p {
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: 0.16px;
+      }
+    }
+
+    img {
+      width: 100%;
+      margin: 0 auto;
+      max-width: 50%;
+    }
+
+    &-footer {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      padding: 0;
+      padding-top: 0;
+      margin-top: auto;
+      // border: $border;
+
+      button {
+        max-width: calc(50% + 48px);
+        padding: 20px 24px;
+
+        img {
+        }
+
+        p {
+          font-size: 18px;
+          letter-spacing: 0.18px;
+        }
+      }
+    }
+  }
+  @media (min-width: $desktop) {
+    padding: 112px 48px 64px;
+    // border: $border;
+
+    &-text {
+      // outline: $border;
+
+      h1 {
+        line-height: 28px; /* 140% */
+        letter-spacing: 0.2px;
+        margin-bottom: 16px;
+      }
+      p {
+        max-width: 782px;
+      }
+    }
+
+    img {
+      max-width: 304px;
+    }
+
+    &-footer {
+      // border: $border;
+
+      button {
+        max-width: calc(50% + 48px);
+        padding: 20px 24px;
       }
     }
   }
