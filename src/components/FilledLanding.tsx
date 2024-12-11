@@ -44,6 +44,12 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         ).padStart(2, "0")}`
       : "Expired";
 
+  const [rippleTrigger, setRippleTrigger] = useState(false);
+
+  const completeChallengeHandler = () => {
+    setRippleTrigger(true);
+  };
+
   return (
     <div className="public-filled-container">
       <div className="public-filled-hero">
@@ -59,9 +65,14 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         <p>{temporaryTimeLeftDisplay}</p>
       </div>
       <div className="public-filled-footer">
-        <button className="public-challenge-complete-btn">
+        <button
+          onClick={completeChallengeHandler}
+          className={`public-challenge-complete-btn ${
+            rippleTrigger ? "ripple-active" : ""
+          }`}
+        >
           <img src={CheckmarkBW} alt="Check mark icon" />
-          <p>Mark as done</p>
+          <p>{rippleTrigger ? "Good show!" : "Mark as done"}</p>
         </button>
         <div
           className="public-challenge-action-menu-wrapper"

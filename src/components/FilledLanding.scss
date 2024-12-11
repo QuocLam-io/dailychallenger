@@ -76,6 +76,7 @@
       box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
       cursor: pointer;
 
+
       img {
         width: 24px;
         height: 24px;
@@ -107,15 +108,11 @@
         transform: translateX(-200%) translateY(0%) scale(2.5);
         border-radius: 40%;
         background-color: #03781f;
-        transition: transform 1.8s;
+        transition: transform 0.4s;
       }
 
-      &:hover::before {
+      &.ripple-active::before {
         transform: translateX(0%) translateY(0%) scale(2.5);
-      }
-
-      &:active {
-        transform: scale(0.9);
       }
     }
 
@@ -285,7 +282,7 @@
           }
 
           &:hover {
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15); /* Shadow on hover */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
           }
         }
       }
