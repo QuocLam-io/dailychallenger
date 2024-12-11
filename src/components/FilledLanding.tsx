@@ -47,12 +47,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
   return (
     <div className="public-filled-container">
       <div className="public-filled-hero">
-        <img
-          src={OldTimeyLamp}
-          alt="old timey lamp"
-          width={80}
-          height={80}
-        />
+        <img src={OldTimeyLamp} alt="old timey lamp" width={80} height={80} />
         <div className="public-filled-hero-text">
           <h2>I challenge myself to...</h2>
           <p>{publicChallenge.challenge}</p>
@@ -64,7 +59,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         <p>{temporaryTimeLeftDisplay}</p>
       </div>
       <div className="public-filled-footer">
-        <button>
+        <button className="public-challenge-complete-btn">
           <img src={CheckmarkBW} alt="Check mark icon" />
           <p>Mark as done</p>
         </button>
@@ -79,10 +74,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
               setChallengeActionMenuToggle(!challengeActionMenuToggle)
             }
           >
-            <img
-              src={VerticalEllipsis}
-              alt="Vertical ellipsis icon"
-            />
+            <img src={VerticalEllipsis} alt="Vertical ellipsis icon" />
           </button>
           <div
             className="public-challenge-action-menu"
