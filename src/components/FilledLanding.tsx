@@ -44,10 +44,21 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         ).padStart(2, "0")}`
       : "Expired";
 
-  const [rippleTrigger, setRippleTrigger] = useState(false);
+  const [rippleTrigger, setRippleTrigger] = useState(
+    publicChallenge.isCompleted ? true : false
+  );
 
   const completeChallengeHandler = () => {
     setRippleTrigger(true);
+    localStorage.setItem(
+      "publicChallenge",
+      JSON.stringify({
+        challenge: publicChallenge.challenge,
+        expiresAt: publicChallenge.expiresAtMs,
+        expired: publicChallenge.expired,
+        isCompleted: true,
+      })
+    );
   };
 
   return (
@@ -66,6 +77,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
       </div>
       <div className="public-filled-footer">
         <button
+          disabled={rippleTrigger}
           onClick={completeChallengeHandler}
           className={`public-challenge-complete-btn ${
             rippleTrigger ? "ripple-active" : ""

@@ -112,7 +112,7 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
 
       localStorage.setItem(
         "publicChallenge",
-        JSON.stringify({ challenge, expiresAt: expirationTime, expired: false })
+        JSON.stringify({ challenge, expiresAt: expirationTime, expired: false, isCompleted: false })
       );
 
       onClose();

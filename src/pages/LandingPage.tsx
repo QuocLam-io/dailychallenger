@@ -39,6 +39,7 @@ const LandingPage = () => {
         setPublicChallenge({
           ...parsedData,
           expiresAt: { hours, minutes, seconds },
+          expiresAtMs: parsedData.expiresAt,
         });
       } else {
         setPublicChallenge({
