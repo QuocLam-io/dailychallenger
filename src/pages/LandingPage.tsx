@@ -12,6 +12,8 @@ export interface PublicChallengeTypes {
     seconds: number;
   };
   expired: boolean;
+  isCompleted: boolean;
+  expiresAtMs: number;
 }
 
 const LandingPage = () => {
