@@ -249,6 +249,7 @@
   @include flex-column;
   gap: 32px;
   width: 100%;
+  overscroll-behavior: contain;
   // outline: $border;
 
   .public-challenger-form {
