@@ -9,7 +9,7 @@ import EditPencil from "../assets/edit-pencil-grey.png";
 import DeleteTrashcan from "../assets/delete-trashcan-grey.png";
 //Components
 import Overlay from "./Overlay";
-import { PublicChallengeTypes } from "../Pages/LandingPage";
+import { PublicChallengeTypes } from "../pages/LandingPage";
 import { PublicChallengerForm } from "./EmptyLanding";
 
 interface FilledLandingProps {
