@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./Components/Navbar.tsx";
+import { Navbar } from "./Components/Navbar.tsx";
 import LandingPage from "./Pages/LandingPage";
 import UnderConstruction from "./Pages/UnderConstruction";
 
