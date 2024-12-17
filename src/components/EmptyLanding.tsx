@@ -104,7 +104,7 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
     { title: "Jog 3 miles", dead: "Ends in 7 days}" },
   ];
 
-  const setPublicChallengeHandler = (e) => {
+  const setPublicChallengeHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (challenge) {
       const expirationTime = Date.now() + 24 * 60 * 60 * 1000;
