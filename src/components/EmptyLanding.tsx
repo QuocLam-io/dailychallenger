@@ -54,7 +54,6 @@ const EmptyLanding: React.FC = () => {
       <AnimatePresence>
         {publicChallengerModalOpen && (
           <Overlay
-            onClose={publicChallengerModalClose}
             customClassName={`flex-align-start portrait-align-center`}
           >
             <PublicChallengerForm onClose={publicChallengerModalClose} />
