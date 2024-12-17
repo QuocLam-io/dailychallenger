@@ -1,4 +1,3 @@
-import React from "react";
 //Router
 import { Link } from "react-router-dom";
 //Styles

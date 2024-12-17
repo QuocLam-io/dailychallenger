@@ -10,7 +10,7 @@ export interface PublicChallengeTypes {
     hours: number;
     minutes: number;
     seconds: number;
-  };
+  } | null;
   expired: boolean;
   isCompleted: boolean;
   expiresAtMs: number;
