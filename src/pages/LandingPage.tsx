@@ -20,38 +20,44 @@ const LandingPage = () => {
   const [publicChallenge, setPublicChallenge] =
     useState<PublicChallengeTypes | null>(null);
 
-  const loadPublicChallenge = async () => {
-    const data = localStorage.getItem("publicChallenge");
+  const loadPublicChallenge = async (): Promise<boolean> => {
+    try {
+      const data = localStorage.getItem("publicChallenge");
 
-    if (data) {
-      const parsedData = JSON.parse(data) as Omit<
-        PublicChallengeTypes,
-        "expiresAt"
-      > & { expiresAt: number };
+      if (data) {
+        const parsedData = JSON.parse(data) as Omit<
+          PublicChallengeTypes,
+          "expiresAt"
+        > & { expiresAt: number };
 
-      const now = Date.now();
-      const timeLeft = parsedData.expiresAt - now;
+        const now = Date.now();
+        const timeLeft = parsedData.expiresAt - now;
 
-      if (timeLeft > 0) {
-        // TODO: refactor this for countdown timer and make scalable in a util folder
-        const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-        const seconds = Math.floor((timeLeft / 1000) % 60);
+        if (timeLeft > 0) {
+          // TODO: refactor this for countdown timer and make scalable in a util folder
+          const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+          const seconds = Math.floor((timeLeft / 1000) % 60);
 
-        setPublicChallenge({
-          ...parsedData,
-          expiresAt: { hours, minutes, seconds },
-          expiresAtMs: parsedData.expiresAt,
-        });
+          setPublicChallenge({
+            ...parsedData,
+            expiresAt: { hours, minutes, seconds },
+            expiresAtMs: parsedData.expiresAt,
+          });
+        } else {
+          setPublicChallenge({
+            ...parsedData,
+            expiresAt: null,
+            expired: true,
+          });
+        }
       } else {
-        setPublicChallenge({
-          ...parsedData,
-          expiresAt: null,
-          expired: true,
-        });
+        setPublicChallenge(null);
       }
-    } else {
-      setPublicChallenge(null);
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
     }
   };
 
