@@ -39,11 +39,11 @@ const EmptyLanding: React.FC = () => {
           cheap, but showing off your hard-earned results? Priceless.
         </p>
       </section>
-      <section className="public-empty-examples">
+      {/* <section className="public-empty-examples">
         <h3>My Challenges</h3>
         <ExampleCard title="Do 50 push-ups" dead="Ends in 3 hours" />
-        <ExampleCard title="Jog 4 miles" dead="Ends in 7 days" />
-      </section>
+        <ExampleCard title="Jog 3 miles" dead="Ends in 7 days" />
+      </section> */}
       <section className="public-empty-footer">
         <h3>Try it out:</h3>
         <button onClick={() => setPublicChallengerModalOpen(true)}>
