@@ -137,7 +137,7 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
         </div>
         <div className="public-challenger-form_body">
           <div className="input-wrapper">
-            {!challenge && <span className="blinking-caret">sadfj</span>}
+            {!challenge && <span className="blinking-caret"></span>}
             <input
               aria-label="Challenge input"
               autoFocus
