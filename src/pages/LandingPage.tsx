@@ -1,8 +1,8 @@
 import { useState } from "react";
-import CarraigeLoader from "../components/CarraigeLoader";
-import LoadingWrapper from "../components/LoadingWrapper";
-import EmptyLanding from "../components/EmptyLanding";
-import FilledLanding from "../components/FilledLanding";
+import CarraigeLoader from "../Components/CarraigeLoader";
+import LoadingWrapper from "../Components/LoadingWrapper";
+import EmptyLanding from "../Components/EmptyLanding";
+import FilledLanding from "../Components/FilledLanding";
 
 export interface PublicChallengeTypes {
   challenge: string;
