@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 //Styling
 import "./FilledLanding.scss";
 import { AnimatePresence } from "framer-motion";
@@ -66,8 +66,8 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
 
   /* ----------------------------- CountDown Timer ---------------------------- */
 
+  const [timeLeft, setTimeLeft] = useState(publicChallenge.timeLeft);
   const [timeLeftDisplay, setTimeLeftDisplay] = useState("Loading...");
-  let timeLeft = publicChallenge.timeLeft;
 
   const countdownTimerHandler = () => {
     if (timeLeft > 0) {
@@ -81,22 +81,20 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         ).padStart(2, "0")}`
       );
 
-      timeLeft -= 1000;
+      setTimeLeft((prevTime) => prevTime - 1000);
     } else {
       setTimeLeftDisplay("Expired");
-      clearInterval(intervalId); // Stop the interval when expired
+      clearInterval(intervalId);
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const intervalId = setInterval(() => {
       countdownTimerHandler();
     }, 1000);
 
-    return () => clearInterval(intervalId); // Clean up the interval on unmount
-  }, []);
-
-  console.log(publicChallenge, "publicChallenge");
+    return () => clearInterval(intervalId);
+  }, [timeLeft]);
 
   return (
     <div className="public-filled-container">
