@@ -25,29 +25,21 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
 }) => {
   const [challengeActionMenuToggle, setChallengeActionMenuToggle] =
     useState(false);
-  // console.log(challengeActionMenuToggle, "challengeActionMenuToggle");
   const [deletePCModalOpen, setDeletePCModalOpen] = useState(false);
   const [editPCModalOpen, setEditPCModalOpen] = useState(false);
 
+  //Delete Public Challenge Handler
   const deletePublicChallenge = () => {
     localStorage.removeItem("publicChallenge");
     setPublicChallenge(null);
   };
 
-  // console.log(publicChallenge.expiresAt, "publicChallenge");
-  const temporaryTimeLeftDisplay =
-    publicChallenge.expiresAt && !publicChallenge.expired
-      ? `${publicChallenge.expiresAt.hours}:${String(
-          publicChallenge.expiresAt.minutes
-        ).padStart(2, "0")}:${String(
-          publicChallenge.expiresAt.seconds
-        ).padStart(2, "0")}`
-      : "Expired";
-
+  //Trigger Complete Challenge Animation
   const [rippleTrigger, setRippleTrigger] = useState(
     publicChallenge.isCompleted ? true : false
   );
 
+  //Complete Challenge Handler
   const completeChallengeHandler = () => {
     setRippleTrigger(true);
     localStorage.setItem(
@@ -61,6 +53,51 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
     );
   };
 
+  /* ----------------------- Temporary Time Left Display ---------------------- */
+  // const temporaryTimeLeftDisplay =
+  //   publicChallenge.expiresAt && !publicChallenge.expired
+  //     ? `${publicChallenge.expiresAt.hours}:${String(
+  //         publicChallenge.expiresAt.minutes
+  //       ).padStart(2, "0")}:${String(
+  //         publicChallenge.expiresAt.seconds
+  //       ).padStart(2, "0")}`
+  //     : "Expired";
+  /* -------------------------------------------------------------------------- */
+
+  /* ----------------------------- CountDown Timer ---------------------------- */
+
+  const [timeLeftDisplay, setTimeLeftDisplay] = useState("Loading...");
+  let timeLeft = publicChallenge.timeLeft;
+
+  const countdownTimerHandler = () => {
+    if (timeLeft > 0) {
+      const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+      const seconds = Math.floor((timeLeft / 1000) % 60);
+
+      setTimeLeftDisplay(
+        `${hours}:${String(minutes).padStart(2, "0")}:${String(
+          seconds
+        ).padStart(2, "0")}`
+      );
+
+      timeLeft -= 1000;
+    } else {
+      setTimeLeftDisplay("Expired");
+      clearInterval(intervalId); // Stop the interval when expired
+    }
+  };
+
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      countdownTimerHandler();
+    }, 1000);
+
+    return () => clearInterval(intervalId); // Clean up the interval on unmount
+  }, []);
+
+  console.log(publicChallenge, "publicChallenge");
+
   return (
     <div className="public-filled-container">
       <div className="public-filled-hero">
@@ -72,8 +109,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
       </div>
       <div className="public-filled-timer">
         <p>Challenge ends in:</p>
-        {/* TODO: Add expired logic in LandingClient component after design handoff */}
-        <p>{temporaryTimeLeftDisplay}</p>
+        <p>{timeLeftDisplay}</p>
       </div>
       <div className="public-filled-footer">
         <button
