@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 //Styling
 import "./FilledLanding.scss";
 import { AnimatePresence } from "framer-motion";
@@ -46,28 +46,18 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
       "publicChallenge",
       JSON.stringify({
         challenge: publicChallenge.challenge,
-        expiresAt: publicChallenge.expiresAtMs,
+        expiresAt: publicChallenge.expiresAt,
         expired: publicChallenge.expired,
         isCompleted: true,
       })
     );
   };
 
-  /* ----------------------- Temporary Time Left Display ---------------------- */
-  // const temporaryTimeLeftDisplay =
-  //   publicChallenge.expiresAt && !publicChallenge.expired
-  //     ? `${publicChallenge.expiresAt.hours}:${String(
-  //         publicChallenge.expiresAt.minutes
-  //       ).padStart(2, "0")}:${String(
-  //         publicChallenge.expiresAt.seconds
-  //       ).padStart(2, "0")}`
-  //     : "Expired";
-  /* -------------------------------------------------------------------------- */
-
   /* ----------------------------- CountDown Timer ---------------------------- */
 
   const [timeLeft, setTimeLeft] = useState(publicChallenge.timeLeft);
   const [timeLeftDisplay, setTimeLeftDisplay] = useState("Loading...");
+  const intervalIdRef = useRef<NodeJS.Timeout | null>(null); 
 
   const countdownTimerHandler = () => {
     if (timeLeft > 0) {
@@ -84,16 +74,22 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
       setTimeLeft((prevTime) => prevTime - 1000);
     } else {
       setTimeLeftDisplay("Expired");
-      clearInterval(intervalId);
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+      }
     }
   };
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    intervalIdRef.current = setInterval(() => {
       countdownTimerHandler();
     }, 1000);
 
-    return () => clearInterval(intervalId);
+    return () => {
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+      }
+    };
   }, [timeLeft]);
 
   return (
