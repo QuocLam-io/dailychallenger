@@ -42,6 +42,11 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
   //Complete Challenge Handler
   const completeChallengeHandler = () => {
     setRippleTrigger(true);
+
+    if (intervalIdRef.current) {
+      clearInterval(intervalIdRef.current);
+    }
+
     localStorage.setItem(
       "publicChallenge",
       JSON.stringify({
@@ -57,7 +62,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
 
   const [timeLeft, setTimeLeft] = useState(publicChallenge.timeLeft);
   const [timeLeftDisplay, setTimeLeftDisplay] = useState("Loading...");
-  const intervalIdRef = useRef<NodeJS.Timeout | null>(null); 
+  const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
 
   const countdownTimerHandler = () => {
     if (timeLeft > 0) {
