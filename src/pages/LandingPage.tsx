@@ -10,11 +10,7 @@ export interface PublicChallengeTypes {
   expired: boolean;
   isCompleted: boolean;
   timeLeft: number;
-  // expiresAt: {
-  //   hours: number;
-  //   minutes: number;
-  //   seconds: number;
-  // } | null;
+  timeInABottle?: string;
 }
 
 const LandingPage = () => {

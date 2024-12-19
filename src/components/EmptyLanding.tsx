@@ -53,9 +53,7 @@ const EmptyLanding: React.FC = () => {
       </section>
       <AnimatePresence>
         {publicChallengerModalOpen && (
-          <Overlay
-            customClassName={`flex-align-start portrait-align-center`}
-          >
+          <Overlay customClassName={`flex-align-start portrait-align-center`}>
             <PublicChallengerForm onClose={publicChallengerModalClose} />
           </Overlay>
         )}
@@ -111,7 +109,13 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
 
       localStorage.setItem(
         "publicChallenge",
-        JSON.stringify({ challenge, expiresAt: expirationTime, expired: false, isCompleted: false })
+        JSON.stringify({
+          challenge,
+          expiresAt: expirationTime,
+          expired: false,
+          isCompleted: false,
+          timeInABottle: null,
+        })
       );
 
       onClose();

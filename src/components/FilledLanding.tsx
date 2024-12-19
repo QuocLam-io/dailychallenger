@@ -43,6 +43,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
   const completeChallengeHandler = () => {
     setRippleTrigger(true);
 
+    //Wipes the ID from the setInterval, freezing the countdown
     if (intervalIdRef.current) {
       clearInterval(intervalIdRef.current);
     }
@@ -54,6 +55,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         expiresAt: publicChallenge.expiresAt,
         expired: publicChallenge.expired,
         isCompleted: true,
+        timeInABottle: timeLeftDisplay,
       })
     );
   };
@@ -86,6 +88,12 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
   };
 
   useEffect(() => {
+    //If challenge is completed and user returns to the page, the timer will be frozen
+    if (publicChallenge.timeInABottle) {
+      setTimeLeftDisplay(publicChallenge.timeInABottle);
+      return;
+    }
+
     intervalIdRef.current = setInterval(() => {
       countdownTimerHandler();
     }, 1000);
