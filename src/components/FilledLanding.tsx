@@ -7,6 +7,7 @@ import CheckmarkBW from "../assets/checkmark-bw-circle.png";
 import VerticalEllipsis from "../assets/vertical-ellipsis-grey.png";
 import EditPencil from "../assets/edit-pencil-grey.png";
 import DeleteTrashcan from "../assets/delete-trashcan-grey.png";
+import Fireworks from "react-canvas-confetti/dist/presets/fireworks"
 //Components
 import Overlay from "./Overlay";
 import { PublicChallengeTypes } from "../pages/LandingPage";
@@ -107,6 +108,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
 
   return (
     <div className="public-filled-container">
+      {rippleTrigger && <Fireworks autorun={{ speed: 1 }} />}
       <div className="public-filled-hero">
         <img src={OldTimeyLamp} alt="old timey lamp" width={80} height={80} />
         <div className="public-filled-hero-text">
