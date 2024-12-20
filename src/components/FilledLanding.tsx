@@ -188,17 +188,26 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
               setEditPCModalOpen(true);
             }}
           >
-            <img src={EditPencil} alt="Pencil icon" />
-            <p>Edit</p>
+            {!rippleTrigger ? (
+              <>
+                <img src={EditPencil} alt="Pencil icon" />
+                <p>Edit</p>
+              </>
+            ) : (
+              <p>Create a new challenge</p>
+
+            )}
           </button>
-          <button
-            onClick={() => {
-              setDeletePCModalOpen(true);
-            }}
-          >
-            <img src={DeleteTrashcan} alt="Trashcan icon" />
-            <p>Delete</p>
-          </button>
+          {!rippleTrigger && (
+            <button
+              onClick={() => {
+                setDeletePCModalOpen(true);
+              }}
+            >
+              <img src={DeleteTrashcan} alt="Trashcan icon" />
+              <p>Delete</p>
+            </button>
+          )}
         </div>
       </div>
       <AnimatePresence>
