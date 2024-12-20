@@ -118,7 +118,9 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         <p>Challenge ends in:</p>
         <p>{timeLeftDisplay}</p>
       </div>
-      <div className="public-filled-footer">
+      <div
+        className={`public-filled-footer ${rippleTrigger && "flex-column"} `}
+      >
         <button
           disabled={rippleTrigger}
           onClick={completeChallengeHandler}
@@ -129,46 +131,57 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
           <img src={CheckmarkBW} alt="Check mark icon" />
           <p>{rippleTrigger ? "Good show!" : "Mark as done"}</p>
         </button>
-        <div
-          className="public-challenge-action-menu-wrapper"
-          aria-haspopup="menu"
-          aria-expanded={challengeActionMenuToggle}
-        >
-          <button
-            className={challengeActionMenuToggle ? "bg-active-grey" : ""}
-            onClick={() =>
-              setChallengeActionMenuToggle(!challengeActionMenuToggle)
-            }
-          >
-            <img src={VerticalEllipsis} alt="Vertical ellipsis icon" />
-          </button>
+        {!rippleTrigger ? (
           <div
-            className="public-challenge-action-menu"
-            role="menu"
-            aria-label="Action menu"
+            className="public-challenge-action-menu-wrapper"
+            aria-haspopup="menu"
+            aria-expanded={challengeActionMenuToggle}
           >
-            <ul>
-              <li
-                onClick={() => {
-                  setEditPCModalOpen(true);
-                }}
-                role="menuitem"
-              >
-                <img src={EditPencil} />
-                <p>Edit</p>
-              </li>
-              <li
-                onClick={() => {
-                  setDeletePCModalOpen(true);
-                }}
-                role="menuitem"
-              >
-                <img src={DeleteTrashcan} />
-                <p>Delete</p>
-              </li>
-            </ul>
+            <button
+              className={challengeActionMenuToggle ? "bg-active-grey" : ""}
+              onClick={() =>
+                setChallengeActionMenuToggle(!challengeActionMenuToggle)
+              }
+            >
+              <img src={VerticalEllipsis} alt="Vertical ellipsis icon" />
+            </button>
+            <div
+              className="public-challenge-action-menu"
+              role="menu"
+              aria-label="Action menu"
+            >
+              <ul>
+                <li
+                  onClick={() => {
+                    setEditPCModalOpen(true);
+                  }}
+                  role="menuitem"
+                >
+                  <img src={EditPencil} />
+                  <p>Edit</p>
+                </li>
+                <li
+                  onClick={() => {
+                    setDeletePCModalOpen(true);
+                  }}
+                  role="menuitem"
+                >
+                  <img src={DeleteTrashcan} />
+                  <p>Delete</p>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
+        ) : (
+          <button
+            onClick={() => {
+              setEditPCModalOpen(true);
+            }}
+            className="public-challenge-create-challenge-btn-mobile"
+          >
+            Create a new challenge
+          </button>
+        )}
         <div className="public-challenge-action-btns">
           <button
             onClick={() => {

@@ -70,13 +70,12 @@
       align-items: center;
       gap: 12px;
       width: 100%;
-      padding: 12px 24px;
+      padding: 16px 24px;
       border-radius: 8px;
       background: #1a1a1a;
       box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
       cursor: pointer;
 
-  
       img {
         width: 24px;
         height: 24px;
@@ -91,6 +90,23 @@
         font-weight: 600;
         line-height: 24px; /* 150% */
         letter-spacing: 0.16px;
+      }
+
+      &:disabled {
+        pointer-events: none;
+      }
+    }
+
+    .public-challenge-create-challenge-btn-mobile {
+      padding: 12px 16px;
+      background: transparent;
+      box-shadow: none;
+      transition: box-shadow 0.3s ease;
+      font-weight: 600;
+      letter-spacing: 0.16px;
+
+      &:hover {
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
       }
     }
 
@@ -255,6 +271,10 @@
           font-size: 18px;
           letter-spacing: 0.18px;
         }
+      }
+
+      .public-challenge-create-challenge-btn-mobile {
+        display: none;
       }
 
       .public-challenge-action-menu-wrapper {

@@ -118,3 +118,7 @@ figcaption {
     @apply bg-background text-foreground;
   }
 }
+
+.flex-column {
+  flex-direction: column;
+}
