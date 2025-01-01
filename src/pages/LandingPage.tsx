@@ -29,7 +29,7 @@ const LandingPage = () => {
 
         const now = Date.now();
         const timeLeft = parsedData.expiresAt - now;
-        console.log(typeof timeLeft, "timeLeft");
+        // console.log(typeof timeLeft, "timeLeft");
 
         if (timeLeft > 0) {
           // const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
