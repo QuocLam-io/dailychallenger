@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import FilledLanding from "./FilledLanding";
+import FilledLanding from "../components/FilledLanding";
 import { describe, expect, it } from "vitest";
 import "@testing-library/jest-dom/vitest";
 
