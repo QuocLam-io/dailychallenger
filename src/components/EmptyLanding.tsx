@@ -110,9 +110,11 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
     if (challenge) {
       let expirationTime;
       if (editPCModalOpen) {
-        const publicChallenge = JSON.parse(
-          localStorage.getItem("publicChallenge")
-        );
+        const publicChallengeString = localStorage.getItem("publicChallenge");
+        const publicChallenge = publicChallengeString
+          ? JSON.parse(publicChallengeString)
+          : null;
+          
         expirationTime = publicChallenge.expiresAt;
       } else {
         expirationTime = Date.now() + 24 * 60 * 60 * 1000;

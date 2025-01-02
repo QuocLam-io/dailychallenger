@@ -28,6 +28,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
     useState(false);
   const [deletePCModalOpen, setDeletePCModalOpen] = useState(false);
   const [editPCModalOpen, setEditPCModalOpen] = useState(false);
+  const [createPCModalOpen, setCreatePCModalOpen] = useState(false);
 
   //Delete Public Challenge Handler
   const deletePublicChallenge = () => {
@@ -106,6 +107,8 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
     };
   }, [timeLeft]);
 
+  console.log(editPCModalOpen, "editPCModalOpen");
+
   return (
     <div className="public-filled-container">
       {rippleTrigger && <Fireworks autorun={{ speed: 1 }} />}
@@ -177,7 +180,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         ) : (
           <button
             onClick={() => {
-              setEditPCModalOpen(true);
+              setCreatePCModalOpen(true);
             }}
             className="public-challenge-create-challenge-btn-mobile"
           >
@@ -187,7 +190,11 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         <div className="public-challenge-action-btns">
           <button
             onClick={() => {
-              setEditPCModalOpen(true);
+              if (!rippleTrigger) {
+                setEditPCModalOpen(true);
+              } else {
+                setCreatePCModalOpen(true);
+              }
             }}
           >
             {!rippleTrigger ? (
@@ -212,12 +219,16 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         </div>
       </div>
       <AnimatePresence>
-        {editPCModalOpen && (
+        {(editPCModalOpen || createPCModalOpen) && (
           <Overlay customClassName={`flex-align-start portrait-align-center`}>
             <PublicChallengerForm
               editPCModalOpen={editPCModalOpen}
               onClose={() => {
-                setEditPCModalOpen(false);
+                if (editPCModalOpen) {
+                  setEditPCModalOpen(false);
+                } else {
+                  setCreatePCModalOpen(false);
+                }
               }}
             />
           </Overlay>
