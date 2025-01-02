@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 //Styling
 import "./EmptyLanding.scss";
 import { AnimatePresence } from "framer-motion";
@@ -102,6 +102,7 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
     { title: "Jog 3 miles", dead: "Ends in 7 days}" },
   ];
 
+  //Set Public Challenge in Local Storage
   const setPublicChallengeHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (challenge) {
@@ -122,6 +123,18 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
       window.location.reload();
     }
   };
+
+  //Edit Public Challenge Handler
+  useEffect(() => {
+    if (localStorage.getItem("publicChallenge")) {
+      const publicChallenge = JSON.parse(
+        localStorage.getItem("publicChallenge")
+      );
+      if (!publicChallenge.expired && !publicChallenge.isCompleted) {
+        setChallenge(publicChallenge.challenge);
+      }
+    }
+  }, []);
 
   return (
     <div className="public-challenger-form_container">
