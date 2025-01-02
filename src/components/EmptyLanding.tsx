@@ -114,7 +114,7 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
         const publicChallenge = publicChallengeString
           ? JSON.parse(publicChallengeString)
           : null;
-          
+
         expirationTime = publicChallenge.expiresAt;
       } else {
         expirationTime = Date.now() + 24 * 60 * 60 * 1000;
@@ -139,9 +139,10 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
   //Edit Public Challenge Handler
   useEffect(() => {
     if (localStorage.getItem("publicChallenge")) {
-      const publicChallenge = JSON.parse(
-        localStorage.getItem("publicChallenge")
-      );
+      const publicChallengeString = localStorage.getItem("publicChallenge");
+      const publicChallenge = publicChallengeString
+        ? JSON.parse(publicChallengeString)
+        : null;
       if (!publicChallenge.expired && !publicChallenge.isCompleted) {
         setChallenge(publicChallenge.challenge);
       }
