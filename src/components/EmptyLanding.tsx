@@ -90,10 +90,12 @@ export const ExampleCard: React.FC<ExampleCardProps> = ({ title, dead }) => {
 
 interface PublicChallengerFormProps {
   onClose: () => void;
+  editPCModalOpen?: boolean;
 }
 
 export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
   onClose,
+  editPCModalOpen = false,
 }) => {
   const [challenge, setChallenge] = useState("");
 
@@ -106,7 +108,15 @@ export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
   const setPublicChallengeHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (challenge) {
-      const expirationTime = Date.now() + 24 * 60 * 60 * 1000;
+      let expirationTime;
+      if (editPCModalOpen) {
+        const publicChallenge = JSON.parse(
+          localStorage.getItem("publicChallenge")
+        );
+        expirationTime = publicChallenge.expiresAt;
+      } else {
+        expirationTime = Date.now() + 24 * 60 * 60 * 1000;
+      }
 
       localStorage.setItem(
         "publicChallenge",

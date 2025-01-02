@@ -7,7 +7,7 @@ import CheckmarkBW from "../assets/checkmark-bw-circle.png";
 import VerticalEllipsis from "../assets/vertical-ellipsis-grey.png";
 import EditPencil from "../assets/edit-pencil-grey.png";
 import DeleteTrashcan from "../assets/delete-trashcan-grey.png";
-import Fireworks from "react-canvas-confetti/dist/presets/fireworks"
+import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 //Components
 import Overlay from "./Overlay";
 import { PublicChallengeTypes } from "../pages/LandingPage";
@@ -197,7 +197,6 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
               </>
             ) : (
               <p>Create a new challenge</p>
-
             )}
           </button>
           {!rippleTrigger && (
@@ -216,6 +215,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         {editPCModalOpen && (
           <Overlay customClassName={`flex-align-start portrait-align-center`}>
             <PublicChallengerForm
+              editPCModalOpen={editPCModalOpen}
               onClose={() => {
                 setEditPCModalOpen(false);
               }}
