@@ -29,6 +29,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
   const [deletePCModalOpen, setDeletePCModalOpen] = useState(false);
   const [editPCModalOpen, setEditPCModalOpen] = useState(false);
   const [createPCModalOpen, setCreatePCModalOpen] = useState(false);
+  const [expiredModalOpen, setExpiredModalOpen] = useState(false);
 
   //Delete Public Challenge Handler
   const deletePublicChallenge = () => {
@@ -83,6 +84,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
       setTimeLeft((prevTime) => prevTime - 1000);
     } else {
       setTimeLeftDisplay("Expired");
+      setExpiredModalOpen(true);
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
       }
