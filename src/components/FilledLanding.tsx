@@ -243,6 +243,11 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
             />
           </Overlay>
         )}
+        {expiredModalOpen && (
+          <Overlay>
+            {/* TODO: Add expired modal */}
+          </Overlay>
+        )}
       </AnimatePresence>
     </div>
   );
