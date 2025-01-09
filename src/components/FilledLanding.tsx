@@ -109,8 +109,6 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
     };
   }, [timeLeft]);
 
-  console.log(editPCModalOpen, "editPCModalOpen");
-
   return (
     <div className="public-filled-container">
       {rippleTrigger && <Fireworks autorun={{ speed: 1 }} />}
@@ -245,7 +243,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         )}
         {expiredModalOpen && (
           <Overlay>
-            {/* TODO: Add expired modal */}
+            <ExpiredPublicChallengerModal />
           </Overlay>
         )}
       </AnimatePresence>
@@ -289,6 +287,27 @@ const DeletePublicChallengerModal: React.FC<
         {/* TODO: make design system for this type of footer with 2 btns */}
         <button onClick={onClose}>Cancel</button>
         <button onClick={deletePublicChallenge}>Yes, Delete</button>
+      </div>
+    </div>
+  );
+};
+
+/* --------------------- Expired Modal --------------------- */
+
+interface ExpiredPublicChallengerModalProps {}
+
+const ExpiredPublicChallengerModal: React.FC<
+  ExpiredPublicChallengerModalProps
+> = () => {
+  return (
+    <div className="expired-pc-modal">
+      <div className="expired-pc-modal-text">
+        <p>Pity...</p>
+        <h2>Your time has run out</h2>
+        <p>Give it another go, why don’t you?</p>
+      </div>
+      <div className="expired-pc-modal-footer">
+        <button>Create a new challenge</button>
       </div>
     </div>
   );
