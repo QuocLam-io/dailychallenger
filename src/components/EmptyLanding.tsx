@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
+// Zustand
+import usePublicStore from "../stores/usePublicStore.js";
 //Styling
 import "./EmptyLanding.scss";
 import { AnimatePresence } from "framer-motion";
@@ -14,12 +16,14 @@ import ArrowRight from "../assets/arrow-right-bw.png";
 import Overlay from "./Overlay";
 
 const EmptyLanding: React.FC = () => {
-  const [publicChallengerModalOpen, setPublicChallengerModalOpen] =
-    useState(false);
+  const { publicChallengerModalOpen, setPublicChallengerModalOpen } =
+    usePublicStore((state) => state);
 
   const publicChallengerModalClose = () => {
     setPublicChallengerModalOpen(false);
   };
+
+  console.log(publicChallengerModalOpen, "publicChallengerModalOpen");
 
   return (
     <div className="public-empty-container">
@@ -39,11 +43,6 @@ const EmptyLanding: React.FC = () => {
           cheap, but showing off your hard-earned results? Priceless.
         </p>
       </section>
-      {/* <section className="public-empty-examples">
-        <h3>My Challenges</h3>
-        <ExampleCard title="Do 50 push-ups" dead="Ends in 3 hours" />
-        <ExampleCard title="Jog 3 miles" dead="Ends in 7 days" />
-      </section> */}
       <section className="public-empty-footer">
         <h3>Try it out:</h3>
         <button onClick={() => setPublicChallengerModalOpen(true)}>

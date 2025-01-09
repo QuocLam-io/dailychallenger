@@ -8,6 +8,8 @@ import VerticalEllipsis from "../assets/vertical-ellipsis-grey.png";
 import EditPencil from "../assets/edit-pencil-grey.png";
 import DeleteTrashcan from "../assets/delete-trashcan-grey.png";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
+// Zustand
+import usePublicStore from "../stores/usePublicStore.js";
 //Components
 import Overlay from "./Overlay";
 import { PublicChallengeTypes } from "../pages/LandingPage";
@@ -243,7 +245,9 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
         )}
         {expiredModalOpen && (
           <Overlay>
-            <ExpiredPublicChallengerModal />
+            <ExpiredPublicChallengerModal
+              deletePublicChallenge={deletePublicChallenge}
+            />
           </Overlay>
         )}
       </AnimatePresence>
@@ -294,11 +298,23 @@ const DeletePublicChallengerModal: React.FC<
 
 /* --------------------- Expired Modal --------------------- */
 
-interface ExpiredPublicChallengerModalProps {}
+interface ExpiredPublicChallengerModalProps {
+  deletePublicChallenge: () => void;
+}
 
 const ExpiredPublicChallengerModal: React.FC<
   ExpiredPublicChallengerModalProps
-> = () => {
+> = ({ deletePublicChallenge }) => {
+  const { publicChallengerModalOpen, setPublicChallengerModalOpen } =
+    usePublicStore((state) => state);
+
+  const newChallengeHandler = () => {
+    deletePublicChallenge();
+    setPublicChallengerModalOpen(true);
+  };
+
+  console.log(publicChallengerModalOpen, "publicChallengerModalOpen");
+
   return (
     <div className="expired-pc-modal">
       <div className="expired-pc-modal-text">
@@ -307,7 +323,7 @@ const ExpiredPublicChallengerModal: React.FC<
         <p>Give it another go, why don’t you?</p>
       </div>
       <div className="expired-pc-modal-footer">
-        <button>Create a new challenge</button>
+        <button onClick={newChallengeHandler}>Create a new challenge</button>
       </div>
     </div>
   );

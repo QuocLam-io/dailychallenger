@@ -16,7 +16,6 @@ export interface PublicChallengeTypes {
 const LandingPage = () => {
   const [publicChallenge, setPublicChallenge] =
     useState<PublicChallengeTypes | null>(null);
-    console.log(publicChallenge, "publicChallenge");
 
   const loadPublicChallenge = async (): Promise<boolean> => {
     try {
