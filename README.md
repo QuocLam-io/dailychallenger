@@ -6,12 +6,12 @@
   <br />
 
   <div>
-    <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="**TypeScript**" />
     <img src="./src/assets/tag-vite.png" alt="TypeScript" height="28" />
 
   </div>
 
-  <h3 align="center">Daily Challenger</h3>
+  <h3 align="center">Daily Challenger</h3>****
 
    <div align="center">
      A Social Accountability Web App to meet your goals
