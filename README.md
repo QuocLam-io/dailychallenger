@@ -7,6 +7,7 @@
 
   <div>
     <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="TypeScript" />
+    <img src="./src/assets/tag-vite.png" alt="TypeScript" />
 
 
   </div>
