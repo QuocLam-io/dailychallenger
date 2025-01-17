@@ -7,7 +7,12 @@
 
   <div>
     <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="**TypeScript**" />
-    <img src="./src/assets/tag-vite.png" alt="TypeScript" height="28" />
+    <img src="./src/assets/tag-vite.png" alt="Vite" height="28" />
+    <img src="./src/assets/tag-clerk.png" alt="Clerk" height="28" />
+    <img src="./src/assets/tag-motion.png" alt="Motion" height="28" />
+    <img src="./src/assets/tag-supabase.png" alt="Supabase" height="28" />
+    <img src="./src/assets/tag-zustand.png" alt="Zustand" height="28" />
+
 
   </div>
 
