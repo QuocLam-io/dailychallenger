@@ -19,7 +19,7 @@
   <h3 align="center">Daily Challenger</h3>****
 
    <div align="center">
-     A Social Accountability Web App to meet your goals
+     Crush Goals, Build Habits, and Share the Journey
     </div>
 </div>
 
