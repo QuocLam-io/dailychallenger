@@ -64,7 +64,6 @@ const LandingPage = () => {
 
   return (
     <LoadingWrapper loadFn={loadPublicChallenge} fallback={<CarraigeLoader />}>
-      {/* TODO: Add publicExpired component and logic */}
       {publicChallenge ? (
         <FilledLanding
           setPublicChallenge={setPublicChallenge}
