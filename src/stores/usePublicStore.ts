@@ -1,6 +1,11 @@
 import { create } from "zustand";
 
-const usePublicStore = create((set) => ({
+interface PublicStoreState {
+  publicChallengerModalOpen: boolean;
+  setPublicChallengerModalOpen: (isOpen: boolean) => void;
+}
+
+const usePublicStore = create<PublicStoreState>((set) => ({
   publicChallengerModalOpen: false,
   setPublicChallengerModalOpen: (isOpen) =>
     set({ publicChallengerModalOpen: isOpen }),

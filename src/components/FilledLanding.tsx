@@ -9,7 +9,7 @@ import EditPencil from "../assets/edit-pencil-grey.png";
 import DeleteTrashcan from "../assets/delete-trashcan-grey.png";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 // Zustand
-import usePublicStore from "../stores/usePublicStore.js";
+import usePublicStore from "../stores/usePublicStore.ts";
 //Components
 import Overlay from "./Overlay";
 import { PublicChallengeTypes } from "../pages/LandingPage";
