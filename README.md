@@ -28,7 +28,7 @@
 2. ⚙️ [Tech Stack](#tech-stack)
 3. 🔋 [Features](#features)
 4. 🤸 [Quick Start](#quick-start)
-5. 🕸️ [Snippets (Code to Copy)](#snippets)
+5. 🕸️ [Snippets](#snippets)
 6. 🔗 [Assets](#links)
 7. 🚀 [More](#more)
 
@@ -42,13 +42,14 @@ If you're getting started and need assistance or face any bugs, join our active 
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
-- Next.js
-- PostgreSQL
-- Upstash
-- ImageKit
-- TypeScript
-- Resend
-- Tailwind CSS
+- Javascript
+- React
+- Typescript
+- Vite
+- Clerk
+- Motion
+- Supabase
+- Zustand
 
 ## <a name="features">🔋 Features</a>
 
