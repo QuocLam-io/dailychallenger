@@ -311,6 +311,7 @@ const ExpiredPublicChallengerModal: React.FC<
   const newChallengeHandler = () => {
     deletePublicChallenge();
     setPublicChallengerModalOpen(true);
+    //test
   };
 
   console.log(publicChallengerModalOpen, "publicChallengerModalOpen");
