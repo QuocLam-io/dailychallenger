@@ -53,9 +53,9 @@ If you're getting started and need assistance or face any bugs, join our active 
 
 ## <a name="features">🔋 Features</a>
 
-### Features of the University Library Management System Project
+### Features of the Daily Challenger Web App
 
-👉 **Open-source Authentication**: Personalized onboarding flow with email notifications.
+👉 **Microservice Authentication**: 3rd-party authentication powered by Clerk, offering seamless sign-up, sign-in, user profile management, and support for existing email addresses.
 
 👉 **Home Page**: Highlighted books and newly added books with 3D effects.
 
