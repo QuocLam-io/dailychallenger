@@ -18,6 +18,7 @@ const LandingPage = () => {
     useState<PublicChallengeTypes | null>(null);
 
   const loadPublicChallenge = async (): Promise<boolean> => {
+    await new Promise((resolve) => setTimeout(resolve, 4000));
     try {
       const data = localStorage.getItem("publicChallenge");
 
