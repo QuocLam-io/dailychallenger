@@ -5,7 +5,7 @@ const CarraigeLoader: React.FC = () => {
   return (
     <div className="carraige-loader-wrapper">
       {/* <img src="/src/assets/carraige.gif" alt="carraige" /> */}
-      <img src="/carraige.gif" alt="carraige" />
+      {/* <img src="/carraige.gif" alt="carraige" />
 
       <div className="carraige-text-wrapper">
         <div className="carraige-text-wrapper-item">
@@ -26,7 +26,8 @@ const CarraigeLoader: React.FC = () => {
         <div className="carraige-text-wrapper-item">
           Patience, good fellow. Patience.
         </div>
-      </div>
+      </div> */}
+      <h1>HEEEEEELP</h1>
     </div>
   );
 };
