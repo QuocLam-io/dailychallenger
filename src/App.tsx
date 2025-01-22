@@ -4,6 +4,9 @@ import LandingPage from "./pages/LandingPage.tsx";
 import UnderConstruction from "./pages/UnderConstruction.tsx";
 
 function App() {
+
+  // console.log("env test")
+  // TODO: is this where I do the conditional?
   return (
     <>
       <Navbar />
