@@ -18,7 +18,8 @@ const LandingPage = () => {
     useState<PublicChallengeTypes | null>(null);
 
   const loadPublicChallenge = async (): Promise<boolean> => {
-    await new Promise((resolve) => setTimeout(resolve, 4000));
+    // await new Promise((resolve) => setTimeout(resolve, 4000));
+    //😿 created performance issues. I'm a victim of my own success
     try {
       const data = localStorage.getItem("publicChallenge");
 
