@@ -18,8 +18,6 @@ const LandingPage = () => {
     useState<PublicChallengeTypes | null>(null);
 
   const loadPublicChallenge = async (): Promise<boolean> => {
-    // await new Promise((resolve) => setTimeout(resolve, 4000));
-    //😿 created performance issues. I'm a victim of my own success
     try {
       const data = localStorage.getItem("publicChallenge");
 
@@ -31,18 +29,12 @@ const LandingPage = () => {
 
         const now = Date.now();
         const timeLeft = parsedData.expiresAt - now;
-        // console.log(typeof timeLeft, "timeLeft");
 
         if (timeLeft > 0) {
-          // const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-          // const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-          // const seconds = Math.floor((timeLeft / 1000) % 60);
-
           setPublicChallenge({
             ...parsedData,
             timeLeft,
             expiresAt: parsedData.expiresAt,
-            // expiresAt: { hours, minutes, seconds },
           });
         } else {
           setPublicChallenge({
@@ -61,8 +53,6 @@ const LandingPage = () => {
       return false;
     }
   };
-
-  // console.log(publicChallenge, "publicChallenge, timeLeft");
 
   return (
     <LoadingWrapper loadFn={loadPublicChallenge} fallback={<CarraigeLoader />}>

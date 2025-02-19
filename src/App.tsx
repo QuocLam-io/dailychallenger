@@ -1,20 +1,52 @@
-import { Routes, Route } from "react-router-dom";
+//Routing
+import {
+  Routes,
+  Route,
+  BrowserRouter,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
+//Auth
+import { SignedOut, useAuth } from "@clerk/clerk-react";
+//Components
 import Navbar from "./components/Navbar.tsx";
 import LandingPage from "./pages/LandingPage.tsx";
 import UnderConstruction from "./pages/UnderConstruction.tsx";
-//Auth
-import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/clerk-react";
+import Home from "./pages/Home.tsx";
 
 function App() {
-  // console.log("env test")
-  // TODO: is this where I do the conditional?
+  const { isSignedIn } = useAuth();
+
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/under-construction" element={<UnderConstruction />} />
-      </Routes>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          {/* Public Routes */}
+          <Route
+            path="/"
+            element={
+              isSignedIn ? (
+                <Navigate to="/home" replace />
+              ) : (
+                <SignedOut>
+                  <Outlet />
+                </SignedOut>
+              )
+            }
+          >
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/under-construction" element={<UnderConstruction />} />
+          </Route>
+          {/* Private Routes */}
+          <Route
+            path="/home"
+            element={isSignedIn ? <Outlet /> : <Navigate to="/" replace />}
+          >
+            <Route path="/home" element={<Home />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

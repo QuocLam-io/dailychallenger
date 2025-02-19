@@ -10,7 +10,6 @@ import {
   UserButton,
 } from "@clerk/clerk-react";
 
-
 const Navbar = () => {
   return (
     <nav className="navbar">
