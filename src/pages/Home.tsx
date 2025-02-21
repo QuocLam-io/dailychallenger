@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 //Styles
 import "./Home.scss";
 //Auth
@@ -13,7 +13,7 @@ const Home = () => {
     const checkUser = async () => {
       if (!user) return;
 
-      const email = user.primaryEmailAddress.emailAddress;
+      const email = user.primaryEmailAddress?.emailAddress;
       const firstName = user.firstName;
       const lastName = user.lastName;
 
@@ -62,7 +62,13 @@ const Home = () => {
     checkUser();
   }, []);
 
-  return <main>Home</main>;
+  return (
+    <main>
+      <p>Home</p>
+
+      {/* Write conditional logic to display email id no name exists */}
+    </main>
+  );
 };
 
 export default Home;
