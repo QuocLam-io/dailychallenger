@@ -4,7 +4,7 @@ import "./Home.scss";
 //Auth
 import { useUser } from "@clerk/clerk-react";
 //Backend
-import { supabase } from "../supabase-client.js";
+import { supabase } from "../supabase-client.ts";
 
 const Home = () => {
   const { user } = useUser();
