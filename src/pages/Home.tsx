@@ -14,6 +14,8 @@ const Home = () => {
       if (!user) return;
 
       const email = user.primaryEmailAddress.emailAddress;
+      const firstName = user.firstName;
+      const lastName = user.lastName;
 
       if (!email) return;
 
@@ -26,13 +28,35 @@ const Home = () => {
 
         console.log(data, "data");
 
+        //if Error returned
         if (error && error.code !== "PGRST116") {
           console.error("Error fetching user:", error);
           return;
         }
 
+        // If no user data exists, insert a new user
+        if (!data) {
+          const newUserRowData = {
+            email,
+            first_name: firstName,
+            last_name: lastName,
+            role: "user",
+          };
 
-      } catch (error) {}
+          const { data: insertData, error: insertError } = await supabase
+            .from("users")
+            .insert([newUserRowData])
+            .single();
+
+          if (insertError) {
+            console.error("Error inserting user:", insertError);
+          } else {
+            console.log("New user created", insertData);
+          }
+        }
+      } catch (error) {
+        console.error("Unexpected error:", error);
+      }
     };
 
     checkUser();
