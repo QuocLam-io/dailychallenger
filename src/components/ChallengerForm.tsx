@@ -9,7 +9,8 @@ const ChallengerForm = () => {
   const [challenge, setChallenge] = useState("");
 
   return (
-    <div className={styles["challenger-form_container"]}>
+    // <div className={styles["challenger-form_container"]}>
+    <div className="public-challenger-form_container">
       <form
         onSubmit={(e) => setPublicChallengeHandler(e)}
         className="public-challenger-form"
@@ -73,11 +74,11 @@ export default ChallengerForm;
 //   editPCModalOpen?: boolean;
 // }
 
-export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
-  onClose,
-  editPCModalOpen = false,
-}) => {
-  const [challenge, setChallenge] = useState("");
+// export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
+//   onClose,
+//   editPCModalOpen = false,
+// }) => {
+//   const [challenge, setChallenge] = useState("");
 
-  return <div>Blub</div>;
-};
+//   return <div>Blub</div>;
+// };
