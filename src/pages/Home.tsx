@@ -1,10 +1,16 @@
 import { useEffect } from "react";
 //Styles
 import "./Home.scss";
+import { AnimatePresence } from "framer-motion";
 //Auth
 import { useUser } from "@clerk/clerk-react";
 //Backend
 import { supabase } from "../supabase-client.ts";
+// Zustand
+
+//Components
+import Overlay from "@/components/Overlay.tsx";
+import ChallengerForm from "@/components/ChallengerForm.tsx";
 
 const Home = () => {
   const { user } = useUser();
@@ -25,8 +31,6 @@ const Home = () => {
           .select("*")
           .eq("email", email)
           .single();
-
-        console.log(data, "data");
 
         //if Error returned
         if (error && error.code !== "PGRST116") {
@@ -54,19 +58,28 @@ const Home = () => {
             console.log("New user created", insertData);
           }
         }
+
+        if (data) {
+          console.log("Suck my dick!");
+        }
       } catch (error) {
         console.error("Unexpected error:", error);
       }
     };
 
     checkUser();
-  }, []);
+  }, [user]);
 
   return (
     <main>
-      <p>Home</p>
-
+      <p>Blub</p>
       {/* Write conditional logic to display email id no name exists */}
+
+      <AnimatePresence>
+        <Overlay customClassName={`flex-align-start portrait-align-center`}>
+          <ChallengerForm />
+        </Overlay>
+      </AnimatePresence>
     </main>
   );
 };
