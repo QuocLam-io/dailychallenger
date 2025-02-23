@@ -25,7 +25,6 @@ const EmptyLanding: React.FC = () => {
 
   // console.log(publicChallengerModalOpen, "publicChallengerModalOpen");
 
-
   return (
     <div className="public-empty-container">
       <section className="public-empty-hero">
@@ -53,7 +52,7 @@ const EmptyLanding: React.FC = () => {
       </section>
       <AnimatePresence>
         {publicChallengerModalOpen && (
-          <Overlay>
+          <Overlay customClassName={`flex-align-start portrait-align-center`}>
             <PublicChallengerForm onClose={publicChallengerModalClose} />
           </Overlay>
         )}

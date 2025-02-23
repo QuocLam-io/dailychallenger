@@ -222,7 +222,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
       </div>
       <AnimatePresence>
         {(editPCModalOpen || createPCModalOpen) && (
-          <Overlay>
+          <Overlay customClassName={`flex-align-start portrait-align-center`}>
             <PublicChallengerForm
               editPCModalOpen={editPCModalOpen}
               onClose={() => {

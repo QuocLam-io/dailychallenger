@@ -9,7 +9,7 @@ interface OverlayProps {
 
 const Overlay: React.FC<OverlayProps> = ({
   children,
-  customClassName = `flex-align-start portrait-align-center`,
+  customClassName,
 }) => {
   return (
     <motion.div
