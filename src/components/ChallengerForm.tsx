@@ -1,6 +1,6 @@
 import { useState } from "react";
 //Styles
-import styles from "./ChallengerForm.module.scss";
+// import styles from "./ChallengerForm.module.scss";
 import OldTimeyLamp from "../assets/old-timey-lamp.png";
 import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
