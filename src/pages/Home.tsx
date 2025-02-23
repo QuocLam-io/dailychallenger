@@ -84,9 +84,9 @@ const Home = () => {
       {/* Write conditional logic to display email id no name exists */}
 
       <AnimatePresence>
-        {/* <Overlay>
+        <Overlay>
           <ChallengerForm />
-        </Overlay> */}
+        </Overlay>
       </AnimatePresence>
     </main>
   );
