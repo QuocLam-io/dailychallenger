@@ -7,7 +7,10 @@ interface OverlayProps {
   customClassName?: string;
 }
 
-const Overlay: React.FC<OverlayProps> = ({ children, customClassName }) => {
+const Overlay: React.FC<OverlayProps> = ({
+  children,
+  customClassName = `flex-align-start portrait-align-center`,
+}) => {
   return (
     <motion.div
       className={`overlay-wrapper ${customClassName}`}

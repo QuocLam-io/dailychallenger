@@ -53,7 +53,7 @@ const EmptyLanding: React.FC = () => {
       </section>
       <AnimatePresence>
         {publicChallengerModalOpen && (
-          <Overlay customClassName={`flex-align-start portrait-align-center`}>
+          <Overlay>
             <PublicChallengerForm onClose={publicChallengerModalClose} />
           </Overlay>
         )}

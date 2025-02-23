@@ -5,7 +5,11 @@ import OldTimeyLamp from "../assets/old-timey-lamp.png";
 import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
 
-const ChallengerForm = () => {
+interface ChallengerFormTypes {
+  //No props... for now *shifty eyes*
+}
+
+const ChallengerForm: React.FC<ChallengerFormTypes> = () => {
   const [challenge, setChallenge] = useState("");
 
   return (
@@ -36,22 +40,6 @@ const ChallengerForm = () => {
               value={challenge}
               onChange={(e) => setChallenge(e.target.value)}
             />
-          </div>
-          <div className="pro-example-features">
-            <div className="pro-example-feature">
-              <p>Ends in 1 day</p>
-              <div className="pro-fake-btn">
-                <p>Edit</p>
-                <div>PRO</div>
-              </div>
-            </div>
-            <div className="pro-example-feature">
-              <p>Does not repeat</p>
-              <div className="pro-fake-btn">
-                <p>Edit</p>
-                <div>PRO</div>
-              </div>
-            </div>
           </div>
         </div>
         <div className="public-challenger-form_footer">

@@ -12,7 +12,15 @@ import { supabase } from "../supabase-client.ts";
 import Overlay from "@/components/Overlay.tsx";
 import ChallengerForm from "@/components/ChallengerForm.tsx";
 
-const Home = () => {
+//supabase user types
+interface UserTypes {
+  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  role: "user" | "admin" | "superadmin";
+}
+
+const Home: React.FC = () => {
   const { user } = useUser();
 
   useEffect(() => {
@@ -30,7 +38,7 @@ const Home = () => {
           .from("users")
           .select("*")
           .eq("email", email)
-          .single();
+          .single<UserTypes>();
 
         //if Error returned
         if (error && error.code !== "PGRST116") {
@@ -76,7 +84,7 @@ const Home = () => {
       {/* Write conditional logic to display email id no name exists */}
 
       <AnimatePresence>
-        <Overlay customClassName={`flex-align-start portrait-align-center`}>
+        <Overlay>
           <ChallengerForm />
         </Overlay>
       </AnimatePresence>
