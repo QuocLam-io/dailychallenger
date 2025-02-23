@@ -16,7 +16,7 @@ const ChallengerForm: React.FC<ChallengerFormTypes> = () => {
     // <div className={styles["challenger-form_container"]}>
     <div className="public-challenger-form_container">
       <form
-        onSubmit={(e) => setPublicChallengeHandler(e)}
+        // onSubmit={(e) => setPublicChallengeHandler(e)}
         className="public-challenger-form"
       >
         <div className="public-challenger-form_header">
