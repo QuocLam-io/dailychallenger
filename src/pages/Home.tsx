@@ -20,7 +20,7 @@ interface UserTypes {
   role: "user" | "admin" | "superadmin";
 }
 
-const Home: React.FC = () => {
+const Home = () => {
   const { user } = useUser();
 
   useEffect(() => {
