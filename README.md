@@ -192,6 +192,27 @@ export default usePublicStore;
 ```
 
 </details>
+<details>
+<summary><code>Github Actions Cron Job</code></summary>
+
+# Github Actions Cron Job
+name: Ping Supabase API
+
+on:
+  schedule:
+    - cron: '0 0 */2 * *'  # Runs every 2 days at midnight (UTC)
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  ping-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send request to Supabase API
+        run: |
+          curl -X GET "https://acfwjcgwlkveknfqthsn.supabase.co/rest/v1/users" \
+          -H "apikey: ${{ secrets.SUPABASE_API_KEY }}"
+
+</details>
 
 ## <a name="links">🔗 Assets</a>
 
