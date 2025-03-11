@@ -29,8 +29,7 @@
 3. 🔋 [Features](#features)
 4. 🤸 [Quick Start](#quick-start)
 5. 🕸️ [Snippets](#snippets)
-6. 🔗 [Assets](#links)
-7. 🚀 [More](#more)
+6. 🚀 [More](#more)
 
 ## <a name="introduction">🤖 Introduction</a>
 
@@ -215,12 +214,6 @@ jobs:
 ```
 
 </details>
-
-## <a name="links">🔗 Assets</a>
-
-- Assets used in the project can be found [here](https://drive.google.com/file/d/1nlajTtmrjenScsEo4J-Z-ejcQxT2n8b9/view?usp=sharing)
-- [Watch how to Integrate EmailJS](https://youtu.be/kt0FrkQgw8w?feature=shared&t=13792) in Your Website.
-- [Source Code for Integrating EmailJS](https://github.com/adrianhajdin/threejs-portfolio/blob/main/src/sections/Contact.jsx) in any of your codebases.
 
 ## <a name="more">🚀 More</a>
 
