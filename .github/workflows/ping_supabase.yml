@@ -1,0 +1,15 @@
+name: Ping Supabase API
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Runs every 6 hours
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  ping-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send request to Supabase API
+        run: |
+          curl -X GET "https://your-supabase-url.supabase.co/rest/v1/your-endpoint" \
+          -H "apikey: ${{ secrets.SUPABASE_API_KEY }}"
