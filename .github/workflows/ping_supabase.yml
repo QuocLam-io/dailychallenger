@@ -11,5 +11,5 @@ jobs:
     steps:
       - name: Send request to Supabase API
         run: |
-          curl -X GET "https://your-supabase-url.supabase.co/rest/v1/your-endpoint" \
+          curl -X GET "https://acfwjcgwlkveknfqthsn.supabase.co/rest/v1/users" \
           -H "apikey: ${{ secrets.SUPABASE_API_KEY }}"
