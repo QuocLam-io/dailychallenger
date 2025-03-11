@@ -195,13 +195,14 @@ export default usePublicStore;
 <details>
 <summary><code>Github Actions Cron Job</code></summary>
 
+```yaml
 # Github Actions Cron Job
 name: Ping Supabase API
 
 on:
   schedule:
-    - cron: '0 0 */2 * *'  # Runs every 2 days at midnight (UTC)
-  workflow_dispatch:  # Allows manual triggering
+    - cron: "0 0 */2 * *" # Runs every 2 days at midnight (UTC)
+  workflow_dispatch: # Allows manual triggering
 
 jobs:
   ping-api:
@@ -211,6 +212,7 @@ jobs:
         run: |
           curl -X GET "https://acfwjcgwlkveknfqthsn.supabase.co/rest/v1/users" \
           -H "apikey: ${{ secrets.SUPABASE_API_KEY }}"
+```
 
 </details>
 
