@@ -6,6 +6,8 @@ import { AnimatePresence } from "framer-motion";
 import { useUser } from "@clerk/clerk-react";
 //Backend
 import { supabase } from "../supabase-client.ts";
+import { createClient } from "@supabase/supabase-js";
+
 // Zustand
 
 //Components
@@ -68,6 +70,17 @@ const Home = () => {
         }
 
         if (data) {
+          //! PING
+          const supabase = createClient(
+            import.meta.env.VITE_SUPABASE_URL,
+            import.meta.env.VITE_SUPABASE_ANON_KEY
+          );
+
+          supabase.auth.getUser().then(({ error }) => {
+            if (error) console.error("Error fetching user:", error);
+          });
+          console.log("yata!")
+          //
           console.log("Suck my dick!");
         }
       } catch (error) {
