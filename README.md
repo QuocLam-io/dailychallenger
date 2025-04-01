@@ -33,11 +33,9 @@
 
 ## <a name="introduction">🤖 Introduction</a>
 
-Built with Next.js, TypeScript, and Postgres, the University Library Management System is a production-grade platform featuring a public-facing app and an admin interface. It offers advanced functionalities like seamless book borrowing with reminders and receipts, robust user management, automated workflows, and a modern, optimized tech stack for real-world scalability.
+Built with Vite, TypeScript, Supabase, and Postgres, Daily Challenger is a production-grade platform designed to help you set and track your daily personal challenges. It features a dynamic public interface paired with an intuitive admin dashboard, making it easy to log your progress and update your goals. With functionalities like automated daily challenge scheduling, progress tracking, and a social feed to view your friends’ challenges and achievements, Daily Challenger fosters accountability and motivation.
 
-If you're getting started and need assistance or face any bugs, join our active Discord community with over **50k+** members. It's a place where people help each other out.
-
-<a href="https://discord.com/invite/n6EdbFJ" target="_blank"><img src="https://github.com/sujatagunale/EasyRead/assets/151519281/618f4872-1e10-42da-8213-1d69e486d02e" /></a>
+Powered by a modern, optimized tech stack for real-world scalability, the platform not only helps you stay on track with your own goals but also connects you with a community of like-minded individuals to celebrate successes and overcome challenges.
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -57,52 +55,6 @@ If you're getting started and need assistance or face any bugs, join our active 
 👉 **Microservice Authentication**: 3rd-party authentication powered by Clerk, offering seamless sign-up, sign-in, user profile management, and support for existing email addresses.
 
 👉 **Home Page**: Highlighted books and newly added books with 3D effects.
-
-👉 **Library Page**: Advanced filtering, search, and pagination for book discovery.
-
-👉 **Book Detail Pages**: Availability tracking, book summaries, videos, and suggestions for similar books.
-
-👉 **Profile Page**: Manage accounts, track borrowed books, and download receipts.
-
-👉 **Onboarding Workflows**: Automated welcome emails when users sign up, with follow-ups based on inactivity or activity dates.
-
-👉 **Borrow Book Reminder**: Customized email notifications sent before, on, and after the due date, reminding users to return books or avoid charges.
-
-👉 **Borrow Book Receipt**: Automatically generates a customized PDF receipt when a book is successfully borrowed.
-
-👉 **Analytics Dashboard**: Statistics, new users, books, borrow requests, and more.
-
-👉 **All Users Page**: View and manage users, including approving or revoking access.
-
-👉 **Account Requests Page**: Admin approval for account requests, with email notifications for user verification.
-
-👉 **All Books Page**: List and manage all library books with advanced search, pagination, and filters.
-
-👉 **Book Management Forms**: Add new books and edit existing entries.
-
-👉 **Book Details Page**: Detailed book information for administrators.
-
-👉 **Borrow Records Page**: Complete borrow history with pagination and search.
-
-👉 **Role Management**: Change user roles to invite more admins, with email notifications sent upon role updates.
-
-👉 **Advanced Functionalities**: Caching, rate-limiting, DDoS protection, and custom notifications.
-
-👉 **Database Management**: Postgres with Neon for scalable and collaborative database handling.
-
-👉 **Real-time Media Processing**: ImageKit for image and video optimization and transformations.
-
-👉 **Efficient Caching**: Upstash Redis for caching, workflows, and triggers.
-
-👉 **Database ORM**: Drizzle ORM for simplified and efficient database interactions.
-
-👉 **Modern UI/UX**: Built with TailwindCSS, ShadCN, and other cutting-edge tools.
-
-👉 **Technology Stack**: Next.js with TypeScript for scalable development, and NextAuth for robust authentication.
-
-👉 **Seamless Email Handling**: Resend for automated email communications, including notifications and updates.
-
-and many more, including code architecture and reusability
 
 ## <a name="quick-start">🤸 Quick Start</a>
 
