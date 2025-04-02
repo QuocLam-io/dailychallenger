@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 //Auth
 import { SignedOut, useAuth } from "@clerk/clerk-react";
+import PrivateRoutesWrapper from "./auth/PrivateRoutesWrapper.tsx";
 //Components
 import Navbar from "./components/Navbar.tsx";
 import LandingPage from "./pages/LandingPage.tsx";
@@ -41,7 +42,7 @@ function App() {
           {/* Private Routes */}
           <Route
             path="/home"
-            element={isSignedIn ? <Outlet /> : <Navigate to="/" replace />}
+            element={isSignedIn ? <PrivateRoutesWrapper/> : <Navigate to="/" replace />}
           >
             <Route path="/home" element={<Home />} />
           </Route>
