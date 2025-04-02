@@ -9,6 +9,9 @@ import { useUserStore } from "@/stores/userStore.ts";
 //Backend
 import { supabase } from "../supabase-client.ts";
 // import { createClient } from "@supabase/supabase-js";
+//Components
+import CarraigeLoader from "@/components/CarraigeLoader.tsx";
+
 //Types
 interface UserTypes {
   email: string;
@@ -66,7 +69,7 @@ const PrivateRoutesWrapper = () => {
         }
 
         setUserId(user.id);
-        console.log("blub")
+        console.log("blub");
 
         // if (data) {
         //   const supabase = createClient(
@@ -86,7 +89,7 @@ const PrivateRoutesWrapper = () => {
     checkUser();
   }, [isLoaded, user, setUserId]);
 
-  if (!isLoaded) return <div>Loading user...</div>;
+  if (!isLoaded) return <CarraigeLoader />;
 
   return <Outlet />;
 };
