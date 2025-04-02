@@ -1,6 +1,5 @@
 import { useState } from "react";
 //Styles
-// import styles from "./ChallengerForm.module.scss";
 import OldTimeyLamp from "../assets/old-timey-lamp.png";
 import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
@@ -13,7 +12,7 @@ const ChallengerForm: React.FC<ChallengerFormTypes> = () => {
   const [challenge, setChallenge] = useState("");
 
   return (
-    // <div className={styles["challenger-form_container"]}>
+    // TODO: change classnames
     <div className="public-challenger-form_container">
       <form
         // onSubmit={(e) => setPublicChallengeHandler(e)}
