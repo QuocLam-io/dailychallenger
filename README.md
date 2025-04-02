@@ -158,7 +158,7 @@ on:
 jobs:
   ping-api:
     runs-on: ubuntu-latest
-    steps:
+    steps:****
       - name: Send request to Supabase API
         run: |
           curl -X GET "https://acfwjcgwlkveknfqthsn.supabase.co/rest/v1/users" \

@@ -42,9 +42,19 @@ function App() {
           {/* Private Routes */}
           <Route
             path="/home"
-            element={isSignedIn ? <PrivateRoutesWrapper/> : <Navigate to="/" replace />}
+            element={
+              isSignedIn ? (
+                <PrivateRoutesWrapper />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
           >
-            <Route path="/home" element={<Home />} />
+            {/* <Route path="/home" element={<Home />} /> */}
+            <Route index element={<Home />} />
+            {/* Future private routes */}
+            {/* <Route path="profile" element={<Profile />} /> */}
+            {/* <Route path="settings" element={<Settings />} /> */}
           </Route>
         </Routes>
       </BrowserRouter>

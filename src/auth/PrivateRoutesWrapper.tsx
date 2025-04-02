@@ -1,16 +1,14 @@
 //React
 import { useEffect } from "react";
-
 //Routing
 import { Outlet } from "react-router-dom";
-
 //Auth
 import { useUser } from "@clerk/clerk-react";
-
+//Zustand
+import { useUserStore } from "@/stores/userStore.ts";
 //Backend
 import { supabase } from "../supabase-client.ts";
-import { createClient } from "@supabase/supabase-js";
-
+// import { createClient } from "@supabase/supabase-js";
 //Types
 interface UserTypes {
   email: string;
@@ -20,11 +18,12 @@ interface UserTypes {
 }
 
 const PrivateRoutesWrapper = () => {
-  const { user } = useUser();
+  const { isLoaded, user } = useUser();
+  const setUserId = useUserStore((s) => s.setUserId);
 
   useEffect(() => {
     const checkUser = async () => {
-      if (!user) return;
+      if (!isLoaded || !user) return;
 
       const email = user.primaryEmailAddress?.emailAddress;
       const firstName = user.firstName;
@@ -66,23 +65,28 @@ const PrivateRoutesWrapper = () => {
           }
         }
 
-        if (data) {
-          const supabase = createClient(
-            import.meta.env.VITE_SUPABASE_URL,
-            import.meta.env.VITE_SUPABASE_KEY
-          );
+        setUserId(user.id);
+        console.log("blub")
 
-          supabase.auth.getUser().then(({ error }) => {
-            if (error) console.error("Error fetching user:", error);
-          });
-        }
+        // if (data) {
+        //   const supabase = createClient(
+        //     import.meta.env.VITE_SUPABASE_URL,
+        //     import.meta.env.VITE_SUPABASE_KEY
+        //   );
+
+        //   supabase.auth.getUser().then(({ error }) => {
+        //     if (error) console.error("Error fetching user:", error);
+        //   });
+        // }
       } catch (error) {
         console.error("Unexpected error:", error);
       }
     };
 
     checkUser();
-  }, [user]);
+  }, [isLoaded, user, setUserId]);
+
+  if (!isLoaded) return <div>Loading user...</div>;
 
   return <Outlet />;
 };

@@ -2,11 +2,17 @@
 import "./Home.scss";
 import { AnimatePresence } from "framer-motion";
 
+//Zustand
+import { useUserStore } from "@/stores/userStore";
+
 //Components
-import Overlay from "@/components/Overlay.tsx";
-import ChallengerForm from "@/components/ChallengerForm.tsx";
+// import Overlay from "@/components/Overlay.tsx";
+// import ChallengerForm from "@/components/ChallengerForm.tsx";
 
 const Home = () => {
+  const userId = useUserStore((s) => s.userId);
+
+  if (!userId) return <div>Loading Home...</div>;
 
   return (
     <main>
@@ -20,6 +26,8 @@ const Home = () => {
       </AnimatePresence>
     </main>
   );
+
+
 };
 
 export default Home;
