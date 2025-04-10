@@ -14,10 +14,13 @@ import CarraigeLoader from "@/components/CarraigeLoader.tsx";
 
 //Types
 interface UserTypes {
+  id: string;
+  clerk_id: string;
   email: string;
   first_name: string | null;
   last_name: string | null;
   role: "user" | "admin" | "superadmin";
+  created_at?: string;
 }
 
 const PrivateRoutesWrapper = () => {
@@ -28,9 +31,12 @@ const PrivateRoutesWrapper = () => {
     const checkUser = async () => {
       if (!isLoaded || !user) return;
 
-      const email = user.primaryEmailAddress?.emailAddress;
-      const firstName = user.firstName;
-      const lastName = user.lastName;
+      const clerkId = user.id;
+      const email = user.primaryEmailAddress?.emailAddress || null;
+      const firstName = user.firstName || null;
+      const lastName = user.lastName || null;
+
+      setUserId(clerkId);
 
       if (!email) return;
 
@@ -38,8 +44,10 @@ const PrivateRoutesWrapper = () => {
         const { data, error } = await supabase
           .from("users")
           .select("*")
-          .eq("email", email)
+          .eq("clerk_id", clerkId)
           .single<UserTypes>();
+          // .eq("email", email)
+          // .single();
 
         //if Error returned
         if (error && error.code !== "PGRST116") {
@@ -50,6 +58,7 @@ const PrivateRoutesWrapper = () => {
         // If no user data exists, insert a new user
         if (!data) {
           const newUserRowData = {
+            clerk_id: clerkId,
             email,
             first_name: firstName,
             last_name: lastName,
@@ -63,24 +72,17 @@ const PrivateRoutesWrapper = () => {
 
           if (insertError) {
             console.error("Error inserting user:", insertError);
-          } else {
-            console.log("New user created", insertData);
+            return;
           }
+          if (!insertData) {
+            console.warn("Insert succeeded but no user data returned");
+            return;
+          }
+
+          setUserId(insertData.id);
+        } else {
+          setUserId(data.id);
         }
-
-        setUserId(user.id);
-        console.log("blub");
-
-        // if (data) {
-        //   const supabase = createClient(
-        //     import.meta.env.VITE_SUPABASE_URL,
-        //     import.meta.env.VITE_SUPABASE_KEY
-        //   );
-
-        //   supabase.auth.getUser().then(({ error }) => {
-        //     if (error) console.error("Error fetching user:", error);
-        //   });
-        // }
       } catch (error) {
         console.error("Unexpected error:", error);
       }

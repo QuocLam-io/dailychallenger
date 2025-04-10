@@ -11,6 +11,7 @@ import { useUserStore } from "@/stores/userStore";
 
 const Home = () => {
   const userId = useUserStore((s) => s.userId);
+  console.log(userId,"userId" )
 
   if (!userId) return <div>Loading Home...</div>;
 

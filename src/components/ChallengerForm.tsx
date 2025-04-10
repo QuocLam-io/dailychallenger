@@ -9,7 +9,7 @@ interface ChallengerFormTypes {
 }
 
 const ChallengerForm: React.FC<ChallengerFormTypes> = () => {
-  const [challenge, setChallenge] = useState("");
+  const [challenge, setChallenge] = useState<string>("");
 
   return (
     // TODO: change classnames
