@@ -46,8 +46,8 @@ const PrivateRoutesWrapper = () => {
           .select("*")
           .eq("clerk_id", clerkId)
           .single<UserTypes>();
-          // .eq("email", email)
-          // .single();
+        // .eq("email", email)
+        // .single();
 
         //if Error returned
         if (error && error.code !== "PGRST116") {
@@ -68,6 +68,7 @@ const PrivateRoutesWrapper = () => {
           const { data: insertData, error: insertError } = await supabase
             .from("users")
             .insert([newUserRowData])
+            // .insert([newUserRowData], { returning: "representation" })
             .single();
 
           if (insertError) {
@@ -79,8 +80,8 @@ const PrivateRoutesWrapper = () => {
             return;
           }
 
-          setUserId(insertData.id);
         } else {
+          console.log("there's data");
           setUserId(data.id);
         }
       } catch (error) {
