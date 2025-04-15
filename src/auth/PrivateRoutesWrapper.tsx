@@ -29,6 +29,7 @@ const PrivateRoutesWrapper = () => {
 
   useEffect(() => {
     const checkUser = async () => {
+      //in case useUser() is too slow
       if (!isLoaded || !user) return;
 
       const clerkId = user.id;
@@ -36,18 +37,19 @@ const PrivateRoutesWrapper = () => {
       const firstName = user.firstName || null;
       const lastName = user.lastName || null;
 
+      //hydrates zustand for ui purposes
       setUserId(clerkId);
 
       if (!email) return;
 
+      /* ---------------------- If user in db, set to zustand --------------------- */
       try {
         const { data, error } = await supabase
           .from("users")
           .select("*")
           .eq("clerk_id", clerkId)
+          // .eq("email", email)
           .single<UserTypes>();
-        // .eq("email", email)
-        // .single();
 
         //if Error returned
         if (error && error.code !== "PGRST116") {
@@ -55,7 +57,7 @@ const PrivateRoutesWrapper = () => {
           return;
         }
 
-        // If no user data exists, insert a new user
+        /* ----------------------- If no user in db, make one ----------------------- */
         if (!data) {
           const newUserRowData = {
             clerk_id: clerkId,
@@ -68,18 +70,41 @@ const PrivateRoutesWrapper = () => {
           const { data: insertData, error: insertError } = await supabase
             .from("users")
             .insert([newUserRowData])
-            // .insert([newUserRowData], { returning: "representation" })
             .single();
 
           if (insertError) {
-            console.error("Error inserting user:", insertError);
+            console.log("Error inserting user:", insertError);
             return;
           }
           if (!insertData) {
-            console.warn("Insert succeeded but no user data returned");
+            console.log("Insert succeeded but no user data returned");
+          }
+
+          /* --------------- Fetches new user in db and sets in zustand --------------- */
+
+          const { data: newUserData, error: fetchNewUserError } = await supabase
+            .from("users")
+            .select("*")
+            // .eq("clerk_id", clerkId)
+            .eq("email", email)
+            .single<UserTypes>();
+
+          console.log("hmm");
+
+          if (fetchNewUserError) {
+            console.log(
+              "Error fetching newly inserted user:",
+              fetchNewUserError
+            );
             return;
           }
 
+          if (newUserData) {
+            console.log("yata!");
+            setUserId(newUserData.id);
+          }
+
+          /* -------------------------------------------------------------------------- */
         } else {
           console.log("there's data");
           setUserId(data.id);
