@@ -261,6 +261,32 @@ const PrivateRoutesWrapper = () => {
 ```
 
 </details>
+<details>
+<summary><code>Dynamic Navbar Spacer Component</code></summary>
+
+```typescript
+const NavSpacer = () => {
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    const nav = document.getElementById("navbar");
+    if (nav) {
+      const resizeObserver = new ResizeObserver(() => {
+        setHeight(nav.offsetHeight);
+      });
+      resizeObserver.observe(nav);
+
+      setHeight(nav.offsetHeight);
+
+      return () => resizeObserver.disconnect();
+    }
+  }, []);
+
+  return <div  className="nav-spacer_wrapper" style={{ height }} aria-hidden="true" />;
+};
+```
+
+</details>
 
 ## <a name="more">🚀 More</a>
 

@@ -6,18 +6,20 @@ import { AnimatePresence } from "framer-motion";
 import { useUserStore } from "@/stores/userStore";
 
 //Components
+import CarraigeLoader from "@/components/CarraigeLoader";
 // import Overlay from "@/components/Overlay.tsx";
 // import ChallengerForm from "@/components/ChallengerForm.tsx";
+import NavSpacer from "@/components/NavSpacer";
 
 const Home = () => {
   const userId = useUserStore((s) => s.userId);
-  console.log(userId,"userId" )
+  // console.log(userId,"userId" )
 
-  if (!userId) return <div>Loading Home...</div>;
+  if (!userId) return <CarraigeLoader />;
 
   return (
     <main>
-      <p>Blub</p>
+      <NavSpacer />
       {/* Write conditional logic to display email id no name exists */}
 
       <AnimatePresence>
@@ -27,8 +29,6 @@ const Home = () => {
       </AnimatePresence>
     </main>
   );
-
-
 };
 
 export default Home;

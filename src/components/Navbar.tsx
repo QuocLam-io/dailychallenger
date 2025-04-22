@@ -12,7 +12,7 @@ import {
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
+    <nav className="navbar" id="navbar">
       <Link to="/" className="navbar-logo">
         <p>The</p>
         <p>Daily Challenger</p>

@@ -106,7 +106,7 @@ const PrivateRoutesWrapper = () => {
 
           /* -------------------------------------------------------------------------- */
         } else {
-          console.log("there's data");
+          // console.log("there's data");
           setUserId(data.id);
         }
       } catch (error) {
