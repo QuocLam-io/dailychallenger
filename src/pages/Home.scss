@@ -1,5 +1,106 @@
 @use "@/styles/_variables.scss" as *;
 
-main {
-  border: solid 1px teal;
+.home_wrapper {
+  @include flex-column;
+  // border: solid 1px teal;
+
+  .dashboard-header {
+    @include flex-column(12px);
+    @include padding-eights;
+
+    .dashboard-time {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(26, 26, 26, 0.8);
+      font-family: Asap;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 0.12px;
+      text-transform: uppercase;
+      // border: $violet;
+    }
+
+    .dashboard-user {
+      display: flex;
+      gap: 24px;
+      padding: 12px;
+      padding-bottom: 16px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      border: $violet;
+
+      &_name {
+        @include flex-column(4px);
+        padding-top: 2px;
+        max-width: 200px;
+        border: $violet;
+
+        p {
+          color: rgba(26, 26, 26, 0.65);
+          font-family: "Work Sans";
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 16px;
+          letter-spacing: 0.12px;
+        }
+
+        p + p {
+          overflow: hidden;
+          color: rgba(26, 26, 26, 0.9);
+          text-overflow: ellipsis;
+          font-family: Ultra;
+          font-size: 24px;
+          font-weight: 400;
+          line-height: 30px;
+        }
+      }
+
+      &_streak {
+        @include flex-column;
+        padding-top: 6px;
+        border: $violet;
+
+        p:nth-child(1) {
+          margin-bottom: 2px;
+          color: rgba(26, 26, 26, 0.8);
+          font-family: Asap;
+          font-size: 10px;
+          font-weight: 700;
+          line-height: 14px;
+          letter-spacing: 0.1px;
+        }
+
+        p:nth-child(2) {
+          margin-bottom: 1px;
+          color: rgba(26, 26, 26, 0.9);
+          font-family: Ultra;
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 24px;
+          letter-spacing: 0.18px;
+        }
+
+        p:nth-child(3) {
+          margin-bottom: 16px;
+          color: rgba(26, 26, 26, 0.65);
+          font-family: Asap;
+          font-size: 10px;
+          font-weight: 600;
+          line-height: 14px;
+          letter-spacing: 0.1px;
+        }
+
+        &-cheers {
+          color: rgba(26, 26, 26, 0.8);
+          font-family: Asap;
+          font-size: 10px;
+          font-weight: 700;
+          line-height: 14px;
+          letter-spacing: 0.1px;
+          border: $maroon;
+        }
+      }
+    }
+  }
 }

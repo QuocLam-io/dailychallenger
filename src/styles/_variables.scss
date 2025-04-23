@@ -16,3 +16,7 @@ $desktopXL: 1800px;
   gap: $gap;
 }
 
+@mixin padding-eights($padding-y: 8px, $padding-x: 16px) {
+  padding: $padding-y $padding-x;
+}
+
