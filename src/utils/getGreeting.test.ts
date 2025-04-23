@@ -5,10 +5,12 @@ import { greetings } from "@/constants/greetings";
 describe("getGreeting", () => {
   const RealDate = Date;
 
+  //Prevents wrong date leaks after each test
   afterEach(() => {
     global.Date = RealDate;
   });
 
+  //Mocks different times of the day
   const mockHour = (hour: number) => {
     global.Date = class extends Date {
       getHours() {
