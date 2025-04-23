@@ -1,5 +1,7 @@
 //React
-import { useEffect, useState } from "react";
+import { 
+  useEffect,
+   useState } from "react";
 //Utils
 import { getGreeting } from "@/utils/getGreeting";
 //Styles
