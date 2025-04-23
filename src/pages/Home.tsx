@@ -9,6 +9,7 @@ import { getGreeting } from "@/utils/getGreeting";
 //Styles
 import "./Home.scss";
 import { AnimatePresence } from "framer-motion";
+import PlaceHolderAvatarGroup from "@/assets/PlaceHolderAvatarGroup.jpg";
 
 //Auth
 import { useUser } from "@clerk/clerk-react";
@@ -68,6 +69,7 @@ const Home = () => {
             <div className="dashboard-user_streak-cheers">
               <p>No cheers yet</p>
               {/* Pictures of friends cheering will be here */}
+              <img src={PlaceHolderAvatarGroup} alt="" srcset="" />
             </div>
           </div>
         </div>
