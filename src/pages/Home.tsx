@@ -1,3 +1,7 @@
+//React
+import { useEffect, useState } from "react";
+//Utils
+import { getGreeting } from "@/utils/getGreeting";
 //Styles
 import "./Home.scss";
 import { AnimatePresence } from "framer-motion";
@@ -15,9 +19,12 @@ import CarraigeLoader from "@/components/CarraigeLoader";
 // import ChallengerForm from "@/components/ChallengerForm.tsx";
 
 const Home = () => {
+  const [challenges, setChallenges] = useState([]);
+  const isNewUser = challenges.length === 0;
+  const greeting = getGreeting(isNewUser);
   const userId = useUserStore((s) => s.userId);
   const { user } = useUser();
-  console.log(user, "user");
+  const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
   // console.log(userId,"userId" )
 
   if (!userId) return <CarraigeLoader />;
@@ -45,10 +52,9 @@ const Home = () => {
         </div>
         <div className="dashboard-user">
           <div className="dashboard-user_name">
-            {/* TODO: dynamic time phrases */}
-            <p>Top of the morning to ya</p>
+            <p>{greeting}</p>
             {/* TODO: add feature to add name to clerk */}
-            <p>{user.firstName ?? user?.primaryEmailAddress?.emailAddress}</p>
+            <p>{user.firstName ?? standinUserName}</p>
           </div>
           <div className="dashboard-user_streak">
             <p>Current streak</p>
