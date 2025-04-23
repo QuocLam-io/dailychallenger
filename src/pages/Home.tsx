@@ -1,7 +1,9 @@
 //React
-import { 
+import {
+  // @ts-ignore
   useEffect,
-   useState } from "react";
+  useState,
+} from "react";
 //Utils
 import { getGreeting } from "@/utils/getGreeting";
 //Styles
@@ -21,6 +23,7 @@ import CarraigeLoader from "@/components/CarraigeLoader";
 // import ChallengerForm from "@/components/ChallengerForm.tsx";
 
 const Home = () => {
+  // @ts-ignore
   const [challenges, setChallenges] = useState([]);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
