@@ -59,7 +59,7 @@ const Home = () => {
           <div className="dashboard-user_name">
             <p>{greeting}</p>
             {/* TODO: add feature to add name to clerk */}
-            <p>{user.firstName ?? standinUserName}</p>
+            <p>{user?.firstName ?? standinUserName}</p>
           </div>
           <div className="dashboard-user_streak">
             <p>Current streak</p>
