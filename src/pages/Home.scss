@@ -231,4 +231,26 @@
       }
     }
   }
+
+  .dashboard-kyurem_cta {
+    @include flex-column(12px);
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 24px;
+    padding-top: 12px;
+    // border: $border;
+
+    h2 {
+      color: rgba(26, 26, 26, 0.9);
+      font-family: "Work Sans";
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 18px; 
+      letter-spacing: 0.14px;
+    }
+
+    //.Button Component
+  }
 }

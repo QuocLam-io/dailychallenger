@@ -14,6 +14,7 @@ import PlaceHolderAvatarGroup from "@/assets/PlaceHolderAvatarGroup.jpg";
 import greenCheckmark from "@/assets/checkmark-green-circle.svg";
 import greyCheckmark from "@/assets/checkmark-grey-circle.svg";
 import greyEllipsis from "@/assets/vertical-ellipsis-grey.png";
+import plusCircle from "@/assets/plus-black-circle-white.png";
 
 //Auth
 import { useUser } from "@clerk/clerk-react";
@@ -24,6 +25,7 @@ import { useUserStore } from "@/stores/userStore";
 //Components
 import NavSpacer from "@/components/NavSpacer";
 import CarraigeLoader from "@/components/CarraigeLoader";
+import Button from "@/components/Button";
 // import Overlay from "@/components/Overlay.tsx";
 // import ChallengerForm from "@/components/ChallengerForm.tsx";
 
@@ -73,7 +75,7 @@ const Home = () => {
             <div className="dashboard-user_streak-cheers">
               <p>No cheers yet</p>
               {/* Pictures of friends cheering will be here */}
-              <img src={PlaceHolderAvatarGroup} alt="" srcset="" />
+              <img src={PlaceHolderAvatarGroup}  />
             </div>
           </div>
         </div>
@@ -130,8 +132,13 @@ const Home = () => {
       {!challenges.length && (
         <section className="dashboard-kyurem_cta">
           <h2>New are you? Start here:</h2>
-          {/* TODO: make design system button */}
-          <button></button>
+          <Button
+            icon={plusCircle}
+            // disabled={true}
+            // onClick={}
+          >
+            Create a challenge
+          </Button>
         </section>
       )}
 

@@ -1,0 +1,29 @@
+@use "@/styles/_variables.scss" as *;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75em;
+  width: 100%;
+  padding: 1em 1.5em;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Work Sans", sans-serif;
+  color: #fafafa;
+  background-color: #1a1a1a;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
