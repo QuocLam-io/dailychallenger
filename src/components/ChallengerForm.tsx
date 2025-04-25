@@ -5,10 +5,13 @@ import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
 
 interface ChallengerFormTypes {
+  onClick: () => void;
   //No props... for now *shifty eyes*
 }
 
-const ChallengerForm: React.FC<ChallengerFormTypes> = () => {
+const ChallengerForm: React.FC<ChallengerFormTypes> = ({
+  onClick,
+}: ChallengerFormTypes) => {
   const [challenge, setChallenge] = useState<string>("");
 
   return (
@@ -23,7 +26,7 @@ const ChallengerForm: React.FC<ChallengerFormTypes> = () => {
           <button
             type="button"
             className="public-challenger-form_close-button"
-            // onClick={onClose}
+            onClick={onClick}
           >
             <img src={CloseXBW} alt="Close challenger form button" />
           </button>

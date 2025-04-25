@@ -26,12 +26,13 @@ import { useUserStore } from "@/stores/userStore";
 import NavSpacer from "@/components/NavSpacer";
 import CarraigeLoader from "@/components/CarraigeLoader";
 import Button from "@/components/Button";
-// import Overlay from "@/components/Overlay.tsx";
-// import ChallengerForm from "@/components/ChallengerForm.tsx";
+import Overlay from "@/components/Overlay.tsx";
+import ChallengerForm from "@/components/ChallengerForm.tsx";
 
 const Home = () => {
   // @ts-ignore
   const [challenges, setChallenges] = useState([]);
+  const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
   const userId = useUserStore((s) => s.userId);
@@ -75,7 +76,7 @@ const Home = () => {
             <div className="dashboard-user_streak-cheers">
               <p>No cheers yet</p>
               {/* Pictures of friends cheering will be here */}
-              <img src={PlaceHolderAvatarGroup}  />
+              <img src={PlaceHolderAvatarGroup} />
             </div>
           </div>
         </div>
@@ -134,18 +135,21 @@ const Home = () => {
           <h2>New are you? Start here:</h2>
           <Button
             icon={plusCircle}
+            onClick={() => setIsChallengerFormOpen(true)}
             // disabled={true}
-            // onClick={}
           >
             Create a challenge
           </Button>
         </section>
       )}
 
+      {/* Modals */}
       <AnimatePresence>
-        {/* <Overlay>
-          <ChallengerForm />
-        </Overlay> */}
+        {isChallengerFormOpen && (
+          <Overlay>
+            <ChallengerForm onClick={() => setIsChallengerFormOpen(false)} />
+          </Overlay>
+        )}
       </AnimatePresence>
     </main>
   );
