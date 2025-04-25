@@ -136,6 +136,7 @@ const Home = () => {
           <Button
             icon={plusCircle}
             onClick={() => setIsChallengerFormOpen(true)}
+            // iconPosition="right"
             // disabled={true}
           >
             Create a challenge

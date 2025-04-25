@@ -6,12 +6,9 @@ import ArrowRight from "../assets/arrow-right-bw.png";
 
 interface ChallengerFormTypes {
   onClick: () => void;
-  //No props... for now *shifty eyes*
 }
 
-const ChallengerForm: React.FC<ChallengerFormTypes> = ({
-  onClick,
-}: ChallengerFormTypes) => {
+const ChallengerForm = ({ onClick }: ChallengerFormTypes) => {
   const [challenge, setChallenge] = useState<string>("");
 
   return (
