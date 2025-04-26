@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 //Styles
 import "./ChallengerForm.scss";
+import { motion } from "framer-motion";
 import OldTimeyLamp from "../assets/old-timey-lamp.png";
 import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
@@ -11,6 +12,16 @@ interface ChallengerFormTypes {
 
 const ChallengerForm = ({ onClick }: ChallengerFormTypes) => {
   const [challenge, setChallenge] = useState<string>("");
+
+  //Carousel
+  const [carouselWidth, setCarouselWidth] = useState<number>(0);
+  const carousel = useRef();
+
+  useEffect(() => {
+    setCarouselWidth(
+      carousel.current.scrollWidth - carousel.current.offsetWidth
+    );
+  }, []);
 
   return (
     // TODO: change classnames
@@ -45,9 +56,20 @@ const ChallengerForm = ({ onClick }: ChallengerFormTypes) => {
           <div className="challenger-form_deadline-setter">
             <div className="deadline-setter_date-setting">
               <p>Ends in</p>
-              <div className="deadline-setter_date-setting_carousel">
-                Carousel
-              </div>
+              <motion.div
+                ref={carousel}
+                className="deadline-setter_date-setting_carousel"
+              >
+                <motion.div
+                  drag="x"
+                  dragConstraints={{ right: 0, left: -carouselWidth }}
+                  className="deadline-setter_date-setting_carousel-inner"
+                >
+                  <button>1 Day</button>
+                  <button>1 Week</button>
+                  <button>Custom</button>
+                </motion.div>
+              </motion.div>
             </div>
             <div className="deadline-setter_repeat-setting">
               Does not repeat <span>COMING SOON</span>

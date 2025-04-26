@@ -100,7 +100,35 @@
           font-weight: 600;
           line-height: 20px;
           letter-spacing: 0.15px;
-          border: $maroon;
+          overflow-x: clip;
+          // border: $maroon;
+
+          p {
+            white-space: nowrap;
+          }
+
+          .deadline-setter_date-setting_carousel {
+            cursor: grab;
+            width: 100%;
+            // border: $border;
+
+            .deadline-setter_date-setting_carousel-inner {
+              display: flex;
+              gap: 4px;
+              // border: $lime;
+
+              button {
+                padding: 0.8076923077em 0.9230769231em;
+                font-family: "Work Sans";
+                font-size: 13px;
+                line-height: 15px; /* 115.385% */
+                letter-spacing: -0.26px;
+                white-space: nowrap;
+                border-radius: 8px;
+                cursor: pointer;
+              }
+            }
+          }
         }
 
         .deadline-setter_repeat-setting {
