@@ -32,7 +32,8 @@ import ChallengerForm from "@/components/ChallengerForm.tsx";
 const Home = () => {
   // @ts-ignore
   const [challenges, setChallenges] = useState([]);
-  const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
+  // const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(true);
+  const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(true);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
   const userId = useUserStore((s) => s.userId);
@@ -147,8 +148,8 @@ const Home = () => {
       {/* Modals */}
       <AnimatePresence>
         {isChallengerFormOpen && (
-          <Overlay>
-            <ChallengerForm onClick={() => setIsChallengerFormOpen(false)} />
+          <Overlay customClassName={`flex-align-start portrait-align-center`}>
+            <ChallengerForm onClick={() => setIsChallengerFormOpen(true)} />
           </Overlay>
         )}
       </AnimatePresence>

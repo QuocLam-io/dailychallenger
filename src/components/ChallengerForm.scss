@@ -1,0 +1,169 @@
+@use "@/styles/_variables.scss" as *;
+
+.challenger-form_wrapper {
+  gap: 32px;
+  width: 100%;
+  overscroll-behavior: contain;
+  // outline: $border;
+
+  .challenger-form {
+    @include flex-column;
+    border-radius: 12px;
+    background: var(--color-slate-white, #fff);
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.05);
+
+    &_header {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px;
+      padding-bottom: 8px;
+
+      img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .challenger-form_close-button {
+        display: flex;
+        padding: 8px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        // outline: $violet;
+        img {
+          height: 24px;
+          width: 24px;
+        }
+      }
+    }
+
+    &_body {
+      @include flex-column(16px);
+      padding: 16px;
+
+      .input-wrapper {
+        position: relative;
+
+        .blinking-caret {
+          animation: blink 1.2s ease-in-out infinite;
+          position: absolute;
+          top: 50%;
+          left: 0px;
+          transform: translateY(-50%);
+          // margin-left: 12px;
+          width: 2px;
+          height: 24px;
+          background-color: black;
+          border: var(--color-slate-900, #0f172a), 1.5px solid;
+        }
+        input {
+          width: 100%;
+          background: transparent;
+          outline-color: transparent;
+          padding: 12px;
+          color: var(--text-primary, #0f172a);
+          font-size: 20px;
+          font-weight: 600;
+          line-height: 28px;
+          border: none;
+
+          &:focus {
+            outline: transparent;
+          }
+
+          &::placeholder {
+            color: rgba(26, 26, 26, 0.6);
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 28px;
+            // text-indent: 8px;
+          }
+        }
+
+        &:has(input[value=""]) input {
+          caret-color: transparent;
+        }
+      }
+
+      .challenger-form_deadline-setter {
+        @include flex-column(8px);
+        // border: $border;
+
+        .deadline-setter_date-setting {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding-left: 12px;
+          color: rgba(26, 26, 26, 0.65);
+          font-family: Asap;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 20px;
+          letter-spacing: 0.15px;
+          border: $maroon;
+        }
+
+        .deadline-setter_repeat-setting {
+          display: flex;
+          gap: 8px;
+          padding: 10px 12px;
+          color: rgba(26, 26, 26, 0.35);
+          font-family: Asap;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 20px;
+          letter-spacing: 0.15px;
+          cursor: not-allowed;
+
+          span {
+            padding: 3px 6px 3px 7.25px;
+            color: rgba(26, 26, 26, 0.7);
+            font-family: "Work Sans";
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 14px;
+            letter-spacing: 0.1px;
+            border-radius: 8px;
+            background: rgba(26, 26, 26, 0.05);
+          }
+        }
+      }
+    }
+    &_footer {
+      padding: 12px 16px;
+      // outline: $lime;
+
+      button {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        padding: 12px 24px;
+        background: #1a1a1a;
+        box-shadow: 0px 1px 2px 0px rgba(26, 26, 26, 0.08);
+        color: var(--color-50, #fafafa);
+        cursor: pointer;
+        border-radius: 8px;
+        border: none;
+        transition: background 0.3s ease;
+
+        p {
+          font-weight: 600;
+          line-height: 24px; /* 150% */
+          font-family: "Work Sans";
+          letter-spacing: 0.16px;
+        }
+
+        img {
+          width: 24px;
+          height: 24px;
+        }
+
+        &:disabled {
+          background: rgba(26, 26, 26, 0.15);
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

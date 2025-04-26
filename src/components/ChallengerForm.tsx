@@ -1,5 +1,6 @@
 import { useState } from "react";
 //Styles
+import "./ChallengerForm.scss";
 import OldTimeyLamp from "../assets/old-timey-lamp.png";
 import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
@@ -13,35 +14,48 @@ const ChallengerForm = ({ onClick }: ChallengerFormTypes) => {
 
   return (
     // TODO: change classnames
-    <div className="public-challenger-form_container">
+    <div className="challenger-form_wrapper">
       <form
         // onSubmit={(e) => setPublicChallengeHandler(e)}
-        className="public-challenger-form"
+        className="challenger-form"
       >
-        <div className="public-challenger-form_header">
-          <img src={OldTimeyLamp} alt="old timey lamp" />{" "}
+        <div className="challenger-form_header">
+          {/* TODO: react emoji library */}
+          <img src={OldTimeyLamp} aria-hidden="true" />{" "}
           <button
             type="button"
-            className="public-challenger-form_close-button"
+            className="challenger-form_close-button"
             onClick={onClick}
           >
             <img src={CloseXBW} alt="Close challenger form button" />
           </button>
         </div>
-        <div className="public-challenger-form_body">
+        <div className="challenger-form_body">
           <div className="input-wrapper">
             {!challenge && <span className="blinking-caret"></span>}
             <input
               aria-label="Challenge input"
               autoFocus
               type="text"
-              placeholder="Create a challenge"
+              placeholder="Wake up at 6AM"
               value={challenge}
               onChange={(e) => setChallenge(e.target.value)}
             />
           </div>
+          <div className="challenger-form_deadline-setter">
+            <div className="deadline-setter_date-setting">
+              <p>Ends in</p>
+              <div className="deadline-setter_date-setting_carousel">
+                Carousel
+              </div>
+            </div>
+            <div className="deadline-setter_repeat-setting">
+              Does not repeat <span>COMING SOON</span>
+            </div>
+          </div>
         </div>
-        <div className="public-challenger-form_footer">
+        <div className="challenger-form_footer">
+          {/* TODO: swap out for Button component */}
           <button disabled={!challenge}>
             <p>Create</p>
             <img src={ArrowRight} alt="Create a challenge arrow icon" />
@@ -53,19 +67,3 @@ const ChallengerForm = ({ onClick }: ChallengerFormTypes) => {
 };
 
 export default ChallengerForm;
-
-/* ------------------------- Public Challenger Form ------------------------- */
-
-// interface PublicChallengerFormProps {
-//   onClose: () => void;
-//   editPCModalOpen?: boolean;
-// }
-
-// export const PublicChallengerForm: React.FC<PublicChallengerFormProps> = ({
-//   onClose,
-//   editPCModalOpen = false,
-// }) => {
-//   const [challenge, setChallenge] = useState("");
-
-//   return <div>Blub</div>;
-// };
