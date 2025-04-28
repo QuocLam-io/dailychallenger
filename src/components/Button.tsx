@@ -20,7 +20,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={`button${className ? className : ""}`}
+      className={`button ${className ? className : ""}`}
       disabled={disabled}
       onClick={onClick}
       // data-icon-position={iconPosition}

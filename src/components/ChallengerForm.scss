@@ -194,4 +194,23 @@
       }
     }
   }
+
+  //Calendar
+  .challenger-form_calendar-wrapper {
+    @include flex-column(12px);
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 12px;
+    background: #fff;
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+
+    .challenger-form_calendar-btn-confirm {
+      padding: 0.5714285714em 0.8571428571em;
+      letter-spacing: 0.14px;
+    }
+  }
 }
