@@ -36,6 +36,55 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
     );
   }, []);
 
+  // TODO: make test for displayDate fn
+  // TODO: test dates/check in collab with Product Manager about dates in btns
+  // TODO: set dates when Done is clicked and not calendar btns (setPseudoDeadline)
+  // TODO: suggested challenges html
+  const deadlineOptions = [
+    {
+      key: "1d",
+      label: "1 Day",
+      onClick: () => {
+        const newDeadline = new Date();
+        newDeadline.setDate(newDeadline.getDate() + 1);
+        setDeadline(newDeadline);
+        setSelectedDeadlineType("1d");
+      },
+    },
+    {
+      key: "1w",
+      label: "1 Week",
+      onClick: () => {
+        const newDeadline = new Date();
+        newDeadline.setDate(newDeadline.getDate() + 7);
+        setDeadline(newDeadline);
+        setSelectedDeadlineType("1w");
+      },
+    },
+    {
+      key: "custom",
+      label:
+        selectedDeadlineType === "custom" && deadlineDisplay
+          ? `Custom: ${deadlineDisplay}`
+          : "Custom",
+      onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        setCalendarOpen(true);
+      },
+    },
+  ];
+
+  const orderedDeadlineOptions =
+    selectedDeadlineType === "custom"
+      ? [
+          deadlineOptions.find((opt) => opt.key === "custom")!,
+          deadlineOptions.find((opt) => opt.key === "1d")!,
+          deadlineOptions.find((opt) => opt.key === "1w")!,
+        ]
+      : deadlineOptions;
+
+  console.log(orderedDeadlineOptions, "orderedDeadlineOptions");
+
   return (
     <motion.div className="challenger-form_wrapper" {...fadeInOut}>
       {/* --------------------------------- Modals --------------------------------- */}
@@ -54,6 +103,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               className="challenger-form_calendar-btn-confirm"
               onClick={() => {
                 setCalendarOpen(false);
+                setSelectedDeadlineType("custom");
               }}
             >
               Done
@@ -101,43 +151,16 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                   dragConstraints={{ right: 0, left: -carouselWidth }}
                   className="deadline-setter_date-setting_carousel-inner"
                 >
-                  <button
-                    type="button"
-                    className={selectedDeadlineType === "1d" ? "selected" : ""}
-                    onClick={() => {
-                      const newDeadline = new Date();
-                      newDeadline.setDate(newDeadline.getDate() + 1);
-                      setDeadline(newDeadline);
-                      setSelectedDeadlineType("1d");
-                    }}
-                  >
-                    1 Day
-                  </button>
-                  <button
-                    type="button"
-                    className={selectedDeadlineType === "1w" ? "selected" : ""}
-                    onClick={() => {
-                      const newDeadline = new Date();
-                      newDeadline.setDate(newDeadline.getDate() + 7);
-                      setDeadline(newDeadline);
-                      setSelectedDeadlineType("1w");
-                    }}
-                  >
-                    1 Week
-                  </button>
-                  <button
-                    type="button"
-                    className={
-                      selectedDeadlineType === "custom" ? "selected" : ""
-                    }
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setCalendarOpen(true);
-                      setSelectedDeadlineType("custom");
-                    }}
-                  >
-                    Custom{deadlineDisplay && `: ${deadlineDisplay}`}
-                  </button>
+                  {orderedDeadlineOptions.map(({ key, label, onClick }) => (
+                    <button
+                      key={key}
+                      type="button"
+                      className={selectedDeadlineType === key ? "selected" : ""}
+                      onClick={onClick}
+                    >
+                      {label}
+                    </button>
+                  ))}
                 </motion.div>
               </motion.div>
             </div>
