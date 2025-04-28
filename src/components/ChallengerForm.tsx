@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
+//Utils & Constants
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 import { getTomorrow } from "@/utils/getTomorrow";
+import { challengerExampleData } from "@/constants/challengerExampleData";
 
 //Styles
 import "./ChallengerForm.scss";
@@ -11,6 +13,7 @@ import OldTimeyLamp from "../assets/old-timey-lamp.png";
 import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
 import Button from "./Button";
+import plusReverse from "@/assets/plus-white-circle-black.svg";
 
 interface ChallengerFormTypes {
   onClose: () => void;
@@ -115,7 +118,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
           </motion.div>
         )}
       </AnimatePresence>
-      {/* --------------------------------------------------------------------------  */}
+      {/*  ---------------------------------- Form ----------------------------------  */}
       <form
         // onSubmit={(e) => setPublicChallengeHandler(e)}
         className="challenger-form"
@@ -181,6 +184,24 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
           </button>
         </div>
       </form>
+
+      <section className="cf_suggestion">
+        <h2>Suggestions</h2>
+        <div className="cf_suggestion-cards-container">
+          {challengerExampleData.map((card) => {
+            return (
+              <button className="cf_suggestion-card">
+                <p className="cf_suggestion-card_emoji">{card.emoji}</p>
+                <div className="cf_suggestion-card_titles">
+                  <h3>{card.challenge}</h3>
+                  <p>{card.repeat}</p>
+                </div>
+                <img src={plusReverse} aria-hidden="true" />
+              </button>
+            );
+          })}
+        </div>
+      </section>
     </motion.div>
   );
 };

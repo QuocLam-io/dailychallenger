@@ -1,5 +1,3 @@
-// src/constants/greetings.ts
-
 export const greetings = {
   mornings: [
     "Good morning, sunshine",
