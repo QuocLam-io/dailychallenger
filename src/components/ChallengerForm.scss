@@ -126,6 +126,14 @@
                 white-space: nowrap;
                 border-radius: 8px;
                 cursor: pointer;
+
+                &:hover {
+                  background-color: rgba(0, 0, 0, 0.05);
+                }
+
+                &.selected{
+                  background: var(--Slate-100, #F1F5F9);
+                }
               }
             }
           }

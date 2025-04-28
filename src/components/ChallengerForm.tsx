@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 
-
 //Styles
 import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
@@ -20,12 +19,12 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const [challenge, setChallenge] = useState<string>("");
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [deadline, setDeadline] = useState<Date | undefined>(new Date());
+  const [selectedDeadlineType, setSelectedDeadlineType] = useState<
+    "1d" | "1w" | "custom" | null
+  >(null);
   const deadlineDisplay = getDeadlineDisplay(deadline);
   // TODO: check backend date format
   console.log(deadline, "deadline");
-
-
-
 
   //Carousel
   const [carouselWidth, setCarouselWidth] = useState<number>(0);
@@ -102,14 +101,39 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                   dragConstraints={{ right: 0, left: -carouselWidth }}
                   className="deadline-setter_date-setting_carousel-inner"
                 >
-                  <button type="button">1 Day</button>
-                  <button type="button">1 Week</button>
                   <button
-                    //type needed because forms submit buttons
                     type="button"
+                    className={selectedDeadlineType === "1d" ? "selected" : ""}
+                    onClick={() => {
+                      const newDeadline = new Date();
+                      newDeadline.setDate(newDeadline.getDate() + 1);
+                      setDeadline(newDeadline);
+                      setSelectedDeadlineType("1d");
+                    }}
+                  >
+                    1 Day
+                  </button>
+                  <button
+                    type="button"
+                    className={selectedDeadlineType === "1w" ? "selected" : ""}
+                    onClick={() => {
+                      const newDeadline = new Date();
+                      newDeadline.setDate(newDeadline.getDate() + 7);
+                      setDeadline(newDeadline);
+                      setSelectedDeadlineType("1w");
+                    }}
+                  >
+                    1 Week
+                  </button>
+                  <button
+                    type="button"
+                    className={
+                      selectedDeadlineType === "custom" ? "selected" : ""
+                    }
                     onClick={(e) => {
                       e.stopPropagation();
                       setCalendarOpen(true);
+                      setSelectedDeadlineType("custom");
                     }}
                   >
                     Custom{deadlineDisplay && `: ${deadlineDisplay}`}
