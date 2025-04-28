@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
+import { getTomorrow } from "@/utils/getTomorrow";
 
 //Styles
 import "./ChallengerForm.scss";
@@ -17,8 +18,11 @@ interface ChallengerFormTypes {
 
 const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const [challenge, setChallenge] = useState<string>("");
-  const [calendarOpen, setCalendarOpen] = useState(false);
-  const [deadline, setDeadline] = useState<Date | undefined>(new Date());
+  const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
+  const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(
+    getTomorrow
+  );
+  const [deadline, setDeadline] = useState<Date | undefined>(getTomorrow);
   const [selectedDeadlineType, setSelectedDeadlineType] = useState<
     "1d" | "1w" | "custom" | null
   >(null);
@@ -83,7 +87,6 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
         ]
       : deadlineOptions;
 
-  console.log(orderedDeadlineOptions, "orderedDeadlineOptions");
 
   return (
     <motion.div className="challenger-form_wrapper" {...fadeInOut}>
