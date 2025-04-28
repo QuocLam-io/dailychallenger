@@ -1,4 +1,10 @@
 import { useState, useRef, useEffect } from "react";
+import {
+  differenceInDays,
+  differenceInWeeks,
+  differenceInMonths,
+} from "date-fns";
+
 //Styles
 import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
@@ -15,10 +21,41 @@ interface ChallengerFormTypes {
 
 const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const [challenge, setChallenge] = useState<string>("");
-  const [deadline, setDeadline] = useState<Date | undefined>(new Date());
   const [calendarOpen, setCalendarOpen] = useState(false);
+  const [deadline, setDeadline] = useState<Date | undefined>(new Date());
+  // let deadlineDisplay = deadline?
   // TODO: check backend date format
   console.log(deadline, "deadline");
+
+  function getDeadlineDisplay(deadline: Date | undefined) {
+    if (!deadline) return "";
+
+    const today = new Date();
+    const daysDiff = differenceInDays(deadline, today);
+
+    if (daysDiff === 0) {
+      return "";
+    }
+
+    if (daysDiff < 7) {
+      return `${daysDiff} day${daysDiff !== 1 ? "s" : ""}`;
+    }
+
+    if (daysDiff % 7 === 0) {
+      const weeks = differenceInWeeks(deadline, today);
+      return `${weeks} week${weeks !== 1 ? "s" : ""}`;
+    }
+
+    if (daysDiff >= 45) {
+      const months = differenceInMonths(deadline, today);
+      return `${months} month${months !== 1 ? "s" : ""}`;
+    }
+
+    // Otherwise fallback to days
+    return `${daysDiff} day${daysDiff !== 1 ? "s" : ""}`;
+  }
+
+  const deadlineDisplay = getDeadlineDisplay(deadline);
 
   //Carousel
   const [carouselWidth, setCarouselWidth] = useState<number>(0);
@@ -105,7 +142,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                       setCalendarOpen(true);
                     }}
                   >
-                    Custom
+                    Custom{deadlineDisplay && `: ${deadlineDisplay}`}
                   </button>
                 </motion.div>
               </motion.div>
