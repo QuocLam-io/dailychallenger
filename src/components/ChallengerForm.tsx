@@ -27,8 +27,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   );
   const [deadline, setDeadline] = useState<Date | undefined>(getTomorrow);
   const [selectedDeadlineType, setSelectedDeadlineType] = useState<
-    "1d" | "1w" | "custom" | null
-  >(null);
+    "1d" | "1w" | "custom"
+  >("1d");
   const deadlineDisplay = getDeadlineDisplay(deadline);
   // TODO: check backend date format
   console.log(deadline, "deadline");
@@ -46,7 +46,6 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   // TODO: make test for displayDate fn
   // TODO: make test for getTomorrow fn
   // TODO: test dates/check in collab with Product Manager about dates in btns
-  // TODO: set Calendar to be unable to click previous dates
   const deadlineOptions = [
     {
       key: "1d",
@@ -106,6 +105,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               mode="single"
               selected={pseudoDeadline}
               onSelect={setPseudoDeadline}
+              disabled={(date) => date < new Date()}
             />
             <Button
               className="challenger-form_calendar-btn-confirm"
