@@ -46,7 +46,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   // TODO: make test for displayDate fn
   // TODO: make test for getTomorrow fn
   // TODO: test dates/check in collab with Product Manager about dates in btns
-  // TODO: suggested challenges html
+  // TODO: set Calendar to be unable to click previous dates
   const deadlineOptions = [
     {
       key: "1d",
@@ -56,6 +56,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
         newDeadline.setDate(newDeadline.getDate() + 1);
         setDeadline(newDeadline);
         setSelectedDeadlineType("1d");
+        setCalendarOpen(false);
       },
     },
     {
@@ -66,6 +67,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
         newDeadline.setDate(newDeadline.getDate() + 7);
         setDeadline(newDeadline);
         setSelectedDeadlineType("1w");
+        setCalendarOpen(false);
       },
     },
     {
