@@ -41,8 +41,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   }, []);
 
   // TODO: make test for displayDate fn
+  // TODO: make test for getTomorrow fn
   // TODO: test dates/check in collab with Product Manager about dates in btns
-  // TODO: set dates when Done is clicked and not calendar btns (setPseudoDeadline)
   // TODO: suggested challenges html
   const deadlineOptions = [
     {
@@ -74,6 +74,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       onClick: (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         setCalendarOpen(true);
+        setPseudoDeadline(deadline);
       },
     },
   ];
@@ -87,7 +88,6 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
         ]
       : deadlineOptions;
 
-
   return (
     <motion.div className="challenger-form_wrapper" {...fadeInOut}>
       {/* --------------------------------- Modals --------------------------------- */}
@@ -99,12 +99,13 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
           >
             <Calendar
               mode="single"
-              selected={deadline}
-              onSelect={setDeadline}
+              selected={pseudoDeadline}
+              onSelect={setPseudoDeadline}
             />
             <Button
               className="challenger-form_calendar-btn-confirm"
               onClick={() => {
+                setDeadline(pseudoDeadline);
                 setCalendarOpen(false);
                 setSelectedDeadlineType("custom");
               }}
