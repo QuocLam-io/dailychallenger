@@ -35,7 +35,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
   //Carousel
   const [carouselWidth, setCarouselWidth] = useState<number>(0);
-  const carousel = useRef();
+  const carousel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCarouselWidth(
