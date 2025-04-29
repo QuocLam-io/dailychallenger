@@ -149,9 +149,9 @@ const Home = () => {
       <AnimatePresence>
         {isChallengerFormOpen && (
           <Overlay customClassName={`flex-align-start portrait-align-center`}>
-            <ChallengerForm onClick={() => setIsChallengerFormOpen(true)} 
+            <ChallengerForm
               onClose={() => setIsChallengerFormOpen(false)}
-              />
+            />
           </Overlay>
         )}
       </AnimatePresence>

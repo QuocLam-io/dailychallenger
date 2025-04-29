@@ -19,7 +19,7 @@ interface ChallengerFormTypes {
   onClose: () => void;
 }
 
-const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
+const ChallengerForm = ({ onClose}: ChallengerFormTypes) => {
   const [challenge, setChallenge] = useState<string>("");
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(
