@@ -38,9 +38,11 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const carousel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setCarouselWidth(
-      carousel.current.scrollWidth - carousel.current.offsetWidth
-    );
+    if (carousel.current) {
+      setCarouselWidth(
+        carousel.current.scrollWidth - carousel.current.offsetWidth
+      );
+    }
   }, []);
 
   // TODO: make test for displayDate fn
