@@ -19,7 +19,7 @@ interface ChallengerFormTypes {
   onClose: () => void;
 }
 
-const ChallengerForm = ({ onClose}: ChallengerFormTypes) => {
+const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const [challenge, setChallenge] = useState<string>("");
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(
@@ -194,7 +194,7 @@ const ChallengerForm = ({ onClose}: ChallengerFormTypes) => {
         <div className="cf_suggestion-cards-container">
           {challengerExampleData.map((card) => {
             return (
-              <button className="cf_suggestion-card">
+              <button key={card.id} className="cf_suggestion-card">
                 <p className="cf_suggestion-card_emoji">{card.emoji}</p>
                 <div className="cf_suggestion-card_titles">
                   <h3>{card.challenge}</h3>
