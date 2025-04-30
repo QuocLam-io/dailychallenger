@@ -78,7 +78,9 @@ function Calendar({
     }, [yearRange])
   )
 
-  const { onNextClick, onPrevClick, startMonth, endMonth } = props
+  const { 
+    // onNextClick, 
+    onPrevClick, startMonth, endMonth } = props
 
   const columnsDisplayed = navView === "years" ? 1 : numberOfMonths
 
