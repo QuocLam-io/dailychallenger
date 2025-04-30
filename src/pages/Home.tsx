@@ -72,8 +72,8 @@ const Home = () => {
           </div>
           <div className="dashboard-user_streak">
             <p>Current streak</p>
-            <p>1 day</p>
-            <p>Longest streak: 1 day</p>
+            <p>0 days</p>
+            <p>Longest streak: 0 days</p>
             <div className="dashboard-user_streak-cheers">
               <p>No cheers yet</p>
               {/* Pictures of friends cheering will be here */}

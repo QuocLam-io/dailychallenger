@@ -23,6 +23,7 @@
 
     .dashboard-user {
       display: flex;
+      justify-content: space-between;
       gap: 24px;
       padding: 12px;
       padding-bottom: 16px;
@@ -59,6 +60,8 @@
       &_streak {
         @include flex-column;
         padding-top: 6px;
+        width: 112px;
+        width: 33%;
         // border: $violet;
 
         p:nth-child(1) {
@@ -111,7 +114,7 @@
   }
 
   .dashboard-kyurem {
-    @include flex-column(24px);
+    @include flex-column(12px);
     padding: 28px 16px;
     // border: $border;
 
@@ -128,6 +131,9 @@
 
     .dashboard-kyurem_display-example {
       @include flex-column(14.4px);
+      padding: 12px 18px;
+      opacity: 0.65;
+      // cursor: not-allowed;
       // border: $violet;
 
       &_titles {
@@ -247,7 +253,7 @@
       font-family: "Work Sans";
       font-size: 14px;
       font-weight: 700;
-      line-height: 18px; 
+      line-height: 18px;
       letter-spacing: 0.14px;
     }
 
