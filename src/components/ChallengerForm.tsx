@@ -14,6 +14,7 @@ import ArrowRight from "../assets/arrow-right-bw.png";
 import plusReverse from "@/assets/plus-white-circle-black.svg";
 
 //Components
+import EmojiPicker from "emoji-picker-react";
 import { Calendar } from "@/components/ui/calendar";
 import Button from "./Button";
 
@@ -33,7 +34,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   >("1d");
   const deadlineDisplay = getDeadlineDisplay(deadline);
   // TODO: check backend date format
-  console.log(deadline, "deadline");
+  // console.log(deadline, "deadline");
 
   //Carousel
   const [carouselWidth, setCarouselWidth] = useState<number>(0);
@@ -46,25 +47,6 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       );
     }
   }, []);
-
-  //Calendar
-  const calendarRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function clickOutsideCalendarHandler(event: MouseEvent) {
-      if (
-        calendarOpen &&
-        calendarRef.current &&
-        !calendarRef.current.contains(event.target as Node)
-      ) {
-        setCalendarOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", clickOutsideCalendarHandler);
-    return () => {
-      document.removeEventListener("mousedown", clickOutsideCalendarHandler);
-    };
-  }, [calendarOpen]);
 
   // TODO: make test for displayDate fn
   // TODO: make test for getTomorrow fn
@@ -114,6 +96,47 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
           deadlineOptions.find((opt) => opt.key === "1w")!,
         ]
       : deadlineOptions;
+
+  //Calendar
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function clickOutsideCalendarHandler(event: MouseEvent) {
+      if (
+        calendarOpen &&
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setCalendarOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", clickOutsideCalendarHandler);
+    return () => {
+      document.removeEventListener("mousedown", clickOutsideCalendarHandler);
+    };
+  }, [calendarOpen]);
+
+  //Emoji
+  const [emoji, setEmoji] = useState();
+
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const emojiPickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function clickOutsideEmojiHandler(event: MouseEvent) {
+      if (
+        showEmojiPicker &&
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target as Node)
+      ) {
+        setShowEmojiPicker(false);
+      }
+    }
+    document.addEventListener("mousedown", clickOutsideEmojiHandler);
+    return () => {
+      document.removeEventListener("mousedown", clickOutsideEmojiHandler);
+    };
+  }, [showEmojiPicker]);
 
   return (
     <motion.div className="challenger-form_wrapper" {...fadeInOut}>
@@ -171,6 +194,26 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               value={challenge}
               onChange={(e) => setChallenge(e.target.value)}
             />
+
+            <button
+              type="button"
+              className="emoji-trigger"
+              onClick={() => setShowEmojiPicker((prev) => !prev)}
+            >
+              😀
+            </button>
+
+            {showEmojiPicker && (
+              <div ref={emojiPickerRef} className="emoji-picker-popover">
+                <EmojiPicker
+                  onEmojiClick={(emojiData) => {
+                    setEmoji(emojiData.emoji)
+                  }}
+                  height={350}
+                  width={300}
+                />
+              </div>
+            )}
           </div>
           <div className="challenger-form_deadline-setter">
             <div className="deadline-setter_date-setting">
