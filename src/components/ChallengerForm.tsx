@@ -118,16 +118,17 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
   //Emoji
   const [emoji, setEmoji] = useState();
-
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function clickOutsideEmojiHandler(event: MouseEvent) {
+      const target = event.target as Node;
       if (
         showEmojiPicker &&
         emojiPickerRef.current &&
-        !emojiPickerRef.current.contains(event.target as Node)
+        !emojiPickerRef.current.contains(target) &&
+        !document.querySelector(".emoji-trigger")?.contains(target)
       ) {
         setShowEmojiPicker(false);
       }
@@ -173,8 +174,33 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
         className="challenger-form"
       >
         <div className="challenger-form_header">
-          {/* TODO: react emoji library */}
-          <img src={OldTimeyLamp} aria-hidden="true" />{" "}
+          <button
+            type="button"
+            className="emoji-trigger challenger-form_header_emoji-btn"
+            onClick={() => setShowEmojiPicker((prev) => !prev)}
+          >
+            {emoji}
+          </button>
+
+          <AnimatePresence>
+            {showEmojiPicker && (
+              <motion.div
+                ref={emojiPickerRef}
+                className="emoji-picker-popover emoji-popover-absolute"
+                {...fadeInOut}
+              >
+                <EmojiPicker
+                  onEmojiClick={(emojiData) => {
+                    setEmoji(emojiData.emoji);
+                    setShowEmojiPicker(false);
+                  }}
+                  previewConfig={{ showPreview: false }}
+                  height={350}
+                  width={300}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
           <button
             type="button"
             className="challenger-form_close-button"
@@ -194,26 +220,6 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               value={challenge}
               onChange={(e) => setChallenge(e.target.value)}
             />
-
-            <button
-              type="button"
-              className="emoji-trigger"
-              onClick={() => setShowEmojiPicker((prev) => !prev)}
-            >
-              😀
-            </button>
-
-            {showEmojiPicker && (
-              <div ref={emojiPickerRef} className="emoji-picker-popover">
-                <EmojiPicker
-                  onEmojiClick={(emojiData) => {
-                    setEmoji(emojiData.emoji)
-                  }}
-                  height={350}
-                  width={300}
-                />
-              </div>
-            )}
           </div>
           <div className="challenger-form_deadline-setter">
             <div className="deadline-setter_date-setting">
