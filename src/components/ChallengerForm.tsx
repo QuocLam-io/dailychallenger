@@ -8,7 +8,6 @@ import { challengerExampleData } from "@/constants/challengerExampleData";
 import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { fadeInOut } from "@/constants/animations";
-import OldTimeyLamp from "../assets/old-timey-lamp.png";
 import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
 import plusReverse from "@/assets/plus-white-circle-black.svg";
@@ -265,7 +264,14 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
         <div className="cf_suggestion-cards-container">
           {challengerExampleData.map((card) => {
             return (
-              <button key={card.id} className="cf_suggestion-card">
+              <button
+                onClick={() => {
+                  setEmoji(card.emoji);
+                  setChallenge(card.challenge);
+                }}
+                key={card.id}
+                className="cf_suggestion-card"
+              >
                 <p className="cf_suggestion-card_emoji">{card.emoji}</p>
                 <div className="cf_suggestion-card_titles">
                   <h3>{card.challenge}</h3>
