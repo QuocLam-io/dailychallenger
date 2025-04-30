@@ -7,13 +7,14 @@ import { challengerExampleData } from "@/constants/challengerExampleData";
 //Styles
 import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
-import { Calendar } from "@/components/ui/calendar";
 import { fadeInOut } from "@/constants/animations";
 import OldTimeyLamp from "../assets/old-timey-lamp.png";
 import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
-import Button from "./Button";
 import plusReverse from "@/assets/plus-white-circle-black.svg";
+import Calendar from "@/components/Calendar";
+// import Button from "./Button";
+// import { Calendar } from "@/components/ui/calendar";
 
 interface ChallengerFormTypes {
   onClose: () => void;
@@ -21,7 +22,8 @@ interface ChallengerFormTypes {
 
 const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const [challenge, setChallenge] = useState<string>("");
-  const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
+  // const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
+  const [calendarOpen, setCalendarOpen] = useState<boolean>(true);
   const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(
     getTomorrow
   );
@@ -103,7 +105,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
             className="challenger-form_calendar-wrapper"
             {...fadeInOut}
           >
-            <Calendar
+            {/* <Calendar
               mode="single"
               selected={pseudoDeadline}
               onSelect={setPseudoDeadline}
@@ -118,7 +120,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               }}
             >
               Done
-            </Button>
+            </Button> */}
+            <Calendar />
           </motion.div>
         )}
       </AnimatePresence>
