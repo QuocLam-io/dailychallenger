@@ -7,13 +7,15 @@ import { challengerExampleData } from "@/constants/challengerExampleData";
 //Styles
 import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
-import { Calendar } from "@/components/ui/calendar";
 import { fadeInOut } from "@/constants/animations";
 import OldTimeyLamp from "../assets/old-timey-lamp.png";
 import CloseXBW from "../assets/close-x-bw.png";
 import ArrowRight from "../assets/arrow-right-bw.png";
-import Button from "./Button";
 import plusReverse from "@/assets/plus-white-circle-black.svg";
+
+//Components
+import { Calendar } from "@/components/ui/calendar";
+import Button from "./Button";
 
 interface ChallengerFormTypes {
   onClose: () => void;
@@ -44,6 +46,25 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       );
     }
   }, []);
+
+  //Calendar
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function clickOutsideCalendarHandler(event: MouseEvent) {
+      if (
+        calendarOpen &&
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setCalendarOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", clickOutsideCalendarHandler);
+    return () => {
+      document.removeEventListener("mousedown", clickOutsideCalendarHandler);
+    };
+  }, [calendarOpen]);
 
   // TODO: make test for displayDate fn
   // TODO: make test for getTomorrow fn
@@ -100,6 +121,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       <AnimatePresence>
         {calendarOpen && (
           <motion.div
+            ref={calendarRef}
             className="challenger-form_calendar-wrapper"
             {...fadeInOut}
           >
@@ -152,7 +174,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
           </div>
           <div className="challenger-form_deadline-setter">
             <div className="deadline-setter_date-setting">
-              <p>Ends in</p>
+              <p>Ends in:</p>
               <motion.div
                 ref={carousel}
                 className="deadline-setter_date-setting_carousel"
