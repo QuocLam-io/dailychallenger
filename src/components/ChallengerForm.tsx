@@ -117,8 +117,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   }, [calendarOpen]);
 
   //Emoji
-  const [emoji, setEmoji] = useState();
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [emoji, setEmoji] = useState<string>();
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
