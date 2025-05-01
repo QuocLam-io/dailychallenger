@@ -37,7 +37,6 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const deadlineDisplay = getDeadlineDisplay(deadline);
   // console.log(deadline, deadline.toISOString(), "deadline");
   const [isPublic, setIsPublic] = useState<boolean>(true);
-  setIsPublic(true); //I'm just putting this here to avoid a Typescript build error
 
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
 
@@ -146,7 +145,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
   //Submit Challenge Handler
   const submitChallengeHandler = async (e: React.FormEvent) => {
-    e.preventDefault;
+    e.preventDefault();
 
     if (!challenge || !deadline || !emoji) return;
 
@@ -157,6 +156,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       deadline: deadline.toISOString(),
       isPublic,
     };
+
+    console.log(payload);
   };
 
   return (
