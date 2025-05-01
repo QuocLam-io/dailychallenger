@@ -4,6 +4,9 @@ import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 import { getTomorrow } from "@/utils/getTomorrow";
 import { challengerExampleData } from "@/constants/challengerExampleData";
 
+//Supabase
+import { supabase } from "@/supabase-client";
+
 //Zustand
 import { useUserStore } from "@/stores/userStore";
 
@@ -143,24 +146,53 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       document.removeEventListener("mousedown", clickOutsideEmojiHandler);
     };
   }, [showEmojiPicker]);
-
+/* -------------------------------------------------------------------------- */
   //Submit Challenge Handler
   const submitChallengeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     if (!challenge || !deadline || !emoji) return;
-
-    const payload = {
+  
+    const { data: existingChallenge } = await supabase
+      .from("test_challenges")
+      .select("id")
+      .eq("created_by", userId)
+      .eq("title", challenge)
+      .single();
+  
+    let challengeId = existingChallenge?.id;
+  
+    if (!challengeId) {
+      const { data: newChallenge, error: insertError } = await supabase
+        .from("test_challenges")
+        .insert({ title: challenge, created_by: userId })
+        .select("id")
+        .single();
+  
+      if (insertError) {
+        console.error("Challenge creation error:", insertError.message);
+        return;
+      }
+  
+      challengeId = newChallenge?.id;
+    }
+  
+    const { error: logError } = await supabase.from("test_challenge_logs").insert({
+      challenge_id: challengeId,
       user_id: userId,
       emoji,
-      challenge,
       deadline: deadline.toISOString(),
-      isPublic,
-    };
-
-    console.log(payload);
+      is_public: isPublic,
+    });
+  
+    if (logError) {
+      console.error("Log submission error:", logError.message);
+    } else {
+      console.log("✅ Challenge + log submitted to test tables");
+      onClose();
+    }
   };
-
+/* -------------------------------------------------------------------------- */
   return (
     <motion.div className="challenger-form_wrapper" {...fadeInOut}>
       {/* --------------------------------- Modals --------------------------------- */}
