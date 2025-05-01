@@ -4,6 +4,9 @@ import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 import { getTomorrow } from "@/utils/getTomorrow";
 import { challengerExampleData } from "@/constants/challengerExampleData";
 
+//Zustand
+import { useUserStore } from "@/stores/userStore";
+
 //Styles
 import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
@@ -22,8 +25,8 @@ interface ChallengerFormTypes {
 }
 
 const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
+  const userId = useUserStore((s) => s.userId);
   const [challenge, setChallenge] = useState<string>("");
-  const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
   const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(
     getTomorrow
   );
@@ -32,8 +35,11 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
     "1d" | "1w" | "custom"
   >("1d");
   const deadlineDisplay = getDeadlineDisplay(deadline);
-  // TODO: check backend date format
-  // console.log(deadline, "deadline");
+  // console.log(deadline, deadline.toISOString(), "deadline");
+  const [isPublic, setIsPublic] = useState<boolean>(true);
+  setIsPublic(true); //I'm just putting this here to avoid a Typescript build error
+
+  const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
 
   //Carousel
   const [carouselWidth, setCarouselWidth] = useState<number>(0);
@@ -138,6 +144,21 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
     };
   }, [showEmojiPicker]);
 
+  //Submit Challenge Handler
+  const submitChallengeHandler = async (e: React.FormEvent) => {
+    e.preventDefault;
+
+    if (!challenge || !deadline || !emoji) return;
+
+    const payload = {
+      user_id: userId,
+      emoji,
+      challenge,
+      deadline: deadline.toISOString(),
+      isPublic,
+    };
+  };
+
   return (
     <motion.div className="challenger-form_wrapper" {...fadeInOut}>
       {/* --------------------------------- Modals --------------------------------- */}
@@ -169,7 +190,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       </AnimatePresence>
       {/*  ---------------------------------- Form ----------------------------------  */}
       <form
-        // onSubmit={(e) => setPublicChallengeHandler(e)}
+        onSubmit={(e) => submitChallengeHandler(e)}
         className="challenger-form"
       >
         <div className="challenger-form_header">
