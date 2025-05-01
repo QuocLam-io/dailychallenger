@@ -176,7 +176,6 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
           <button
             type="button"
             className="emoji-trigger challenger-form_header_emoji-btn"
-            onMouseDown={(e) => e.preventDefault()}
             onClick={() => setShowEmojiPicker((prev) => !prev)}
           >
             {emoji}
@@ -194,6 +193,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                     setEmoji(emojiData.emoji);
                     setShowEmojiPicker(false);
                   }}
+                  searchDisabled={true}
                   previewConfig={{ showPreview: false }}
                   height={350}
                   width={300}
