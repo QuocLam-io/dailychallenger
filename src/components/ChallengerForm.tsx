@@ -37,6 +37,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const deadlineDisplay = getDeadlineDisplay(deadline);
   // console.log(deadline, deadline.toISOString(), "deadline");
   const [isPublic, setIsPublic] = useState<boolean>(true);
+  setIsPublic(true);
 
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
 
