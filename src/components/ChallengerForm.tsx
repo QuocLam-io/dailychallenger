@@ -37,7 +37,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const deadlineDisplay = getDeadlineDisplay(deadline);
   // console.log(deadline, deadline.toISOString(), "deadline");
   const [isPublic, setIsPublic] = useState<boolean>(true);
-  setIsPublic(true);
+  // setIsPublic(true);
 
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
 
@@ -271,6 +271,11 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
             </div>
             <div className="deadline-setter_repeat-setting">
               Does not repeat <span>COMING SOON</span>
+              <button
+                onClick={() => {
+                  setIsPublic(false);
+                }}
+              ></button>
             </div>
           </div>
         </div>
