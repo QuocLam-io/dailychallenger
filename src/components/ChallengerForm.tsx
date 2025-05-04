@@ -146,45 +146,47 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       document.removeEventListener("mousedown", clickOutsideEmojiHandler);
     };
   }, [showEmojiPicker]);
-/* -------------------------------------------------------------------------- */
-  //Submit Challenge Handler
+
+  /* ------------------------ Submit Challenge Handler ------------------------ */
   const submitChallengeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     if (!challenge || !deadline || !emoji) return;
-  
+
     const { data: existingChallenge } = await supabase
       .from("test_challenges")
       .select("id")
       .eq("created_by", userId)
       .eq("title", challenge)
       .single();
-  
+
     let challengeId = existingChallenge?.id;
-  
+
     if (!challengeId) {
       const { data: newChallenge, error: insertError } = await supabase
         .from("test_challenges")
         .insert({ title: challenge, created_by: userId })
         .select("id")
         .single();
-  
+
       if (insertError) {
         console.error("Challenge creation error:", insertError.message);
         return;
       }
-  
+
       challengeId = newChallenge?.id;
     }
-  
-    const { error: logError } = await supabase.from("test_challenge_logs").insert({
-      challenge_id: challengeId,
-      user_id: userId,
-      emoji,
-      deadline: deadline.toISOString(),
-      is_public: isPublic,
-    });
-  
+
+    const { error: logError } = await supabase
+      .from("test_challenge_logs")
+      .insert({
+        challenge_id: challengeId,
+        user_id: userId,
+        emoji,
+        deadline: deadline.toISOString(),
+        is_public: isPublic,
+      });
+
     if (logError) {
       console.error("Log submission error:", logError.message);
     } else {
@@ -192,7 +194,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       onClose();
     }
   };
-/* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
   return (
     <motion.div className="challenger-form_wrapper" {...fadeInOut}>
       {/* --------------------------------- Modals --------------------------------- */}
@@ -319,7 +321,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
           </button>
         </div>
       </form>
-
+      {/* ---------------------------- Suggestion Cards ----------------------------  */}
       <section className="cf_suggestion">
         <h2>Suggestions</h2>
         <div className="cf_suggestion-cards-container">
