@@ -154,7 +154,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
     if (!challenge || !deadline || !emoji) return;
 
     const { data: existingChallenge } = await supabase
-      .from("test_challenges")
+      .from("challenges")
       .select("id")
       .eq("created_by", userId)
       .eq("title", challenge)
@@ -164,7 +164,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
     if (!challengeId) {
       const { data: newChallenge, error: insertError } = await supabase
-        .from("test_challenges")
+        .from("challenges")
         .insert({ title: challenge, created_by: userId })
         .select("id")
         .single();
@@ -178,7 +178,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
     }
 
     const { error: logError } = await supabase
-      .from("test_challenge_logs")
+      .from("challenge_logs")
       .insert({
         challenge_id: challengeId,
         user_id: userId,
