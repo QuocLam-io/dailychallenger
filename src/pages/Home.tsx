@@ -32,16 +32,18 @@ import ChallengerForm from "@/components/ChallengerForm.tsx";
 const Home = () => {
   // @ts-ignore
   const [challenges, setChallenges] = useState([]);
-  // const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(true);
-  const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(true);
+  const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
   const userId = useUserStore((s) => s.userId);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
-  // console.log(userId,"userId" )
 
   if (!userId) return <CarraigeLoader />;
+
+  /* ----------------------- Fetch Challenges useEffect ----------------------- */
+
+
 
   return (
     <main className="home_wrapper">
@@ -149,9 +151,7 @@ const Home = () => {
       <AnimatePresence>
         {isChallengerFormOpen && (
           <Overlay customClassName={`flex-align-start portrait-align-center`}>
-            <ChallengerForm
-              onClose={() => setIsChallengerFormOpen(false)}
-            />
+            <ChallengerForm onClose={() => setIsChallengerFormOpen(false)} />
           </Overlay>
         )}
       </AnimatePresence>
