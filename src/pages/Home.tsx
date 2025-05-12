@@ -12,14 +12,12 @@ import greyCheckmark from "@/assets/checkmark-grey-circle.svg";
 import greyEllipsis from "@/assets/vertical-ellipsis-grey.png";
 import plusCircle from "@/assets/plus-black-circle-white.png";
 
-//Backend
-import { supabase } from "../supabase-client.ts";
-
 //Auth
 import { useUser } from "@clerk/clerk-react";
 
 //Zustand
 import { useUserStore } from "@/stores/userStore";
+import useChallengesStore from "@/stores/challengesStore";
 
 //Components
 import NavSpacer from "@/components/NavSpacer";
@@ -29,64 +27,23 @@ import Overlay from "@/components/Overlay.tsx";
 import ChallengerForm from "@/components/ChallengerForm.tsx";
 
 const Home = () => {
-  const [challenges, setChallenges] = useState([]);
+  const { challenges, fetchChallenges } = useChallengesStore();
+  console.log(challenges)
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
   const userId = useUserStore((s) => s.userId);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
-  
+
   /* ----------------------- Fetch Challenges useEffect ----------------------- */
-  
+
   useEffect(() => {
     // TODO: Add skeleton state
-    // TODO: Refactor for zustand, so when adding a challenge, the fetch retriggers.
     if (!userId) return;
 
-    const fetchChallenges = async () => {
-      try {
-        const { data: logs, error: logError } = await supabase
-          .from("challenge_logs")
-          .select("*")
-          .eq("user_id", userId);
-
-        if (logError || !logs) {
-          console.error("Failed to fetch challenge logs", logError);
-          return;
-        }
-
-        
-        const challengeIds = logs.map((log) => log.challenge_id);
-        
-        console.log(logs, "logs");
-        const { data: challenges, error: challengeError } = await supabase
-          .from("challenges")
-          .select("id, title")
-          .in("id", challengeIds);
-
-        if (challengeError || !challenges) {
-          console.error("Failed to fetch challenge details", challengeError);
-          return;
-        }
-
-        const enrichedLogs = logs.map((log) => {
-          const challenge = challenges.find((c) => c.id === log.challenge_id);
-          return {
-            ...log,
-            title: challenge?.title ?? "Untitled",
-          };
-        });
-
-        console.log("Enriched challenges:", enrichedLogs);
-        setChallenges(enrichedLogs);
-      } catch (error) {
-        console.error("Unexpected error fetching challenges", error);
-      }
-    };
-
     if (userId) {
-      fetchChallenges();
+      fetchChallenges(userId);
     }
   }, [userId]);
   /* -------------------------------------------------------------------------- */
