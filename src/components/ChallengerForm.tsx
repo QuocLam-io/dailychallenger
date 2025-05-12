@@ -149,6 +149,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
   /* ------------------------ Submit Challenge Handler ------------------------ */
   const submitChallengeHandler = async (e: React.FormEvent) => {
+    // TODO:  retrigger fetch after adding
+
     e.preventDefault();
 
     if (!challenge || !deadline || !emoji) return;
@@ -177,15 +179,13 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       challengeId = newChallenge?.id;
     }
 
-    const { error: logError } = await supabase
-      .from("challenge_logs")
-      .insert({
-        challenge_id: challengeId,
-        user_id: userId,
-        emoji,
-        deadline: deadline.toISOString(),
-        is_public: isPublic,
-      });
+    const { error: logError } = await supabase.from("challenge_logs").insert({
+      challenge_id: challengeId,
+      user_id: userId,
+      emoji,
+      deadline: deadline.toISOString(),
+      is_public: isPublic,
+    });
 
     if (logError) {
       console.error("Log submission error:", logError.message);
