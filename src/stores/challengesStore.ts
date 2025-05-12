@@ -18,7 +18,7 @@ type Challenge = {
 
 interface ChallengesProps {
   challenges: Challenge[];
-  fetchChallenges: () => Promise<void>;
+  fetchChallenges: (userId: string) => Promise<void>;
 }
 
 const useChallengesStore = create<ChallengesProps>((set) => ({
@@ -29,7 +29,6 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
         .from("challenge_logs")
         .select("*")
         .eq("user_id", userId);
-
 
       if (logError || !logs) {
         console.error("Failed to fetch challenge logs", logError);
