@@ -1,0 +1,126 @@
+@use "@/styles/_variables.scss" as *;
+
+.dashboard-kyurem {
+  @include flex-column(12px);
+  padding: 28px 16px;
+  // border: $border;
+
+  h1 {
+    overflow: hidden;
+    color: rgba(26, 26, 26, 0.8);
+    text-overflow: ellipsis;
+    font-family: "Work Sans";
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.16px;
+  }
+
+  .dashboard-kyurem_display-example {
+    @include flex-column(14.4px);
+    padding: 12px 18px;
+    opacity: 0.65;
+    // cursor: not-allowed;
+    // border: $violet;
+
+    &_titles {
+      @include flex-column(3.6px);
+      padding-left: 3.6px;
+
+      h3 {
+        color: rgba(26, 26, 26, 0.9);
+        font-family: Asap;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 25.2px;
+      }
+
+      p {
+        color: rgba(26, 26, 26, 0.9);
+        font-family: Asap;
+        font-size: 10.8px;
+        font-weight: 400;
+        line-height: 14.4px;
+        letter-spacing: 0.108px;
+      }
+    }
+
+    &_cards {
+      @include flex-column(3.6px);
+      // border: $border;
+
+      .divider {
+        height: 1px;
+        background: rgba(26, 26, 26, 0.15);
+      }
+
+      &-card {
+        display: flex;
+        align-items: center;
+        padding: 3.6px 0 7.2px 7.2px;
+
+        span {
+          height: 18px;
+          width: 18px;
+          margin-right: 7.2px;
+        }
+
+        &-text {
+          @include flex-column(1.8px);
+          padding: 3.6px 10.8px 3.6px 0px;
+
+          p {
+            overflow: hidden;
+            color: #1a1a1a;
+            text-overflow: ellipsis;
+            font-family: "Work Sans";
+            font-size: 12.6px;
+            font-weight: 700;
+            line-height: 18px;
+            letter-spacing: 0.126px;
+          }
+
+          p + p {
+            color: rgba(26, 26, 26, 0.8);
+            font-family: Asap;
+            font-size: 9px;
+            font-weight: 400;
+            line-height: 10.8px;
+            letter-spacing: 0.09px;
+          }
+        }
+
+        &-status {
+          display: flex;
+          padding-top: 3.6px;
+          margin-left: auto;
+          // border: $maroon;
+
+          &-done {
+            display: flex;
+            align-items: center;
+            gap: 2.7px;
+            padding: 1.8px 1.8px 7.2px 1.8px;
+            color: #1a1a1a;
+            font-size: 10.8px;
+            font-weight: 600;
+            line-height: 14.4px;
+            letter-spacing: -0.216px;
+
+            img {
+              height: 18px;
+              width: 18px;
+              margin: 1.8px;
+            }
+          }
+
+          div + img {
+            width: 16.2px;
+            height: 16.2px;
+            margin: 4.5px;
+          }
+        }
+      }
+    }
+  }
+}

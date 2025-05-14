@@ -7,9 +7,6 @@ import { getGreeting } from "@/utils/getGreeting";
 import "./Home.scss";
 import { AnimatePresence } from "framer-motion";
 import PlaceHolderAvatarGroup from "@/assets/PlaceHolderAvatarGroup.jpg";
-import greenCheckmark from "@/assets/checkmark-green-circle.svg";
-import greyCheckmark from "@/assets/checkmark-grey-circle.svg";
-import greyEllipsis from "@/assets/vertical-ellipsis-grey.png";
 import plusCircle from "@/assets/plus-black-circle-white.png";
 
 //Auth
@@ -25,12 +22,12 @@ import CarraigeLoader from "@/components/CarraigeLoader";
 import Button from "@/components/Button";
 import Overlay from "@/components/Overlay.tsx";
 import ChallengerForm from "@/components/ChallengerForm.tsx";
+import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
 
 const Home = () => {
   const { challenges, fetchChallenges } = useChallengesStore();
   console.log(challenges, "challenges");
-  const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(true);
-  // const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
+  const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
   const userId = useUserStore((s) => s.userId);
@@ -90,53 +87,7 @@ const Home = () => {
         </div>
       </section>
       {!challenges.length && (
-        <section className="dashboard-kyurem">
-          <h1>Your challenges will appear here</h1>
-          <div className="dashboard-kyurem_display-example">
-            <div className="dashboard-kyurem_display-example_titles">
-              <h3>Challenges</h3>
-              <p>Show your fellow chaps you are true to your word</p>
-            </div>
-            <div className="dashboard-kyurem_display-example_cards">
-              <div className="divider"></div>
-              <div className="dashboard-kyurem_display-example_cards-card">
-                <span role="img" aria-label="bagel">
-                  🥯
-                </span>
-                <div className="dashboard-kyurem_display-example_cards-card-text">
-                  <p>Jog to bagel store</p>
-                  <p>Daily, 1 day left</p>
-                </div>
-                <div className="dashboard-kyurem_display-example_cards-card-status">
-                  <div className="dashboard-kyurem_display-example_cards-card-status-done">
-                    <img src={greenCheckmark} />
-                    <p>Done</p>
-                  </div>
-                  <img src={greyEllipsis} />
-                </div>
-              </div>
-              <div className="divider"></div>
-
-              <div className="dashboard-kyurem_display-example_cards-card">
-                <span role="img" aria-label="bagel">
-                  🏃
-                </span>
-                <div className="dashboard-kyurem_display-example_cards-card-text">
-                  <p>Jog to bagel store</p>
-                  <p>Daily, 1 day left</p>
-                </div>
-                <div className="dashboard-kyurem_display-example_cards-card-status">
-                  <div className="dashboard-kyurem_display-example_cards-card-status-done">
-                    <img src={greyCheckmark} />
-                    <p>Done</p>
-                  </div>
-                  <img src={greyEllipsis} />
-                </div>
-              </div>
-              <div className="divider"></div>
-            </div>
-          </div>
-        </section>
+        <DashboardEmptyExamples />
       )}
       {!challenges.length && (
         <section className="dashboard-kyurem_cta">
