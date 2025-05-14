@@ -9,6 +9,8 @@ import { supabase } from "@/supabase-client";
 
 //Zustand
 import { useUserStore } from "@/stores/userStore";
+import useChallengesStore from "@/stores/challengesStore";
+
 
 //Styles
 import "./ChallengerForm.scss";
@@ -29,6 +31,7 @@ interface ChallengerFormTypes {
 
 const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const userId = useUserStore((s) => s.userId);
+  const { fetchChallenges } = useChallengesStore();
   const [challenge, setChallenge] = useState<string>("");
   const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(
     getTomorrow
@@ -38,9 +41,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
     "1d" | "1w" | "custom"
   >("1d");
   const deadlineDisplay = getDeadlineDisplay(deadline);
-  // console.log(deadline, deadline.toISOString(), "deadline");
   const [isPublic, setIsPublic] = useState<boolean>(true);
-  // setIsPublic(true);
 
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
 
@@ -58,7 +59,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
   // TODO: make test for displayDate fn
   // TODO: make test for getTomorrow fn
-  // TODO: test dates/check in collab with Product Manager about dates in btns
+
   const deadlineOptions = [
     {
       key: "1d",
@@ -191,6 +192,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       console.error("Log submission error:", logError.message);
     } else {
       console.log("✅ Challenge + log submitted to test tables");
+      fetchChallenges(userId);
       onClose();
     }
   };

@@ -28,8 +28,9 @@ import ChallengerForm from "@/components/ChallengerForm.tsx";
 
 const Home = () => {
   const { challenges, fetchChallenges } = useChallengesStore();
-  console.log(challenges)
-  const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
+  console.log(challenges, "challenges");
+  const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(true);
+  // const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
   const userId = useUserStore((s) => s.userId);
