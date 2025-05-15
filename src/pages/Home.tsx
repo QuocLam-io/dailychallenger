@@ -25,8 +25,20 @@ import ChallengerForm from "@/components/ChallengerForm.tsx";
 import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
 
 const Home = () => {
-  const { challenges, fetchChallenges } = useChallengesStore();
-  console.log(challenges, "challenges");
+  const {
+    challenges,
+    currentChallenges,
+    pastChallenges,
+    needsUserAction,
+    fetchChallenges,
+  } = useChallengesStore();
+  // console.log(
+  //   challenges,
+  //   currentChallenges,
+  //   pastChallenges,
+  //   needsUserAction,
+  //   "challenges"
+  // );
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
@@ -113,13 +125,12 @@ const Home = () => {
         <section className="dashboard_cta-footer">
           <button>
             <p>Current Challenges</p>
-            <span>{challenges.length}</span>
+            <span>{currentChallenges.length}</span>
           </button>
           <button>
             <p>Past Challenges</p>
-            <span>{challenges.length}</span>
+            <span>{pastChallenges.length}</span>
           </button>
- 
         </section>
       )}
 

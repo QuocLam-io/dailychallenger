@@ -18,6 +18,9 @@ type Challenge = {
 
 interface ChallengesProps {
   challenges: Challenge[];
+  currentChallenges: Challenge[];
+  pastChallenges: Challenge[];
+  needsUserAction: Challenge[];
   fetchChallenges: (userId: string) => Promise<void>;
 }
 
@@ -47,6 +50,8 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
         return;
       }
 
+      const now = new Date();
+
       const enriched = logs.map((log) => {
         const match = challengeData.find((c) => c.id === log.challenge_id);
         return {
@@ -55,7 +60,25 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
         };
       });
 
-      set({ challenges: enriched });
+      const past = enriched.filter((c) => {
+        return c.completed_at || c.failed_at;
+      });
+
+      const current = enriched.filter((c) => {
+        return !c.completed_at && !c.failed_at;
+      });
+
+      const needsUserAction = enriched.filter((c) => {
+        const deadlinePassed = c.deadline && new Date(c.deadline) < now;
+        return !c.completed_at && !c.failed_at && deadlinePassed;
+      });
+
+      set({
+        challenges: enriched,
+        currentChallenges: current,
+        pastChallenges: past,
+        needsUserAction: needsUserAction,
+      });
     } catch (err) {
       console.error("Unexpected error in fetchChallenges:", err);
     }
