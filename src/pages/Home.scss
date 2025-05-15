@@ -7,6 +7,7 @@
   .dashboard-header {
     @include flex-column(12px);
     @include padding-eights;
+    // border: $border;
 
     .dashboard-time {
       display: flex;
@@ -113,6 +114,36 @@
     }
   }
 
+  .dashboard_challenges-display {
+    @include flex-column(16px);
+    padding: 16px;
+    padding-bottom: 40px;
+    border: $border;
+
+    &_header {
+      @include flex-column(4px);
+      color: rgba(26, 26, 26, 0.9);
+      font-family: Asap;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 28px;
+      }
+
+      h3 {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.12px;
+      }
+    }
+
+    &_cards-container {
+      @include flex-column(16px);
+      border: $violet;
+    }
+  }
 
   .dashboard-kyurem_cta {
     @include flex-column(12px);
@@ -134,5 +165,51 @@
     }
 
     //.Button Component
+  }
+
+  .dashboard_cta-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    // border: $border;
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      p {
+        color: #1a1a1a;
+        font-family: "Work Sans";
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: -0.24px;
+      }
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 20px;
+        min-width: 20px;
+        padding: 2px 6.25px 2px 7.25px;
+        color: #fafafa;
+        font-family: "Work Sans";
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: -0.24px;
+        border-radius: 50%;
+        border-radius: 10px;
+        background: #1a1a1a;
+      }
+    }
+    button:nth-of-type(1) {
+      padding: 8px 14px 8px 20px;
+      border-radius: 8px;
+      background: rgba(26, 26, 26, 0.05);
+    }
   }
 }

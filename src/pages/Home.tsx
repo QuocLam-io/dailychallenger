@@ -86,10 +86,18 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {!challenges.length && (
+      {!challenges.length ? (
         <DashboardEmptyExamples />
+      ) : (
+        <section className="dashboard_challenges-display">
+          <div className="dashboard_challenges-display_header">
+            <h2>Challenges</h2>
+            <h3>Show your fellow chaps you are true to your word</h3>
+          </div>
+          <div className="dashboard_challenges-display_cards-container"></div>
+        </section>
       )}
-      {!challenges.length && (
+      {!challenges.length ? (
         <section className="dashboard-kyurem_cta">
           <h2>New are you? Start here:</h2>
           <Button
@@ -100,6 +108,18 @@ const Home = () => {
           >
             Create a challenge
           </Button>
+        </section>
+      ) : (
+        <section className="dashboard_cta-footer">
+          <button>
+            <p>Current Challenges</p>
+            <span>{challenges.length}</span>
+          </button>
+          <button>
+            <p>Past Challenges</p>
+            <span>{challenges.length}</span>
+          </button>
+ 
         </section>
       )}
 
