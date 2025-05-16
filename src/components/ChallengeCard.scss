@@ -1,0 +1,76 @@
+@use "@/styles/_variables.scss" as *;
+
+.challenge-card_wrapper {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  padding-right: 0;
+  border-bottom: $divider;
+
+  &:first-child {
+    border-top: $divider;
+  }
+
+  span {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+  }
+
+  .titles {
+    @include flex-column(2px);
+    padding: 4px 12px 4px 0px;
+
+    h4 {
+      overflow: hidden;
+      color: #1a1a1a;
+      text-overflow: ellipsis;
+      font-family: "Work Sans";
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 20px;
+      letter-spacing: 0.14px;
+    }
+
+    p {
+      color: rgba(26, 26, 26, 0.8);
+      font-family: Asap;
+      font-size: 10px;
+      font-weight: 400;
+      line-height: 12px;
+      letter-spacing: 0.1px;
+    }
+  }
+
+  .card-status {
+    display: flex;
+    // padding-top: 4px;
+    margin-left: auto;
+    // border: $maroon;
+
+    &-done {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 8px 2px 2px;
+      color: #1a1a1a;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 16px;
+      letter-spacing: -0.24px;
+      // border: $border;
+
+      img {
+        height: 20px;
+        width: 20px;
+        margin: 2px;
+      }
+    }
+
+    button > img {
+      width: 16.2px;
+      height: 16.2px;
+      margin: 4.5px;
+    }
+  }
+}

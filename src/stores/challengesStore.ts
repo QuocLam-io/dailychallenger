@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { supabase } from "@/supabase-client";
 
-type Challenge = {
+export type Challenge = {
   challenge_id: string;
   completed_at: string;
   created_at: string;
@@ -19,6 +19,7 @@ type Challenge = {
 interface ChallengesProps {
   challenges: Challenge[];
   currentChallenges: Challenge[];
+  currentDupe: Challenge[];
   pastChallenges: Challenge[];
   needsUserAction: Challenge[];
   fetchChallenges: (userId: string) => Promise<void>;
@@ -76,6 +77,7 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
       set({
         challenges: enriched,
         currentChallenges: current,
+        currentDupe: current,
         pastChallenges: past,
         needsUserAction: needsUserAction,
       });

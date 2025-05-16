@@ -23,22 +23,25 @@ import Button from "@/components/Button";
 import Overlay from "@/components/Overlay.tsx";
 import ChallengerForm from "@/components/ChallengerForm.tsx";
 import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
+import ChallengeCard from "@/components/ChallengeCard";
 
 const Home = () => {
   const {
     challenges,
     currentChallenges,
     pastChallenges,
-    needsUserAction,
+    // needsUserAction,
+    currentDupe,
     fetchChallenges,
   } = useChallengesStore();
-  // console.log(
-  //   challenges,
-  //   currentChallenges,
-  //   pastChallenges,
-  //   needsUserAction,
-  //   "challenges"
-  // );
+  console.log(
+    //   challenges,
+    // currentChallenges,
+    //   pastChallenges,
+    //   needsUserAction,
+    // currentDupe,
+    "challenges"
+  );
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
@@ -98,6 +101,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {/* TODO: ask designer if they have challenges but non active */}
       {!challenges.length ? (
         <DashboardEmptyExamples />
       ) : (
@@ -106,7 +110,11 @@ const Home = () => {
             <h2>Challenges</h2>
             <h3>Show your fellow chaps you are true to your word</h3>
           </div>
-          <div className="dashboard_challenges-display_cards-container"></div>
+          <div className="dashboard_challenges-display_cards-container">
+            {currentDupe.map((c) => {
+              return <ChallengeCard key={c.id} challenge={c} />;
+            })}
+          </div>
         </section>
       )}
       {!challenges.length ? (
@@ -123,6 +131,7 @@ const Home = () => {
         </section>
       ) : (
         <section className="dashboard_cta-footer">
+          {/* TODO: grey background are actually tabs */}
           <button>
             <p>Current Challenges</p>
             <span>{currentChallenges.length}</span>
