@@ -132,6 +132,7 @@ const Home = () => {
       ) : (
         <section className="dashboard_cta-footer">
           {/* TODO: grey background are actually tabs */}
+          {/* TODO: Add a Footer Spacer */}
           <button>
             <p>Current Challenges</p>
             <span>{currentChallenges.length}</span>
