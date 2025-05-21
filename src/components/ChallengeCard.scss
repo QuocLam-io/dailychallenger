@@ -76,17 +76,17 @@
         margin: 4.5px;
       }
 
-      &[aria-expanded="true"] .public-challenge-action-menu {
+      &[aria-expanded="true"] .dropdown-menu {
         height: auto;
         visibility: visible;
       }
 
-      .public-challenge-action-menu {
+      .dropdown-menu {
         z-index: 1;
         position: absolute;
         margin-bottom: 20px;
         right: 0;
-        width: 224px;
+        width: 184px;
         background: var(--color-slate-white, #fff);
         box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.09);
         border-radius: 6px;
@@ -95,7 +95,7 @@
         height: 0;
         overflow: clip;
         visibility: hidden;
-        transition: height 0.5s ease, visibility 2s;
+        transition: height 0.5s ease, visibility 1s;
         // border: $border;
 
         ul {
@@ -133,6 +133,10 @@
             &:hover {
               background: rgba(26, 26, 26, 0.08);
             }
+          }
+
+          li:last-of-type {
+            border-top: solid 1px rgba(26, 26, 26, 0.05);
           }
         }
       }

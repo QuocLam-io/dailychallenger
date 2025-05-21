@@ -7,6 +7,7 @@ import greyCheckmark from "@/assets/checkmark-grey-circle.svg";
 import greyEllipsis from "@/assets/vertical-ellipsis-grey.png";
 import EditPencil from "@/assets/edit-pencil-grey.png";
 import DeleteTrashcan from "@/assets/delete-trashcan-grey.png";
+import addUser from "@/assets/user-add.svg";
 
 //Utils
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
@@ -56,9 +57,9 @@ const ChallengeCard = ({ challenge }: Props) => {
           >
             <img src={greyEllipsis} />
           </button>
-          
+
           <div
-            className="public-challenge-action-menu"
+            className="dropdown-menu"
             role="menu"
             aria-label="Action menu"
           >
@@ -66,6 +67,10 @@ const ChallengeCard = ({ challenge }: Props) => {
               <li role="menuitem">
                 <img src={EditPencil} />
                 <p>Edit</p>
+              </li>
+              <li role="menuitem">
+                <img src={addUser} />
+                <p>Invite</p>
               </li>
               <li role="menuitem">
                 <img src={DeleteTrashcan} />
