@@ -66,11 +66,76 @@
         margin: 2px;
       }
     }
+    .dropdown-menu_wrapper {
+      position: relative;
+      // border: $border;
 
-    button > img {
-      width: 16.2px;
-      height: 16.2px;
-      margin: 4.5px;
+      button > img {
+        width: 16.2px;
+        height: 16.2px;
+        margin: 4.5px;
+      }
+
+      &[aria-expanded="true"] .public-challenge-action-menu {
+        height: auto;
+        visibility: visible;
+      }
+
+      .public-challenge-action-menu {
+        z-index: 1;
+        position: absolute;
+        margin-bottom: 20px;
+        right: 0;
+        width: 224px;
+        background: var(--color-slate-white, #fff);
+        box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.09);
+        border-radius: 6px;
+        border: 1px solid var(--slate-100, #f1f5f9);
+        //Height Animation
+        height: 0;
+        overflow: clip;
+        visibility: hidden;
+        transition: height 0.5s ease, visibility 2s;
+        // border: $border;
+
+        ul {
+          @include flex-column;
+          align-items: flex-start;
+          font-family: Inter;
+          //err I don't think we need to use var(--font-inter) here
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 20px;
+
+          img {
+            width: 16px;
+            height: 16px;
+          }
+
+          li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 13px;
+            width: 100%;
+            transition: background 0.4s ease;
+            cursor: pointer;
+            color: var(--slate-700, #334155);
+            font-family: "Inter";
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px; /* 142.857% */
+
+            p {
+              color: var(--slate-700, #334155);
+            }
+
+            &:hover {
+              background: rgba(26, 26, 26, 0.08);
+            }
+          }
+        }
+      }
     }
   }
 }

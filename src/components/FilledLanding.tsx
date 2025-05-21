@@ -138,6 +138,8 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
           <img src={CheckmarkBW} alt="Check mark icon" />
           <p>{rippleTrigger ? "Good show!" : "Mark as done"}</p>
         </button>
+         {/* Dropdown menu uses visibility instead of display none because of screen readers and accessibility */}
+         {/* wrapper is so the menu is relative to the parent */}
         {!rippleTrigger ? (
           <div
             className="public-challenge-action-menu-wrapper"

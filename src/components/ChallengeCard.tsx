@@ -1,8 +1,12 @@
+//React
+import { useState } from "react";
 // Styles
 import "./ChallengeCard.scss";
 import greenCheckmark from "@/assets/checkmark-green-circle.svg";
 import greyCheckmark from "@/assets/checkmark-grey-circle.svg";
 import greyEllipsis from "@/assets/vertical-ellipsis-grey.png";
+import EditPencil from "@/assets/edit-pencil-grey.png";
+import DeleteTrashcan from "@/assets/delete-trashcan-grey.png";
 
 //Utils
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
@@ -16,7 +20,10 @@ type Props = {
 
 const ChallengeCard = ({ challenge }: Props) => {
   //TODO: time left utils
-  //TODO: dropdown menu
+
+  const [challengeActionsMenuToggle, setChallengeActionsMenuToggle] =
+    useState<boolean>(false);
+  console.log(challengeActionsMenuToggle, "challengeActionsMenuToggle");
 
   const completeChallengeHandler = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -37,9 +44,36 @@ const ChallengeCard = ({ challenge }: Props) => {
             Done
           </button>
         </div>
-        <button>
-          <img src={greyEllipsis} />
-        </button>
+        <div
+          aria-haspopup="menu"
+          aria-expanded={challengeActionsMenuToggle}
+          className="dropdown-menu_wrapper"
+        >
+          <button
+            onClick={() =>
+              setChallengeActionsMenuToggle(!challengeActionsMenuToggle)
+            }
+          >
+            <img src={greyEllipsis} />
+          </button>
+          
+          <div
+            className="public-challenge-action-menu"
+            role="menu"
+            aria-label="Action menu"
+          >
+            <ul>
+              <li role="menuitem">
+                <img src={EditPencil} />
+                <p>Edit</p>
+              </li>
+              <li role="menuitem">
+                <img src={DeleteTrashcan} />
+                <p>Delete</p>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );

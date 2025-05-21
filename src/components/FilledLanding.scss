@@ -154,6 +154,7 @@
         background: rgba(26, 26, 26, 0.08);
       }
 
+      //Dropdown menu uses visibility instead of display none because of screen readers and accessibility
       &[aria-expanded="true"] .public-challenge-action-menu {
         height: auto;
         visibility: visible;
