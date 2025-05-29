@@ -21,12 +21,19 @@ type Props = {
 
 const ChallengeCard = ({ challenge }: Props) => {
   //TODO: time left utils
+  //TODO: keep only one dropdown menu open
+  //TODO: dropdown menu button fns trigger modals to handle actions
 
   const [challengeActionsMenuToggle, setChallengeActionsMenuToggle] =
     useState<boolean>(false);
   console.log(challengeActionsMenuToggle, "challengeActionsMenuToggle");
 
   const completeChallengeHandler = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    console.log(id);
+  };
+
+  const deleteChallengeHandler = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     console.log(id);
   };
@@ -58,11 +65,7 @@ const ChallengeCard = ({ challenge }: Props) => {
             <img src={greyEllipsis} />
           </button>
 
-          <div
-            className="dropdown-menu"
-            role="menu"
-            aria-label="Action menu"
-          >
+          <div className="dropdown-menu" role="menu" aria-label="Action menu">
             <ul>
               <li role="menuitem">
                 <img src={EditPencil} />
