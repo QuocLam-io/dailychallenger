@@ -1,5 +1,5 @@
 //React
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 // Styles
 import "./ChallengeCard.scss";
 import greenCheckmark from "@/assets/checkmark-green-circle.svg";
@@ -25,19 +25,44 @@ const ChallengeCard = ({ challenge }: Props) => {
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
 
-  // const [challengeActionsMenuToggle, setChallengeActionsMenuToggle] =
-  //   useState<boolean>(false);
-  // console.log(challengeActionsMenuToggle, "challengeActionsMenuToggle");
-
   const completeChallengeHandler = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     console.log(id);
   };
 
-  const deleteChallengeHandler = (e: React.MouseEvent, id: string) => {
-    e.preventDefault();
-    console.log(id);
-  };
+  // const deleteChallengeHandler = (e: React.MouseEvent, id: string) => {
+  //   e.preventDefault();
+  //   console.log(id);
+  // };
+
+  //Close action for dropdown
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        openDropdownId === challenge.id
+      ) {
+        toggleDropdownId(challenge.id);
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && openDropdownId === challenge.id) {
+        toggleDropdownId(challenge.id);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [openDropdownId, challenge.id, toggleDropdownId]);
 
   return (
     <div className="challenge-card_wrapper">
@@ -56,11 +81,11 @@ const ChallengeCard = ({ challenge }: Props) => {
         <div
           aria-haspopup="menu"
           aria-expanded={isOpen}
+          ref={dropdownRef}
           className="dropdown-menu_wrapper"
         >
           <button
             onClick={() => {
-              // setChallengeActionsMenuToggle(!challengeActionsMenuToggle);
               toggleDropdownId(challenge.id);
             }}
           >
@@ -69,17 +94,23 @@ const ChallengeCard = ({ challenge }: Props) => {
 
           <div className="dropdown-menu" role="menu" aria-label="Action menu">
             <ul>
-              <li role="menuitem">
-                <img src={EditPencil} />
-                <p>Edit</p>
+              <li role="none">
+                <button role="menuitem">
+                  <img src={EditPencil} />
+                  <p>Edit</p>
+                </button>
               </li>
-              <li role="menuitem">
-                <img src={addUser} />
-                <p>Invite</p>
+              <li role="none">
+                <button role="menuitem">
+                  <img src={addUser} />
+                  <p>Invite</p>
+                </button>
               </li>
-              <li role="menuitem">
-                <img src={DeleteTrashcan} />
-                <p>Delete</p>
+              <li role="none">
+                <button role="menuitem">
+                  <img src={DeleteTrashcan} />
+                  <p>Delete</p>
+                </button>
               </li>
             </ul>
           </div>
