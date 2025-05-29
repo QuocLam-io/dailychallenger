@@ -28,7 +28,7 @@ interface ChallengesProps {
 const useChallengesStore = create<ChallengesProps>((set) => ({
   challenges: [],
   currentChallenges: [],
-  currentDupe: null,
+  currentDupe: [],
   pastChallenges: [],
   needsUserAction: [],
   fetchChallenges: async (userId: string) => {
