@@ -69,7 +69,7 @@ const ChallengeCard = ({ challenge }: Props) => {
       <span>{challenge.emoji}</span>
       <div className="titles">
         <h4>{challenge.title}</h4>
-        <p>{getDeadlineDisplay(challenge.deadline)} left</p>
+        <p>{getDeadlineDisplay(new Date(challenge.deadline))} left</p>
       </div>
       <div className="card-status">
         <div className="card-status-done">
