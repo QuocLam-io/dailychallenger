@@ -11,7 +11,6 @@ import { supabase } from "@/supabase-client";
 import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
 
-
 //Styles
 import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
@@ -154,7 +153,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
     e.preventDefault();
 
-    if (!challenge || !deadline || !emoji) return;
+    if (!userId || !challenge || !deadline || !emoji) return;
 
     const { data: existingChallenge } = await supabase
       .from("challenges")
@@ -196,7 +195,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       onClose();
     }
   };
-  /* -------------------------------------------------------------------------- */
+
   return (
     <motion.div className="challenger-form_wrapper" {...fadeInOut}>
       {/* --------------------------------- Modals --------------------------------- */}
