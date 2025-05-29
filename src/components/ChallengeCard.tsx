@@ -8,12 +8,12 @@ import greyEllipsis from "@/assets/vertical-ellipsis-grey.png";
 import EditPencil from "@/assets/edit-pencil-grey.png";
 import DeleteTrashcan from "@/assets/delete-trashcan-grey.png";
 import addUser from "@/assets/user-add.svg";
-
 //Utils
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
-
 //Types
 import { Challenge } from "@/stores/challengesStore";
+//Zustand
+import { useDropdownStore } from "@/stores/dropdownStore";
 
 type Props = {
   challenge: Challenge;
@@ -21,12 +21,13 @@ type Props = {
 
 const ChallengeCard = ({ challenge }: Props) => {
   //TODO: time left utils
-  //TODO: keep only one dropdown menu open
   //TODO: dropdown menu button fns trigger modals to handle actions
+  const { openDropdownId, toggleDropdownId } = useDropdownStore();
+  const isOpen = openDropdownId === challenge.id;
 
-  const [challengeActionsMenuToggle, setChallengeActionsMenuToggle] =
-    useState<boolean>(false);
-  console.log(challengeActionsMenuToggle, "challengeActionsMenuToggle");
+  // const [challengeActionsMenuToggle, setChallengeActionsMenuToggle] =
+  //   useState<boolean>(false);
+  // console.log(challengeActionsMenuToggle, "challengeActionsMenuToggle");
 
   const completeChallengeHandler = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -54,13 +55,14 @@ const ChallengeCard = ({ challenge }: Props) => {
         </div>
         <div
           aria-haspopup="menu"
-          aria-expanded={challengeActionsMenuToggle}
+          aria-expanded={isOpen}
           className="dropdown-menu_wrapper"
         >
           <button
-            onClick={() =>
-              setChallengeActionsMenuToggle(!challengeActionsMenuToggle)
-            }
+            onClick={() => {
+              // setChallengeActionsMenuToggle(!challengeActionsMenuToggle);
+              toggleDropdownId(challenge.id);
+            }}
           >
             <img src={greyEllipsis} />
           </button>
