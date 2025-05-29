@@ -27,6 +27,10 @@ interface ChallengesProps {
 
 const useChallengesStore = create<ChallengesProps>((set) => ({
   challenges: [],
+  currentChallenges: [],
+  currentDupe: null,
+  pastChallenges: [],
+  needsUserAction: [],
   fetchChallenges: async (userId: string) => {
     try {
       const { data: logs, error: logError } = await supabase
