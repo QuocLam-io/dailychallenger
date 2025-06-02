@@ -72,12 +72,13 @@ const ChallengeCard = ({ challenge }: Props) => {
         <p>{getDeadlineDisplay(new Date(challenge.deadline))} left</p>
       </div>
       <div className="card-status">
-        <div className="card-status-done">
+        <button
+          onClick={(e) => completeChallengeHandler(e, challenge.id)}
+          className="card-status-done"
+        >
           <img src={challenge.is_completed ? greenCheckmark : greyCheckmark} />
-          <button onClick={(e) => completeChallengeHandler(e, challenge.id)}>
-            Done
-          </button>
-        </div>
+          <span>Done</span>
+        </button>
         <div
           aria-haspopup="menu"
           aria-expanded={isOpen}
