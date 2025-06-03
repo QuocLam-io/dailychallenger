@@ -139,9 +139,37 @@
       }
     }
 
+    &_new-cta {
+      padding: 40px 16px 24px;
+      text-align: center;
+
+      p {
+        color: rgba(26, 26, 26, 0.8);
+        text-overflow: ellipsis;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 20px; /* 142.857% */
+        letter-spacing: 0.14px;
+      }
+      button {
+        margin-top: 20px;
+      }
+    }
+
     &_cards-container {
       @include flex-column;
       // border: $violet;
+
+      &_new-challenge-card {
+        display: flex;
+        padding: 16px 12px 16px 9px;
+        gap: 9px;
+        color: rgba(26, 26, 26, 0.8);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 20px;
+        letter-spacing: 0.14px;
+      }
     }
   }
 
@@ -174,13 +202,15 @@
     display: flex;
     gap: 8px;
     padding: 12px 16px;
-    background: #FFF;
+    background: #fff;
     // border: $border;
 
     button {
       display: flex;
       align-items: center;
       gap: 10px;
+      padding: 10px 12px;
+
       p {
         color: #1a1a1a;
         font-family: "Work Sans";
@@ -206,11 +236,6 @@
         border-radius: 10px;
         background: #1a1a1a;
       }
-    }
-    button:nth-of-type(1) {
-      padding: 8px 14px 8px 20px;
-      border-radius: 8px;
-      background: rgba(26, 26, 26, 0.05);
     }
   }
 }

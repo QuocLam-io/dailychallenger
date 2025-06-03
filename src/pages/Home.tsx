@@ -8,6 +8,7 @@ import "./Home.scss";
 import { AnimatePresence } from "framer-motion";
 import PlaceHolderAvatarGroup from "@/assets/PlaceHolderAvatarGroup.jpg";
 import plusCircle from "@/assets/plus-black-circle-white.png";
+import plusSoft from "@/assets/plus-white-circle-grey.svg";
 
 //Auth
 import { useUser } from "@clerk/clerk-react";
@@ -34,11 +35,11 @@ const Home = () => {
     fetchChallenges,
   } = useChallengesStore();
   console.log(
-    //   challenges,
-    //   currentChallenges,
+    // challenges,
+    // currentChallenges,
     //    pastChallenges,
     needsUserAction,
-    "challenges"
+    "current"
   );
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
@@ -46,6 +47,7 @@ const Home = () => {
   const userId = useUserStore((s) => s.userId);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
+  const [activeTab, setActiveTab] = useState("current")
 
   /* ----------------------- Fetch Challenges useEffect ----------------------- */
 
@@ -105,7 +107,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* TODO: ask designer if they have challenges but non active */}
       {!challenges.length ? (
         <DashboardEmptyExamples />
       ) : (
@@ -114,13 +115,34 @@ const Home = () => {
             <h2>Challenges</h2>
             <h3>Show your fellow chaps you are true to your word</h3>
           </div>
-          <div className="dashboard_challenges-display_cards-container">
-            {currentChallenges.map((c) => {
-              return <ChallengeCard key={c.id} challenge={c} />;
-            })}
-          </div>
+          {currentChallenges.length === 0 ? (
+            <div className="dashboard_challenges-display_new-cta">
+              <p>You’ve done it! Splendid work.</p>
+              <p>Now then — pip pip, and on to the next!</p>
+              <Button
+                icon={plusCircle}
+                onClick={() => setIsChallengerFormOpen(true)}
+              >
+                Create a challenge
+              </Button>
+            </div>
+          ) : (
+            <div className="dashboard_challenges-display_cards-container">
+              {currentChallenges.map((c) => {
+                return <ChallengeCard key={c.id} challenge={c} />;
+              })}
+              <button
+                onClick={() => setIsChallengerFormOpen(true)}
+                className="dashboard_challenges-display_cards-container_new-challenge-card"
+              >
+                <img src={plusSoft} />
+                <span>New challenge</span>
+              </button>
+            </div>
+          )}
         </section>
       )}
+      {/* Footer */}
       {!challenges.length ? (
         <section className="dashboard-kyurem_cta">
           <h2>New are you? Start here:</h2>
