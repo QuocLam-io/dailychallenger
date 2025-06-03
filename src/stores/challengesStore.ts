@@ -64,15 +64,17 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
       });
 
       const past = enriched.filter((c) => {
-        return c.completed_at || c.failed_at;
+        const deadlinePassed = new Date(c.deadline) < now;
+        return deadlinePassed;
       });
 
       const current = enriched.filter((c) => {
-        return !c.completed_at && !c.failed_at;
+        const deadlinePassed = new Date(c.deadline) < now;
+        return !deadlinePassed;
       });
 
       const needsUserAction = enriched.filter((c) => {
-        const deadlinePassed = c.deadline && new Date(c.deadline) < now;
+        const deadlinePassed = new Date(c.deadline) < now;
         return !c.completed_at && !c.failed_at && deadlinePassed;
       });
 

@@ -36,7 +36,7 @@ const Home = () => {
   console.log(
     //   challenges,
     //   currentChallenges,
-    //   pastChallenges,
+      pastChallenges,
     //   needsUserAction,
     "challenges"
   );
