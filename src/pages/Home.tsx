@@ -31,15 +31,13 @@ const Home = () => {
     currentChallenges,
     pastChallenges,
     // needsUserAction,
-    currentDupe,
     fetchChallenges,
   } = useChallengesStore();
   console.log(
     //   challenges,
-    // currentChallenges,
+    //   currentChallenges,
     //   pastChallenges,
     //   needsUserAction,
-    // currentDupe,
     "challenges"
   );
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
@@ -59,6 +57,12 @@ const Home = () => {
       fetchChallenges(userId);
     }
   }, [userId]);
+
+  /* ----------------------- Mark Challenge Done Handler ---------------------- */
+
+  const markDoneHandler = (challenge) => {
+    console.log(challenge);
+  };
   /* -------------------------------------------------------------------------- */
   if (!userId) return <CarraigeLoader />;
 
@@ -111,7 +115,7 @@ const Home = () => {
             <h3>Show your fellow chaps you are true to your word</h3>
           </div>
           <div className="dashboard_challenges-display_cards-container">
-            {currentDupe.map((c) => {
+            {currentChallenges.map((c) => {
               return <ChallengeCard key={c.id} challenge={c} />;
             })}
           </div>

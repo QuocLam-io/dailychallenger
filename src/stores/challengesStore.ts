@@ -19,7 +19,6 @@ export type Challenge = {
 interface ChallengesProps {
   challenges: Challenge[];
   currentChallenges: Challenge[];
-  currentDupe: Challenge[];
   pastChallenges: Challenge[];
   needsUserAction: Challenge[];
   fetchChallenges: (userId: string) => Promise<void>;
@@ -28,7 +27,6 @@ interface ChallengesProps {
 const useChallengesStore = create<ChallengesProps>((set) => ({
   challenges: [],
   currentChallenges: [],
-  currentDupe: [],
   pastChallenges: [],
   needsUserAction: [],
   fetchChallenges: async (userId: string) => {
@@ -81,7 +79,6 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
       set({
         challenges: enriched,
         currentChallenges: current,
-        currentDupe: current,
         pastChallenges: past,
         needsUserAction: needsUserAction,
       });
