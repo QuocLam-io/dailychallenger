@@ -30,14 +30,14 @@ const Home = () => {
     challenges,
     currentChallenges,
     pastChallenges,
-    // needsUserAction,
+    needsUserAction,
     fetchChallenges,
   } = useChallengesStore();
   console.log(
     //   challenges,
     //   currentChallenges,
-      pastChallenges,
-    //   needsUserAction,
+    //    pastChallenges,
+    needsUserAction,
     "challenges"
   );
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);

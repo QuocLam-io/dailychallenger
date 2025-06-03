@@ -14,6 +14,7 @@ export type Challenge = {
   is_public: boolean;
   title: string;
   user_id: string;
+  is_dismissed: boolean;
 };
 
 interface ChallengesProps {
@@ -75,7 +76,9 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
 
       const needsUserAction = enriched.filter((c) => {
         const deadlinePassed = new Date(c.deadline) < now;
-        return !c.completed_at && !c.failed_at && deadlinePassed;
+        return (
+          !c.completed_at && !c.failed_at && !c.is_dismissed && deadlinePassed
+        );
       });
 
       set({
