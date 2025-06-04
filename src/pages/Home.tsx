@@ -1,5 +1,5 @@
 //React
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 //Utils
 import { getGreeting } from "@/utils/getGreeting";
 
@@ -25,6 +25,7 @@ import Overlay from "@/components/Overlay.tsx";
 import ChallengerForm from "@/components/ChallengerForm.tsx";
 import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
 import ChallengeCard from "@/components/ChallengeCard";
+import DashboardCTAFooter from "@/components/dashboard/DashboardCTAFooter";
 
 const Home = () => {
   const {
@@ -47,7 +48,6 @@ const Home = () => {
   const userId = useUserStore((s) => s.userId);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
-  const [activeTab, setActiveTab] = useState("current")
 
   /* ----------------------- Fetch Challenges useEffect ----------------------- */
 
@@ -156,18 +156,8 @@ const Home = () => {
           </Button>
         </section>
       ) : (
-        <section className="dashboard_cta-footer">
-          {/* TODO: grey background are actually tabs */}
-          {/* TODO: Add a Footer Spacer */}
-          <button>
-            <p>Current Challenges</p>
-            <span>{currentChallenges.length}</span>
-          </button>
-          <button>
-            <p>Past Challenges</p>
-            <span>{pastChallenges.length}</span>
-          </button>
-        </section>
+          // {/* TODO: Add a Footer Spacer */}
+        <DashboardCTAFooter/>
       )}
 
       {/* Modals */}

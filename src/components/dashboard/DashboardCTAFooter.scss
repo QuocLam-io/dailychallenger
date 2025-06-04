@@ -1,0 +1,53 @@
+@use "@/styles/_variables.scss" as *;
+
+.dashboard_cta-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 16px;
+  background: #fff;
+  // border: $border;
+
+  &_cursor-wrapper {
+    display: flex;
+    gap: 8px;
+
+    button {
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+
+      p {
+        color: #1a1a1a;
+        font-family: "Work Sans";
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: -0.24px;
+      }
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 20px;
+        min-width: 20px;
+        padding: 2px 6.25px 2px 7.25px;
+        color: #fafafa;
+        font-family: "Work Sans";
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: -0.24px;
+        border-radius: 50%;
+        border-radius: 10px;
+        background: #1a1a1a;
+      }
+    }
+    button.active {
+      background: rgba(26, 26, 26, 0.05);
+    }
+  }
+}
