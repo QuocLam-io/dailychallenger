@@ -47,8 +47,12 @@
         background: #1a1a1a;
       }
     }
-    button.active {
+
+    .dashboard_cta-footer_cursor {
+      z-index: 0;
+      position: absolute;
       background: rgba(26, 26, 26, 0.05);
+      border-radius: 8px;
     }
   }
 }

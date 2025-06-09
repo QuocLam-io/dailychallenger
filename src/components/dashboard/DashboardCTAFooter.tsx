@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 //Style
 import "./DashboardCTAFooter.scss";
 import { motion as m } from "framer-motion";
@@ -9,13 +9,30 @@ import useChallengesStore from "@/stores/challengesStore";
 
 const DashboardCTAFooter = () => {
   const { activeTab, setActiveTab } = useDashboardStore();
+  console.log(activeTab);
   const { currentChallenges, pastChallenges } = useChallengesStore();
 
   const [position, setPosition] = useState({
     left: 0,
     width: 0,
+    height: 0,
     opacity: 0,
   });
+
+  const currentRef = useRef(null);
+  const pastRef = useRef(null);
+
+  useEffect(() => {
+    if (currentRef.current && currentRef.current.offsetParent) {
+      const { offsetLeft, offsetWidth, offsetHeight } = currentRef.current;
+      setPosition({
+        left: offsetLeft,
+        width: offsetWidth,
+        height: offsetHeight,
+        opacity: 1,
+      });
+    }
+  }, []);
 
   return (
     <section className="dashboard_cta-footer">
@@ -23,18 +40,20 @@ const DashboardCTAFooter = () => {
         <Tab
           tabType="current"
           setPosition={setPosition}
-          activeTab={activeTab}
+          // activeTab={activeTab}
           length={currentChallenges.length}
           onClick={setActiveTab}
+          tabRef={currentRef}
         >
           Current Challenges
         </Tab>
         <Tab
           tabType="past"
           setPosition={setPosition}
-          activeTab={activeTab}
+          // activeTab={activeTab}
           length={pastChallenges.length}
           onClick={setActiveTab}
+          tabRef={pastRef}
         >
           Past Challenges
         </Tab>
@@ -47,26 +66,23 @@ const DashboardCTAFooter = () => {
 
 export default DashboardCTAFooter;
 
-const Tab = ({ children, setPosition, length, onClick, activeTab, tabType }) => {
+const Tab = ({ children, setPosition, length, onClick, tabType, tabRef }) => {
   //TODO: make typescript props
-  //TODO: Refactor cursor to match designs and appear behind current tab on default
-
-  const ref = useRef(null);
 
   return (
     <button
-      ref={ref}
+      ref={tabRef}
       onMouseEnter={() => {
-        if (!ref.current) return;
+        if (!tabRef.current) return;
 
-        const { width } = ref.current.getBoundingClientRect();
+        const { width, height } = tabRef.current.getBoundingClientRect();
         setPosition({
           width,
           opacity: 1,
-          left: ref.current.offsetLeft,
+          height,
+          left: tabRef.current.offsetLeft,
         });
       }}
-      className={activeTab === tabType ? "active" : ""}
       onClick={() => onClick(tabType)}
     >
       <p>{children}</p>
@@ -78,8 +94,10 @@ const Tab = ({ children, setPosition, length, onClick, activeTab, tabType }) => 
 const Cursor = ({ position }) => {
   return (
     <m.span
+      initial={false}
+      layout
       animate={position}
-      className="absolute z-0 h-10 rounded-full bg-black md:h-12"
+      className="dashboard_cta-footer_cursor"
     />
   );
 };
