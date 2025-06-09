@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, RefObject } from "react";
 //Style
 import "./DashboardCTAFooter.scss";
 import { motion as m } from "framer-motion";
@@ -66,9 +66,28 @@ const DashboardCTAFooter = () => {
 
 export default DashboardCTAFooter;
 
-const Tab = ({ children, setPosition, length, onClick, tabType, tabRef }) => {
-  //TODO: make typescript props
+interface TabProps {
+  children: React.ReactNode;
+  setPosition: (position: {
+    width: number;
+    height: number;
+    left: number;
+    opacity: number;
+  }) => void;
+  length: number;
+  tabType: "current" | "past";
+  tabRef: RefObject<HTMLButtonElement>;
+  onClick: (tabType: "current" | "past") => void;
+}
 
+const Tab = ({
+  children,
+  setPosition,
+  length,
+  onClick,
+  tabType,
+  tabRef,
+}: TabProps) => {
   return (
     <button
       ref={tabRef}
