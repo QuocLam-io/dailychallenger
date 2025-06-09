@@ -19,11 +19,11 @@ const DashboardCTAFooter = () => {
     opacity: 0,
   });
 
-  const currentRef = useRef(null);
-  const pastRef = useRef(null);
+  const currentRef = useRef<HTMLButtonElement>(null);
+  const pastRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (currentRef.current && currentRef.current.offsetParent) {
+    if (currentRef.current) {
       const { offsetLeft, offsetWidth, offsetHeight } = currentRef.current;
       setPosition({
         left: offsetLeft,
@@ -110,7 +110,16 @@ const Tab = ({
   );
 };
 
-const Cursor = ({ position }) => {
+const Cursor = ({
+  position,
+}: {
+  position: {
+    left: number;
+    width: number;
+    height: number;
+    opacity: number;
+  };
+}) => {
   return (
     <m.span
       initial={false}
