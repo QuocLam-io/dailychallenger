@@ -281,7 +281,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
           </div>
           <div className="challenger-form_deadline-setter">
             <div className="deadline-setter_date-setting">
-              <p>Ends in:</p>
+              <p>Do it by</p>
               <motion.div
                 ref={carousel}
                 className="deadline-setter_date-setting_carousel"
