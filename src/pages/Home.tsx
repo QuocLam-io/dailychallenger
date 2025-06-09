@@ -2,21 +2,19 @@
 import { useEffect, useState } from "react";
 //Utils
 import { getGreeting } from "@/utils/getGreeting";
-
 //Styles
 import "./Home.scss";
 import { AnimatePresence } from "framer-motion";
 import PlaceHolderAvatarGroup from "@/assets/PlaceHolderAvatarGroup.jpg";
 import plusCircle from "@/assets/plus-black-circle-white.png";
 import plusSoft from "@/assets/plus-white-circle-grey.svg";
-
 //Auth
 import { useUser } from "@clerk/clerk-react";
-
 //Zustand
 import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
-
+//Types
+import type { Challenge } from "@/stores/challengesStore";
 //Components
 import NavSpacer from "@/components/NavSpacer";
 import CarraigeLoader from "@/components/CarraigeLoader";
@@ -62,10 +60,10 @@ const Home = () => {
 
   /* ----------------------- Mark Challenge Done Handler ---------------------- */
 
-  const markDoneHandler = (challenge) => {
+  const markDoneHandler = (challenge: Challenge) => {
     console.log(challenge);
   };
-  console.log(markDoneHandler, pastChallenges)
+  console.log(markDoneHandler, pastChallenges);
   /* -------------------------------------------------------------------------- */
   if (!userId) return <CarraigeLoader />;
 
@@ -157,8 +155,8 @@ const Home = () => {
           </Button>
         </section>
       ) : (
-          // {/* TODO: Add a Footer Spacer */}
-        <DashboardCTAFooter/>
+        // {/* TODO: Add a Footer Spacer */}
+        <DashboardCTAFooter />
       )}
 
       {/* Modals */}
