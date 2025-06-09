@@ -76,7 +76,7 @@ interface TabProps {
   }) => void;
   length: number;
   tabType: "current" | "past";
-  tabRef: RefObject<HTMLButtonElement>;
+  tabRef: RefObject<HTMLButtonElement | null>;
   onClick: (tabType: "current" | "past") => void;
 }
 
