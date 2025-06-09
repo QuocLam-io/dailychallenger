@@ -1,5 +1,5 @@
 //React
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 //Utils
 import { getGreeting } from "@/utils/getGreeting";
 
@@ -65,6 +65,7 @@ const Home = () => {
   const markDoneHandler = (challenge) => {
     console.log(challenge);
   };
+  console.log(markDoneHandler, pastChallenges)
   /* -------------------------------------------------------------------------- */
   if (!userId) return <CarraigeLoader />;
 
