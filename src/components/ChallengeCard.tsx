@@ -101,8 +101,10 @@ const ChallengeCard = ({ challenge }: Props) => {
                   <p>Edit</p>
                 </button>
               </li>
-              <li role="none">
-                <button role="menuitem">
+              <li role="none" >
+                <button 
+                className="dropdown_invite-button"
+                role="menuitem">
                   <img src={addUser} />
                   <p>Invite</p>
                 </button>
