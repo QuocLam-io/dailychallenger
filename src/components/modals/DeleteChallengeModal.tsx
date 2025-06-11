@@ -9,7 +9,7 @@ interface DeleteChallengeModalProps {}
 const DeleteChallengeModal = () => {
   return (
     <Overlay>
-      <div className="delete-challenge-modal_wrapper">
+      <div className="delete-challenge-modal">
         <h2>Delete this challenge?</h2>
         <p>
           Are you sure you want to delete this challenge?
