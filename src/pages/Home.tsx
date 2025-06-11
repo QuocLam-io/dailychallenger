@@ -13,6 +13,7 @@ import { useUser } from "@clerk/clerk-react";
 //Zustand
 import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
+import { useModalsStore } from "@/stores/modalsStore";
 //Types
 import type { Challenge } from "@/stores/challengesStore";
 //Components
@@ -24,6 +25,7 @@ import ChallengerForm from "@/components/ChallengerForm.tsx";
 import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
 import ChallengeCard from "@/components/ChallengeCard";
 import DashboardCTAFooter from "@/components/dashboard/DashboardCTAFooter";
+import DeleteChallengeModal from "@/components/modals/DeleteChallengeModal";
 
 const Home = () => {
   const {
@@ -46,6 +48,7 @@ const Home = () => {
   const userId = useUserStore((s) => s.userId);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
+  const { deleteChallengeModalOpen } = useModalsStore();
 
   /* ----------------------- Fetch Challenges useEffect ----------------------- */
 
@@ -161,11 +164,14 @@ const Home = () => {
 
       {/* Modals */}
       <AnimatePresence>
+        {/* Challenger Form */}
         {isChallengerFormOpen && (
           <Overlay customClassName={`flex-align-start portrait-align-center`}>
             <ChallengerForm onClose={() => setIsChallengerFormOpen(false)} />
           </Overlay>
         )}
+        {/* Delete Challenge Modal */}
+        {deleteChallengeModalOpen && <DeleteChallengeModal />}
       </AnimatePresence>
     </main>
   );

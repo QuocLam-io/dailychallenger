@@ -1,0 +1,7 @@
+@use "@/styles/_variables.scss" as *;
+
+.delete-challenge-modal_wrapper {
+  @include modal-body;
+  padding: 24px;
+  padding-bottom: 16px;
+}

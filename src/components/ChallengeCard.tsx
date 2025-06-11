@@ -16,6 +16,7 @@ import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 import { Challenge } from "@/stores/challengesStore";
 //Zustand
 import { useDropdownStore } from "@/stores/dropdownStore";
+import { useModalsStore } from "@/stores/modalsStore";
 
 type Props = {
   challenge: Challenge;
@@ -23,7 +24,8 @@ type Props = {
 
 const ChallengeCard = ({ challenge }: Props) => {
   //TODO: time left utils
-  //TODO: dropdown menu button fns trigger modals to handle actions
+  const {  toggleDeleteChallengeModalOpen } =
+    useModalsStore();
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
 
@@ -111,14 +113,20 @@ const ChallengeCard = ({ challenge }: Props) => {
                 </button>
               </li> */}
               <li role="none">
-                <button className="dropdown_invite-button-disabled" role="menuitem">
+                <button
+                  className="dropdown_invite-button-disabled"
+                  role="menuitem"
+                >
                   <img src={addUserDisabled} />
                   <p>Invite</p>
                   <span>COMING SOON</span>
                 </button>
               </li>
               <li role="none">
-                <button role="menuitem">
+                <button
+                  onClick={() => toggleDeleteChallengeModalOpen()}
+                  role="menuitem"
+                >
                   <img src={DeleteTrashcan} />
                   <p>Delete</p>
                 </button>
