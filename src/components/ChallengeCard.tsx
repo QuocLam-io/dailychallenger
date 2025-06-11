@@ -7,7 +7,9 @@ import greyCheckmark from "@/assets/checkmark-grey-circle.svg";
 import greyEllipsis from "@/assets/vertical-ellipsis-grey.png";
 import EditPencil from "@/assets/edit-pencil-grey.png";
 import DeleteTrashcan from "@/assets/delete-trashcan-grey.png";
+// @ts-expect-error: This import is temporarily unused, but may be used in the future for the Invite button.
 import addUser from "@/assets/user-add.svg";
+import addUserDisabled from "@/assets/user-add-disabled.svg";
 //Utils
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 //Types
@@ -35,7 +37,7 @@ const ChallengeCard = ({ challenge }: Props) => {
   //   console.log(id);
   // };
 
-  //Close action for dropdown
+  /* ------------------------------ Dropdown Menu ----------------------------- */
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -101,12 +103,18 @@ const ChallengeCard = ({ challenge }: Props) => {
                   <p>Edit</p>
                 </button>
               </li>
-              <li role="none" >
-                <button 
-                className="dropdown_invite-button"
-                role="menuitem">
+              {/* <li role="none">
+                <button role="menuitem">
                   <img src={addUser} />
                   <p>Invite</p>
+                  <span>COMING SOON</span>
+                </button>
+              </li> */}
+              <li role="none">
+                <button className="dropdown_invite-button-disabled" role="menuitem">
+                  <img src={addUserDisabled} />
+                  <p>Invite</p>
+                  <span>COMING SOON</span>
                 </button>
               </li>
               <li role="none">
