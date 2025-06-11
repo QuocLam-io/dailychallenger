@@ -138,8 +138,8 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
           <img src={CheckmarkBW} alt="Check mark icon" />
           <p>{rippleTrigger ? "Good show!" : "Mark as done"}</p>
         </button>
-         {/* Dropdown menu uses visibility instead of display none because of screen readers and accessibility */}
-         {/* wrapper is so the menu is relative to the parent */}
+        {/* Dropdown menu uses visibility instead of display none because of screen readers and accessibility */}
+        {/* wrapper is so the menu is relative to the parent */}
         {!rippleTrigger ? (
           <div
             className="public-challenge-action-menu-wrapper"
@@ -281,10 +281,7 @@ const DeletePublicChallengerModal: React.FC<
         <br />
         <p>
           To create multiple challenges, please{" "}
-          <a
-            // TODO: switch out after pro features are implemented
-            href={`/under-construction`}
-          >
+          <a href="https://closing-turkey-58.accounts.dev/sign-up?redirect_url=https://dailychallenger.netlify.app/">
             sign in or create an account
           </a>
         </p>
