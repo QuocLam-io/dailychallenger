@@ -44,10 +44,12 @@ const Home = () => {
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
+
   const userId = useUserStore((s) => s.userId);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
-  const { deleteChallengeModalOpen } = useModalsStore();
+  // const { deleteChallengeModalOpen } = useModalsStore();
+  const deleteChallengeModalOpen = useModalsStore((s) => s.deleteChallengeModalOpen);
 
   /* ----------------------- Fetch Challenges useEffect ----------------------- */
 
@@ -65,10 +67,10 @@ const Home = () => {
   const markDoneHandler = (challenge: Challenge) => {
     console.log(challenge);
   };
-  console.log(markDoneHandler, pastChallenges);
   /* -------------------------------------------------------------------------- */
   if (!userId) return <CarraigeLoader />;
-
+  
+  console.log(markDoneHandler, pastChallenges);
   return (
     <main className="home_wrapper">
       <NavSpacer />
@@ -130,6 +132,7 @@ const Home = () => {
           ) : (
             <div className="dashboard_challenges-display_cards-container">
               {currentChallenges.map((c) => {
+              {/* {pastChallenges.map((c) => { */}
                 return <ChallengeCard key={c.id} challenge={c} />;
               })}
               <button
