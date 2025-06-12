@@ -23,6 +23,8 @@ import plusReverse from "@/assets/plus-white-circle-black.svg";
 import EmojiPicker from "emoji-picker-react";
 import { Calendar } from "@/components/ui/calendar";
 import Button from "./Button";
+import Overlay from "@/components/Overlay.tsx";
+
 
 interface ChallengerFormTypes {
   onClose: () => void;
@@ -197,157 +199,161 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   };
 
   return (
-    <motion.div className="challenger-form_wrapper" {...fadeInOut}>
-      {/* --------------------------------- Modals --------------------------------- */}
-      <AnimatePresence>
-        {calendarOpen && (
-          <motion.div
-            ref={calendarRef}
-            className="challenger-form_calendar-wrapper"
-            {...fadeInOut}
-          >
-            <Calendar
-              mode="single"
-              selected={pseudoDeadline}
-              onSelect={setPseudoDeadline}
-              disabled={(date) => date < new Date()}
-            />
-            <Button
-              className="challenger-form_calendar-btn-confirm"
-              onClick={() => {
-                setDeadline(pseudoDeadline);
-                setCalendarOpen(false);
-                setSelectedDeadlineType("custom");
-              }}
+    <Overlay customClassName={`flex-align-start portrait-align-center`}>
+      <motion.div className="challenger-form_wrapper" {...fadeInOut}>
+        {/* --------------------------------- Modals --------------------------------- */}
+        <AnimatePresence>
+          {calendarOpen && (
+            <motion.div
+              ref={calendarRef}
+              className="challenger-form_calendar-wrapper"
+              {...fadeInOut}
             >
-              Done
-            </Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {/*  ---------------------------------- Form ----------------------------------  */}
-      <form
-        onSubmit={(e) => submitChallengeHandler(e)}
-        className="challenger-form"
-      >
-        <div className="challenger-form_header">
-          <button
-            type="button"
-            className="emoji-trigger challenger-form_header_emoji-btn"
-            onClick={() => setShowEmojiPicker((prev) => !prev)}
-          >
-            {emoji}
-          </button>
+              <Calendar
+                mode="single"
+                selected={pseudoDeadline}
+                onSelect={setPseudoDeadline}
+                disabled={(date) => date < new Date()}
+              />
+              <Button
+                className="challenger-form_calendar-btn-confirm"
+                onClick={() => {
+                  setDeadline(pseudoDeadline);
+                  setCalendarOpen(false);
+                  setSelectedDeadlineType("custom");
+                }}
+              >
+                Done
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {/*  ---------------------------------- Form ----------------------------------  */}
+        <form
+          onSubmit={(e) => submitChallengeHandler(e)}
+          className="challenger-form"
+        >
+          <div className="challenger-form_header">
+            <button
+              type="button"
+              className="emoji-trigger challenger-form_header_emoji-btn"
+              onClick={() => setShowEmojiPicker((prev) => !prev)}
+            >
+              {emoji}
+            </button>
 
-          <AnimatePresence>
-            {showEmojiPicker && (
-              <motion.div
-                ref={emojiPickerRef}
-                className="emoji-picker-popover emoji-popover-absolute"
-                {...fadeInOut}
-              >
-                <EmojiPicker
-                  onEmojiClick={(emojiData) => {
-                    setEmoji(emojiData.emoji);
-                    setShowEmojiPicker(false);
-                  }}
-                  searchDisabled={true}
-                  previewConfig={{ showPreview: false }}
-                  height={350}
-                  width={300}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <button
-            type="button"
-            className="challenger-form_close-button"
-            onClick={onClose}
-          >
-            <img src={CloseXBW} alt="Close challenger form button" />
-          </button>
-        </div>
-        <div className="challenger-form_body">
-          <div className="input-wrapper">
-            {!challenge && <span className="blinking-caret"></span>}
-            <input
-              aria-label="Challenge input"
-              autoFocus
-              type="text"
-              placeholder="Wake up at 6AM"
-              value={challenge}
-              onChange={(e) => setChallenge(e.target.value)}
-            />
-          </div>
-          <div className="challenger-form_deadline-setter">
-            <div className="deadline-setter_date-setting">
-              <p>Do it by</p>
-              <motion.div
-                ref={carousel}
-                className="deadline-setter_date-setting_carousel"
-              >
+            <AnimatePresence>
+              {showEmojiPicker && (
                 <motion.div
-                  drag="x"
-                  dragConstraints={{ right: 0, left: -carouselWidth }}
-                  className="deadline-setter_date-setting_carousel-inner"
+                  ref={emojiPickerRef}
+                  className="emoji-picker-popover emoji-popover-absolute"
+                  {...fadeInOut}
                 >
-                  {orderedDeadlineOptions.map(({ key, label, onClick }) => (
-                    <button
-                      key={key}
-                      type="button"
-                      className={selectedDeadlineType === key ? "selected" : ""}
-                      onClick={onClick}
-                    >
-                      {label}
-                    </button>
-                  ))}
+                  <EmojiPicker
+                    onEmojiClick={(emojiData) => {
+                      setEmoji(emojiData.emoji);
+                      setShowEmojiPicker(false);
+                    }}
+                    searchDisabled={true}
+                    previewConfig={{ showPreview: false }}
+                    height={350}
+                    width={300}
+                  />
                 </motion.div>
-              </motion.div>
+              )}
+            </AnimatePresence>
+            <button
+              type="button"
+              className="challenger-form_close-button"
+              onClick={onClose}
+            >
+              <img src={CloseXBW} alt="Close challenger form button" />
+            </button>
+          </div>
+          <div className="challenger-form_body">
+            <div className="input-wrapper">
+              {!challenge && <span className="blinking-caret"></span>}
+              <input
+                aria-label="Challenge input"
+                autoFocus
+                type="text"
+                placeholder="Wake up at 6AM"
+                value={challenge}
+                onChange={(e) => setChallenge(e.target.value)}
+              />
             </div>
-            <div className="deadline-setter_repeat-setting">
-              Does not repeat <span>COMING SOON</span>
-              <button
-                onClick={() => {
-                  setIsPublic(false);
-                }}
-              ></button>
+            <div className="challenger-form_deadline-setter">
+              <div className="deadline-setter_date-setting">
+                <p>Do it by</p>
+                <motion.div
+                  ref={carousel}
+                  className="deadline-setter_date-setting_carousel"
+                >
+                  <motion.div
+                    drag="x"
+                    dragConstraints={{ right: 0, left: -carouselWidth }}
+                    className="deadline-setter_date-setting_carousel-inner"
+                  >
+                    {orderedDeadlineOptions.map(({ key, label, onClick }) => (
+                      <button
+                        key={key}
+                        type="button"
+                        className={
+                          selectedDeadlineType === key ? "selected" : ""
+                        }
+                        onClick={onClick}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              </div>
+              <div className="deadline-setter_repeat-setting">
+                Does not repeat <span>COMING SOON</span>
+                <button
+                  onClick={() => {
+                    setIsPublic(false);
+                  }}
+                ></button>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="challenger-form_footer">
-          {/* TODO: swap out for Button component */}
-          <button disabled={!challenge}>
-            <p>Create</p>
-            <img src={ArrowRight} alt="Create a challenge arrow icon" />
-          </button>
-        </div>
-      </form>
-      {/* ---------------------------- Suggestion Cards ----------------------------  */}
-      <section className="cf_suggestion">
-        <h2>Suggestions</h2>
-        <div className="cf_suggestion-cards-container">
-          {challengerExampleData.map((card) => {
-            return (
-              <button
-                onClick={() => {
-                  setEmoji(card.emoji);
-                  setChallenge(card.challenge);
-                }}
-                key={card.id}
-                className="cf_suggestion-card"
-              >
-                <p className="cf_suggestion-card_emoji">{card.emoji}</p>
-                <div className="cf_suggestion-card_titles">
-                  <h3>{card.challenge}</h3>
-                  <p>{card.repeat}</p>
-                </div>
-                <img src={plusReverse} aria-hidden="true" />
-              </button>
-            );
-          })}
-        </div>
-      </section>
-    </motion.div>
+          <div className="challenger-form_footer">
+            {/* TODO: swap out for Button component */}
+            <button disabled={!challenge}>
+              <p>Create</p>
+              <img src={ArrowRight} alt="Create a challenge arrow icon" />
+            </button>
+          </div>
+        </form>
+        {/* ---------------------------- Suggestion Cards ----------------------------  */}
+        <section className="cf_suggestion">
+          <h2>Suggestions</h2>
+          <div className="cf_suggestion-cards-container">
+            {challengerExampleData.map((card) => {
+              return (
+                <button
+                  onClick={() => {
+                    setEmoji(card.emoji);
+                    setChallenge(card.challenge);
+                  }}
+                  key={card.id}
+                  className="cf_suggestion-card"
+                >
+                  <p className="cf_suggestion-card_emoji">{card.emoji}</p>
+                  <div className="cf_suggestion-card_titles">
+                    <h3>{card.challenge}</h3>
+                    <p>{card.repeat}</p>
+                  </div>
+                  <img src={plusReverse} aria-hidden="true" />
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      </motion.div>
+    </Overlay>
   );
 };
 

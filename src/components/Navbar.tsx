@@ -18,7 +18,6 @@ const Navbar = () => {
         <p>Daily Challenger</p>
       </Link>
       <div className="navbar-action-btns">
-        {/* <Link to="/under-construction">Sign In</Link> */}
         <SignedOut>
           <SignInButton />
         </SignedOut>

@@ -20,7 +20,6 @@ import type { Challenge } from "@/stores/challengesStore";
 import NavSpacer from "@/components/NavSpacer";
 import CarraigeLoader from "@/components/CarraigeLoader";
 import Button from "@/components/Button";
-import Overlay from "@/components/Overlay.tsx";
 import ChallengerForm from "@/components/ChallengerForm.tsx";
 import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
 import ChallengeCard from "@/components/ChallengeCard";
@@ -36,7 +35,7 @@ const Home = () => {
     fetchChallenges,
   } = useChallengesStore();
   console.log(
-    // challenges,
+    challenges,
     // currentChallenges,
     //    pastChallenges,
     needsUserAction,
@@ -164,13 +163,9 @@ const Home = () => {
 
       {/* Modals */}
       <AnimatePresence>
-        {/* Challenger Form */}
         {isChallengerFormOpen && (
-          <Overlay customClassName={`flex-align-start portrait-align-center`}>
-            <ChallengerForm onClose={() => setIsChallengerFormOpen(false)} />
-          </Overlay>
+          <ChallengerForm onClose={() => setIsChallengerFormOpen(false)} />
         )}
-        {/* Delete Challenge Modal */}
         {deleteChallengeModalOpen && <DeleteChallengeModal />}
       </AnimatePresence>
     </main>
