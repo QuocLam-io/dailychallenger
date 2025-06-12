@@ -16,6 +16,7 @@ import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 import { Challenge } from "@/stores/challengesStore";
 //Zustand
 import { useDropdownStore } from "@/stores/dropdownStore";
+import { useModalsStore } from "@/stores/modalsStore";
 
 type Props = {
   challenge: Challenge;
@@ -23,19 +24,16 @@ type Props = {
 
 const ChallengeCard = ({ challenge }: Props) => {
   //TODO: time left utils
-  //TODO: dropdown menu button fns trigger modals to handle actions
+  const { setDeleteChallengeId, toggleDeleteChallengeModalOpen } =
+    useModalsStore();
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
 
+  /* --------------- Toggle Challenge as Complete/Undo Complete --------------- */
   const completeChallengeHandler = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     console.log(id);
   };
-
-  // const deleteChallengeHandler = (e: React.MouseEvent, id: string) => {
-  //   e.preventDefault();
-  //   console.log(id);
-  // };
 
   /* ------------------------------ Dropdown Menu ----------------------------- */
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -65,6 +63,13 @@ const ChallengeCard = ({ challenge }: Props) => {
       document.removeEventListener("keydown", handleEscape);
     };
   }, [openDropdownId, challenge.id, toggleDropdownId]);
+
+  /* ------------------------- Handle Delete Challenge ------------------------ */
+
+  const handleDeleteChallenge = () => {
+    toggleDeleteChallengeModalOpen();
+    setDeleteChallengeId(challenge.id);
+  };
 
   return (
     <div className="challenge-card_wrapper">
@@ -111,14 +116,17 @@ const ChallengeCard = ({ challenge }: Props) => {
                 </button>
               </li> */}
               <li role="none">
-                <button className="dropdown_invite-button-disabled" role="menuitem">
+                <button
+                  className="dropdown_invite-button-disabled"
+                  role="menuitem"
+                >
                   <img src={addUserDisabled} />
                   <p>Invite</p>
                   <span>COMING SOON</span>
                 </button>
               </li>
               <li role="none">
-                <button role="menuitem">
+                <button onClick={() => handleDeleteChallenge()} role="menuitem">
                   <img src={DeleteTrashcan} />
                   <p>Delete</p>
                 </button>

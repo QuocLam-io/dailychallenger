@@ -20,3 +20,11 @@ $divider: 1px solid rgba(26, 26, 26, 0.15);
 @mixin padding-eights($padding-y: 8px, $padding-x: 16px) {
   padding: $padding-y $padding-x;
 }
+
+@mixin modal-body {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+}
