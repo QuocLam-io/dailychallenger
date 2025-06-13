@@ -66,7 +66,7 @@ interface TabProps {
   children: React.ReactNode;
   length: number;
   tabType: "current" | "past";
-  tabRef: React.RefObject<HTMLButtonElement> | null;
+  tabRef: React.RefObject<HTMLButtonElement | null>;
   onClick: (tabType: "current" | "past") => void;
   isActive: boolean;
 }
