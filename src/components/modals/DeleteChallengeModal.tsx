@@ -5,39 +5,31 @@ import "./DeleteChallengeModal.scss";
 import Overlay from "../Overlay";
 //Zustand
 import { useModalsStore } from "@/stores/modalsStore";
-import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
-
-//Supabase
-import { supabase } from "@/supabase-client";
+import { useUserStore } from "@/stores/userStore";
+//Util
+import { handleDeleteChallenge } from "@/utils/deleteChallenge";
 
 const DeleteChallengeModal = () => {
-  const { userId } = useUserStore();
-  const { fetchChallenges } = useChallengesStore();
   const {
     deleteChallengeId,
     setDeleteChallengeId,
     toggleDeleteChallengeModalOpen,
   } = useModalsStore();
+  const { fetchChallenges } = useChallengesStore();
+  const { userId } = useUserStore();
 
-  /* ------------------------ Delete Challenge Handler ------------------------ */
-  const handleDeleteChallenge = async () => {
-    //TODO: make a unit test after
+  /* -------------------------- Handle Confirm Delete ------------------------- */
+
+  const handleConfirmDelete = () => {
     if (!deleteChallengeId) return;
 
-
-    const { error: deleteError } = await supabase
-      .from("challenge_logs")
-      .delete()
-      .eq("id", deleteChallengeId);
-
-    if (deleteError) {
-      console.error("CHALLENGE DELETION ERROR:", deleteError.message);
-      return;
-    } else {
-      handleCloseDeleteChallengeModal();
-      fetchChallenges(userId);
-    }
+    handleDeleteChallenge(
+      deleteChallengeId,
+      userId,
+      fetchChallenges,
+      handleCloseDeleteChallengeModal
+    );
   };
 
   /* ---------------------- Close Delete Challenge Modal ---------------------- */
@@ -56,7 +48,7 @@ const DeleteChallengeModal = () => {
           <button onClick={() => handleCloseDeleteChallengeModal()}>
             Cancel
           </button>
-          <button onClick={() => handleDeleteChallenge()}>Yes, Delete</button>
+          <button onClick={handleConfirmDelete}>Yes, Delete</button>
         </div>
       </div>
     </Overlay>
