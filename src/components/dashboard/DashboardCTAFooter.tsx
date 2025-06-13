@@ -16,8 +16,8 @@ const DashboardCTAFooter = () => {
     opacity: 0,
   });
 
-  const currentRef = useRef<HTMLButtonElement>(null);
-  const pastRef = useRef<HTMLButtonElement>(null);
+  const currentRef = useRef<HTMLButtonElement | null>(null);
+  const pastRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const ref = activeTab === "current" ? currentRef.current : pastRef.current;
