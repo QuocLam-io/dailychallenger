@@ -1,5 +1,5 @@
 import { vi, describe, it, expect } from "vitest";
-import { handleDeleteChallenge } from "./deleteChallenge";
+import { handleDeleteChallenge } from "../utils/deleteChallenge";
 import { supabase } from "@/supabase-client";
 
 // Mock Supabase
