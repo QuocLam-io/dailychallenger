@@ -1,4 +1,3 @@
-import React from "react";
 //Styling
 import "./DeleteChallengeModal.scss";
 //Components

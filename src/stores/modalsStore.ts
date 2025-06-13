@@ -13,7 +13,7 @@ export const useModalsStore = create<ModalsProps>((set, get) => ({
   toggleDeleteChallengeModalOpen: () => {
     set({ deleteChallengeModalOpen: !get().deleteChallengeModalOpen });
   },
-  setDeleteChallengeId: (challengeId: string) => {
+  setDeleteChallengeId: (challengeId: string | null) => {
     set({ deleteChallengeId: challengeId });
   },
 }));
