@@ -1,15 +1,12 @@
-import React, { useRef, useState, useEffect, RefObject } from "react";
-//Style
+import React, { useRef, useState, useEffect } from "react";
 import "./DashboardCTAFooter.scss";
 import { motion as m } from "framer-motion";
 
-//Zustand
 import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
 import useChallengesStore from "@/stores/challengesStore";
 
 const DashboardCTAFooter = () => {
   const { activeTab, setActiveTab } = useDashboardStore();
-  console.log(activeTab);
   const { currentChallenges, pastChallenges } = useChallengesStore();
 
   const [position, setPosition] = useState({
@@ -23,8 +20,9 @@ const DashboardCTAFooter = () => {
   const pastRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (currentRef.current) {
-      const { offsetLeft, offsetWidth, offsetHeight } = currentRef.current;
+    const ref = activeTab === "current" ? currentRef.current : pastRef.current;
+    if (ref) {
+      const { offsetLeft, offsetWidth, offsetHeight } = ref;
       setPosition({
         left: offsetLeft,
         width: offsetWidth,
@@ -32,15 +30,14 @@ const DashboardCTAFooter = () => {
         opacity: 1,
       });
     }
-  }, []);
+  }, [activeTab]);
 
   return (
     <section className="dashboard_cta-footer">
       <div className="dashboard_cta-footer_cursor-wrapper">
         <Tab
           tabType="current"
-          setPosition={setPosition}
-          // activeTab={activeTab}
+          isActive={activeTab === "current"}
           length={currentChallenges.length}
           onClick={setActiveTab}
           tabRef={currentRef}
@@ -49,8 +46,7 @@ const DashboardCTAFooter = () => {
         </Tab>
         <Tab
           tabType="past"
-          setPosition={setPosition}
-          // activeTab={activeTab}
+          isActive={activeTab === "past"}
           length={pastChallenges.length}
           onClick={setActiveTab}
           tabRef={pastRef}
@@ -68,41 +64,26 @@ export default DashboardCTAFooter;
 
 interface TabProps {
   children: React.ReactNode;
-  setPosition: (position: {
-    width: number;
-    height: number;
-    left: number;
-    opacity: number;
-  }) => void;
   length: number;
   tabType: "current" | "past";
-  tabRef: RefObject<HTMLButtonElement | null>;
+  tabRef: React.RefObject<HTMLButtonElement>;
   onClick: (tabType: "current" | "past") => void;
+  isActive: boolean;
 }
 
 const Tab = ({
   children,
-  setPosition,
   length,
   onClick,
   tabType,
   tabRef,
+  isActive,
 }: TabProps) => {
   return (
     <button
       ref={tabRef}
-      onMouseEnter={() => {
-        if (!tabRef.current) return;
-
-        const { width, height } = tabRef.current.getBoundingClientRect();
-        setPosition({
-          width,
-          opacity: 1,
-          height,
-          left: tabRef.current.offsetLeft,
-        });
-      }}
       onClick={() => onClick(tabType)}
+      className={isActive ? "active" : ""}
     >
       <p>{children}</p>
       <span>{length}</span>
