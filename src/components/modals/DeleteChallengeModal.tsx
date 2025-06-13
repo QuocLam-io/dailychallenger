@@ -22,7 +22,7 @@ const DeleteChallengeModal = () => {
 
   const handleConfirmDelete = () => {
     
-    if (deleteChallengeId) {
+    if (deleteChallengeId && userId) {
       handleDeleteChallenge(
         deleteChallengeId,
         userId,
