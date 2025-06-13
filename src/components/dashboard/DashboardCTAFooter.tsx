@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./DashboardCTAFooter.scss";
 import { motion as m } from "framer-motion";
 
