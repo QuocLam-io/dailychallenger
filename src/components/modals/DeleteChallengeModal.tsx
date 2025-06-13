@@ -21,14 +21,15 @@ const DeleteChallengeModal = () => {
   /* -------------------------- Handle Confirm Delete ------------------------- */
 
   const handleConfirmDelete = () => {
-    if (!deleteChallengeId) return;
-
-    handleDeleteChallenge(
-      deleteChallengeId,
-      userId,
-      fetchChallenges,
-      handleCloseDeleteChallengeModal
-    );
+    
+    if (deleteChallengeId) {
+      handleDeleteChallenge(
+        deleteChallengeId,
+        userId,
+        fetchChallenges,
+        handleCloseDeleteChallengeModal
+      );
+    }
   };
 
   /* ---------------------- Close Delete Challenge Modal ---------------------- */
