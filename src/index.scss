@@ -28,7 +28,7 @@ body {
   font-feature-settings: "liga" off, "clig" off;
   font-family: "Work Sans";
   line-height: 24px;
-  background: #FFF;
+  background: #fff;
 }
 
 img,
@@ -122,4 +122,12 @@ figcaption {
 
 .flex-column {
   flex-direction: column;
+}
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
 }

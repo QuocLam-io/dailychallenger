@@ -14,6 +14,8 @@ import { useUser } from "@clerk/clerk-react";
 import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
 import { useModalsStore } from "@/stores/modalsStore";
+import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
+
 //Types
 import type { Challenge } from "@/stores/challengesStore";
 //Components
@@ -48,8 +50,10 @@ const Home = () => {
   const userId = useUserStore((s) => s.userId);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
-  // const { deleteChallengeModalOpen } = useModalsStore();
-  const deleteChallengeModalOpen = useModalsStore((s) => s.deleteChallengeModalOpen);
+  const deleteChallengeModalOpen = useModalsStore(
+    (s) => s.deleteChallengeModalOpen
+  );
+  const { activeTab } = useDashboardStore();
 
   /* ----------------------- Fetch Challenges useEffect ----------------------- */
 
@@ -69,7 +73,7 @@ const Home = () => {
   };
   /* -------------------------------------------------------------------------- */
   if (!userId) return <CarraigeLoader />;
-  
+
   console.log(markDoneHandler, pastChallenges);
   return (
     <main className="home_wrapper">
@@ -115,37 +119,50 @@ const Home = () => {
       ) : (
         <section className="dashboard_challenges-display">
           <div className="dashboard_challenges-display_header">
-            <h2>Challenges</h2>
-            <h3>Show your fellow chaps you are true to your word</h3>
+            <h2>{activeTab === "past" && "Past"} Challenges</h2>
+            {activeTab === "current" ? (
+              <h3>Show your fellow chaps you are true to your word</h3>
+            ) : (
+              <h3>Come to admire your work, I see.</h3>
+            )}
           </div>
-          {currentChallenges.length === 0 ? (
-            <div className="dashboard_challenges-display_new-cta">
-              <p>You’ve done it! Splendid work.</p>
-              <p>Now then — pip pip, and on to the next!</p>
-              <Button
-                icon={plusCircle}
-                onClick={() => setIsChallengerFormOpen(true)}
-              >
-                Create a challenge
-              </Button>
-            </div>
-          ) : (
+          <div className={activeTab === "current" ? "visible" : "hidden"}>
+            {currentChallenges.length === 0 ? (
+              <div className="dashboard_challenges-display_new-cta">
+                <p>You’ve done it! Splendid work.</p>
+                <p>Now then — pip pip, and on to the next!</p>
+                <Button
+                  icon={plusCircle}
+                  onClick={() => setIsChallengerFormOpen(true)}
+                >
+                  Create a challenge
+                </Button>
+              </div>
+            ) : (
+              <div className="dashboard_challenges-display_cards-container">
+                {currentChallenges.map((c) => {
+                  return <ChallengeCard key={c.id} challenge={c} />;
+                })}
+                <button
+                  onClick={() => setIsChallengerFormOpen(true)}
+                  className="dashboard_challenges-display_cards-container_new-challenge-card"
+                >
+                  <img src={plusSoft} />
+                  <span>New challenge</span>
+                </button>
+              </div>
+            )}
+          </div>
+          <div className={activeTab === "past" ? "visible" : "hidden"}>
             <div className="dashboard_challenges-display_cards-container">
-              {currentChallenges.map((c) => {
-              {/* {pastChallenges.map((c) => { */}
+              {pastChallenges.map((c) => {
                 return <ChallengeCard key={c.id} challenge={c} />;
               })}
-              <button
-                onClick={() => setIsChallengerFormOpen(true)}
-                className="dashboard_challenges-display_cards-container_new-challenge-card"
-              >
-                <img src={plusSoft} />
-                <span>New challenge</span>
-              </button>
             </div>
-          )}
+          </div>
         </section>
       )}
+
       {/* Footer */}
       {!challenges.length ? (
         <section className="dashboard-kyurem_cta">
