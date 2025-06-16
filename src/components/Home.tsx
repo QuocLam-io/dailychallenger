@@ -15,6 +15,7 @@ import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
 import { useModalsStore } from "@/stores/modalsStore";
 import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
+
 //Types
 import type { Challenge } from "@/stores/challengesStore";
 //Components

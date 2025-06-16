@@ -17,6 +17,8 @@ import { Challenge } from "@/stores/challengesStore";
 //Zustand
 import { useDropdownStore } from "@/stores/dropdownStore";
 import { useModalsStore } from "@/stores/modalsStore";
+import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
+
 
 type Props = {
   challenge: Challenge;
@@ -28,6 +30,7 @@ const ChallengeCard = ({ challenge }: Props) => {
     useModalsStore();
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
+  const { activeTab } = useDashboardStore();
 
   /* --------------- Toggle Challenge as Complete/Undo Complete --------------- */
   const completeChallengeHandler = (e: React.MouseEvent, id: string) => {
@@ -92,13 +95,15 @@ const ChallengeCard = ({ challenge }: Props) => {
           ref={dropdownRef}
           className="dropdown-menu_wrapper"
         >
-          <button
-            onClick={() => {
-              toggleDropdownId(challenge.id);
-            }}
-          >
-            <img src={greyEllipsis} />
-          </button>
+          {activeTab === "current" && (
+            <button
+              onClick={() => {
+                toggleDropdownId(challenge.id);
+              }}
+            >
+              <img src={greyEllipsis} />
+            </button>
+          )}
 
           <div className="dropdown-menu" role="menu" aria-label="Action menu">
             <ul>
