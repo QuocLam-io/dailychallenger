@@ -26,6 +26,7 @@ import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
 import ChallengeCard from "@/components/ChallengeCard";
 import DashboardCTAFooter from "@/components/dashboard/DashboardCTAFooter";
 import DeleteChallengeModal from "@/components/modals/DeleteChallengeModal";
+import ChallengePage from "@/components/modals/ChallengePage";
 
 const Home = () => {
   const {
@@ -52,6 +53,7 @@ const Home = () => {
   const deleteChallengeModalOpen = useModalsStore(
     (s) => s.deleteChallengeModalOpen
   );
+  const challengePageModalOpen = useModalsStore((s) => s.challengePageModalOpen);
   const { activeTab } = useDashboardStore();
 
   /* ----------------------- Fetch Challenges useEffect ----------------------- */
@@ -186,6 +188,7 @@ const Home = () => {
           <ChallengerForm onClose={() => setIsChallengerFormOpen(false)} />
         )}
         {deleteChallengeModalOpen && <DeleteChallengeModal />}
+        {challengePageModalOpen && <ChallengePage />}
       </AnimatePresence>
     </main>
   );

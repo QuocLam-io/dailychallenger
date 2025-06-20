@@ -26,7 +26,7 @@ type Props = {
 
 const ChallengeCard = ({ challenge }: Props) => {
   //TODO: time left utils
-  const { setDeleteChallengeId, toggleDeleteChallengeModalOpen } =
+  const { setDeleteChallengeId, toggleDeleteChallengeModalOpen, toggleChallengePageModalOpen, setChallengePageChallenge } =
     useModalsStore();
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
@@ -74,6 +74,12 @@ const ChallengeCard = ({ challenge }: Props) => {
     setDeleteChallengeId(challenge.id);
   };
 
+  /* ---------------------- Handle Open Challenge Page Modal ---------------------- */
+  const handleOpenChallengePage = () => {
+    setChallengePageChallenge(challenge);
+    toggleChallengePageModalOpen();
+  };
+
   return (
     <div className="challenge-card_wrapper">
       <span>{challenge.emoji}</span>
@@ -108,7 +114,7 @@ const ChallengeCard = ({ challenge }: Props) => {
           <div className="dropdown-menu" role="menu" aria-label="Action menu">
             <ul>
               <li role="none">
-                <button role="menuitem">
+                <button role="menuitem" onClick={handleOpenChallengePage}>
                   <img src={EditPencil} />
                   <p>Edit</p>
                 </button>
