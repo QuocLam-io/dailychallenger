@@ -1,4 +1,3 @@
-import React from "react";
 import "./ChallengePage.scss";
 import Overlay from "../Overlay";
 import { useModalsStore } from "@/stores/modalsStore";

@@ -2,13 +2,12 @@ import { create } from "zustand";
 import type { Challenge } from "./challengesStore";
 
 interface ModalsProps {
-  // -------------------- Challenge Page Modal State --------------------
+  // -- Challenge Page Types
   challengePageModalOpen: boolean;
   challengePageChallenge: Challenge | null;
   toggleChallengePageModalOpen: () => void;
   setChallengePageChallenge: (challenge: Challenge | null) => void;
-
-  // -------------------- Delete Challenge Modal State --------------------
+  // -- Delete Modal Types
   deleteChallengeModalOpen: boolean;
   deleteChallengeId: string | null;
   toggleDeleteChallengeModalOpen: () => void;
@@ -16,7 +15,7 @@ interface ModalsProps {
 }
 
 export const useModalsStore = create<ModalsProps>((set, get) => ({
-  // -------------------- Challenge Page Modal State --------------------
+  // -- Challenge Page States & Setters & Getters
   challengePageModalOpen: false,
   challengePageChallenge: null,
   toggleChallengePageModalOpen: () => {
@@ -26,7 +25,7 @@ export const useModalsStore = create<ModalsProps>((set, get) => ({
     set({ challengePageChallenge: challenge });
   },
 
-  // -------------------- Delete Challenge Modal State --------------------
+  // -- Delete Modal States & Setters & Getters
   deleteChallengeModalOpen: false,
   deleteChallengeId: null,
   toggleDeleteChallengeModalOpen: () => {
