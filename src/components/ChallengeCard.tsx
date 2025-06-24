@@ -10,6 +10,8 @@ import DeleteTrashcan from "@/assets/delete-trashcan-grey.png";
 // @ts-expect-error: This import is temporarily unused, but may be used in the future for the Invite button.
 import addUser from "@/assets/user-add.svg";
 import addUserDisabled from "@/assets/user-add-disabled.svg";
+//Router
+import { Link } from "react-router-dom";
 //Utils
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 //Types
@@ -19,15 +21,18 @@ import { useDropdownStore } from "@/stores/dropdownStore";
 import { useModalsStore } from "@/stores/modalsStore";
 import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
 
-
 type Props = {
   challenge: Challenge;
 };
 
 const ChallengeCard = ({ challenge }: Props) => {
   //TODO: time left utils
-  const { setDeleteChallengeId, toggleDeleteChallengeModalOpen, toggleChallengePageModalOpen, setChallengePageChallenge } =
-    useModalsStore();
+  const {
+    setDeleteChallengeId,
+    toggleDeleteChallengeModalOpen,
+    challengeDetailsPageChallenge,
+    setChallengeDetailsPageChallenge,
+  } = useModalsStore();
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
   const { activeTab } = useDashboardStore();
@@ -76,17 +81,20 @@ const ChallengeCard = ({ challenge }: Props) => {
 
   /* ---------------------- Handle Open Challenge Page Modal ---------------------- */
   const handleOpenChallengePage = () => {
-    setChallengePageChallenge(challenge);
-    toggleChallengePageModalOpen();
+    setChallengeDetailsPageChallenge(challenge);
+    console.log(challengeDetailsPageChallenge)
+    // TODO: make a new edit modal state
   };
 
   return (
     <div className="challenge-card_wrapper">
-      <span>{challenge.emoji}</span>
-      <div className="titles">
-        <h4>{challenge.title}</h4>
-        <p>{getDeadlineDisplay(new Date(challenge.deadline))} left</p>
-      </div>
+      <Link to={`/challenge-details/${challenge.id}`}>
+        <span>{challenge.emoji}</span>
+        <div className="titles">
+          <h4>{challenge.title}</h4>
+          <p>{getDeadlineDisplay(new Date(challenge.deadline))} left</p>
+        </div>
+      </Link>
       <div className="card-status">
         <button
           onClick={(e) => completeChallengeHandler(e, challenge.id)}

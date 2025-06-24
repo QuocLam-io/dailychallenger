@@ -10,12 +10,16 @@
   &:first-child {
     border-top: $divider;
   }
-
-  & > span {
-    height: 20px;
-    width: 20px;
-    margin-right: 8px;
-  }
+  a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    
+    & > span {
+      height: 20px;
+      width: 20px;
+      margin-right: 8px;
+    }
 
   .titles {
     @include flex-column(2px);
@@ -41,7 +45,7 @@
       letter-spacing: 0.1px;
     }
   }
-
+  }
   .card-status {
     display: flex;
     // padding-top: 4px;
@@ -161,7 +165,7 @@
                 letter-spacing: 0.1px;
               }
 
-              &:hover{
+              &:hover {
                 background: none;
               }
             }

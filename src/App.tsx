@@ -39,22 +39,12 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/under-construction" element={<UnderConstruction />} />
           </Route>
-          {/* Private Routes */}
+          {/* All Private Routes - protected by PrivateRoutesWrapper */}
           <Route
-            path="/home"
-            element={
-              isSignedIn ? (
-                <PrivateRoutesWrapper />
-              ) : (
-                <Navigate to="/" replace />
-              )
-            }
+            element={isSignedIn ? <PrivateRoutesWrapper /> : <Navigate to="/" replace />}
           >
-            {/* <Route path="/home" element={<Home />} /> */}
-            <Route index element={<Home />} />
-            {/* Future private routes */}
-            {/* <Route path="profile" element={<Profile />} /> */}
-            {/* <Route path="settings" element={<Settings />} /> */}
+            <Route path="/home" element={<Home />} />
+            <Route path="challenge-details/:id" element={<div>Challenge Details Page</div>} />
           </Route>
         </Routes>
       </BrowserRouter>
