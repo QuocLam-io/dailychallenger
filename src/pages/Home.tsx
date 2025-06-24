@@ -26,7 +26,6 @@ import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
 import ChallengeCard from "@/components/ChallengeCard";
 import DashboardCTAFooter from "@/components/dashboard/DashboardCTAFooter";
 import DeleteChallengeModal from "@/components/modals/DeleteChallengeModal";
-import ChallengePage from "@/components/modals/ChallengePage";
 
 const Home = () => {
   const {
