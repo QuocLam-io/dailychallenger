@@ -1,11 +1,5 @@
 import { create } from "zustand";
-import type { Challenge } from "./challengesStore";
-
 interface ModalsProps {
-  // -- Challenge Details Page Types
-  // TODO: move to own store
-  challengeDetailsPageChallenge: Challenge | null;
-  setChallengeDetailsPageChallenge: (challenge: Challenge | null) => void;
   // -- Delete Modal Types
   deleteChallengeModalOpen: boolean;
   deleteChallengeId: string | null;
@@ -19,12 +13,6 @@ interface ModalsProps {
 }
 
 export const useModalsStore = create<ModalsProps>((set, get) => ({
-  // -- Challenge Details Page States & Setters & Getters
-  challengeDetailsPageChallenge: null,
-  setChallengeDetailsPageChallenge: (challenge: Challenge | null) => {
-    set({ challengeDetailsPageChallenge: challenge });
-  },
-
   // -- Delete Modal States & Setters & Getters
   deleteChallengeModalOpen: false,
   deleteChallengeId: null,

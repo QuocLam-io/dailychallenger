@@ -20,6 +20,7 @@ import { Challenge } from "@/stores/challengesStore";
 import { useDropdownStore } from "@/stores/dropdownStore";
 import { useModalsStore } from "@/stores/modalsStore";
 import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
+import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
 
 type Props = {
   challenge: Challenge;
@@ -27,12 +28,9 @@ type Props = {
 
 const ChallengeCard = ({ challenge }: Props) => {
   //TODO: time left utils
-  const {
-    setDeleteChallengeId,
-    toggleDeleteChallengeModalOpen,
-    challengeDetailsPageChallenge,
-    setChallengeDetailsPageChallenge,
-  } = useModalsStore();
+  const { setDeleteChallengeId, toggleDeleteChallengeModalOpen } =
+    useModalsStore();
+  const { setChallengeDetailsPageChallenge } = useChallengeDetailsPageStore();
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
   const { activeTab } = useDashboardStore();
@@ -80,15 +78,16 @@ const ChallengeCard = ({ challenge }: Props) => {
   };
 
   /* ---------------------- Handle Open Challenge Page Modal ---------------------- */
-  const handleOpenChallengePage = () => {
-    setChallengeDetailsPageChallenge(challenge);
-    console.log(challengeDetailsPageChallenge)
+  const handleEditChallenge = () => {
     // TODO: make a new edit modal state
   };
 
   return (
     <div className="challenge-card_wrapper">
-      <Link to={`/challenge-details/${challenge.id}`}>
+      <Link
+        onClick={() => setChallengeDetailsPageChallenge(challenge)}
+        to={`/challenge-details/${challenge.id}`}
+      >
         <span>{challenge.emoji}</span>
         <div className="titles">
           <h4>{challenge.title}</h4>
@@ -122,7 +121,7 @@ const ChallengeCard = ({ challenge }: Props) => {
           <div className="dropdown-menu" role="menu" aria-label="Action menu">
             <ul>
               <li role="none">
-                <button role="menuitem" onClick={handleOpenChallengePage}>
+                <button role="menuitem" onClick={handleEditChallenge}>
                   <img src={EditPencil} />
                   <p>Edit</p>
                 </button>
@@ -131,7 +130,6 @@ const ChallengeCard = ({ challenge }: Props) => {
                 <button role="menuitem">
                   <img src={addUser} />
                   <p>Invite</p>
-                  <span>COMING SOON</span>
                 </button>
               </li> */}
               <li role="none">
