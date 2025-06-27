@@ -7,9 +7,7 @@ interface ModalsProps {
   setDeleteChallengeId: (challengeId: string | null) => void;
   // -- Edit Modal Types
   editChallengeModalOpen: boolean;
-  editChallengeId: string | null;
   toggleEditChallengeModalOpen: () => void;
-  setEditChallengeId: (challengeId: string | null) => void;
 }
 
 export const useModalsStore = create<ModalsProps>((set, get) => ({
