@@ -26,6 +26,7 @@ import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
 import ChallengeCard from "@/components/ChallengeCard";
 import DashboardCTAFooter from "@/components/dashboard/DashboardCTAFooter";
 import DeleteChallengeModal from "@/components/modals/DeleteChallengeModal";
+import EditChallengeModal from "@/components/modals/EditChallengeModal";
 
 const Home = () => {
   const {
@@ -51,6 +52,9 @@ const Home = () => {
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
   const deleteChallengeModalOpen = useModalsStore(
     (s) => s.deleteChallengeModalOpen
+  );
+  const editChallengeModalOpen = useModalsStore(
+    (s) => s.editChallengeModalOpen
   );
 
   const { activeTab } = useDashboardStore();
@@ -187,6 +191,7 @@ const Home = () => {
           <ChallengerForm onClose={() => setIsChallengerFormOpen(false)} />
         )}
         {deleteChallengeModalOpen && <DeleteChallengeModal />}
+        {editChallengeModalOpen && <EditChallengeModal />}
       </AnimatePresence>
     </main>
   );

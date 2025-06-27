@@ -27,9 +27,12 @@ type Props = {
 };
 
 const ChallengeCard = ({ challenge }: Props) => {
-  //TODO: time left utils
-  const { setDeleteChallengeId, toggleDeleteChallengeModalOpen } =
-    useModalsStore();
+  //TODO: time left utils for past challenges
+  const {
+    setDeleteChallengeId,
+    toggleDeleteChallengeModalOpen,
+    toggleEditChallengeModalOpen,
+  } = useModalsStore();
   const { setChallengeDetailsPageChallenge } = useChallengeDetailsPageStore();
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
@@ -77,9 +80,11 @@ const ChallengeCard = ({ challenge }: Props) => {
     setDeleteChallengeId(challenge.id);
   };
 
-  /* ---------------------- Handle Open Challenge Page Modal ---------------------- */
+  /* ------------------------- Handle Edit Challenge ------------------------ */
+
   const handleEditChallenge = () => {
-    // TODO: make a new edit modal state
+    setChallengeDetailsPageChallenge(challenge);
+    toggleEditChallengeModalOpen();
   };
 
   return (

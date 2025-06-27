@@ -25,7 +25,6 @@ import { Calendar } from "@/components/ui/calendar";
 import Button from "./Button";
 import Overlay from "@/components/Overlay.tsx";
 
-
 interface ChallengerFormTypes {
   onClose: () => void;
 }

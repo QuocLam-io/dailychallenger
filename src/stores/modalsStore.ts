@@ -24,13 +24,8 @@ export const useModalsStore = create<ModalsProps>((set, get) => ({
   },
 
   // -- Edit Modal States & Setters & Getters
-  // TODO: probably needs more than just id
   editChallengeModalOpen: false,
-  editChallengeId: null,
   toggleEditChallengeModalOpen: () => {
     set({ editChallengeModalOpen: !get().editChallengeModalOpen });
-  },
-  setEditChallengeId: (challengeId: string | null) => {
-    set({ editChallengeId: challengeId });
   },
 }));
