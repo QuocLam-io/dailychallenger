@@ -48,7 +48,7 @@ const PrivateRoutesWrapper = () => {
           .from("users")
           .select("*")
           .eq("clerk_id", clerkId)
-          .single()<UserTypes>;
+          .single<UserTypes>();
 
         if (error && error.code !== "PGRST116") {
           console.error("Error fetching user:", error);
