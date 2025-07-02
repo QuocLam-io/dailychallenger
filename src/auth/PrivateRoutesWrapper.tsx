@@ -1,5 +1,5 @@
 //React
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 //Routing
 import { Outlet } from "react-router-dom";
 //Auth
@@ -25,21 +25,21 @@ interface UserTypes {
 
 const PrivateRoutesWrapper = () => {
   const { isLoaded, user } = useUser();
-  const setUserId = useUserStore((s) => s.setUserId);
+  const setClerkId = useUserStore((s) => s.setClerkId);
+  const setSupabaseId = useUserStore((s) => s.setSupabaseId);
+
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
     const checkUser = async () => {
-      //in case useUser() is too slow
       if (!isLoaded || !user) return;
 
       const clerkId = user.id;
+      setClerkId(clerkId);
+
       const email = user.primaryEmailAddress?.emailAddress || null;
       const firstName = user.firstName || null;
       const lastName = user.lastName || null;
-
-      //hydrates zustand for ui purposes
-      setUserId(clerkId);
-
       if (!email) return;
 
       /* ---------------------- If user in db, set to zustand --------------------- */
@@ -48,10 +48,8 @@ const PrivateRoutesWrapper = () => {
           .from("users")
           .select("*")
           .eq("clerk_id", clerkId)
-          // .eq("email", email)
-          .single<UserTypes>();
+          .single()<UserTypes>;
 
-        //if Error returned
         if (error && error.code !== "PGRST116") {
           console.error("Error fetching user:", error);
           return;
@@ -69,55 +67,50 @@ const PrivateRoutesWrapper = () => {
 
           const { data: insertData, error: insertError } = await supabase
             .from("users")
-            .insert([newUserRowData])
-            .single();
+            .insert([newUserRowData]).single();
 
           if (insertError) {
-            console.log("Error inserting user:", insertError);
+            console.log("Insert error:", insertError);
             return;
           }
+
           if (!insertData) {
             console.log("Insert succeeded but no user data returned");
           }
 
           /* --------------- Fetches new user in db and sets in zustand --------------- */
-
           const { data: newUserData, error: fetchNewUserError } = await supabase
             .from("users")
             .select("*")
-            // .eq("clerk_id", clerkId)
             .eq("email", email)
             .single<UserTypes>();
 
-          console.log("hmm");
-
-          if (fetchNewUserError) {
-            console.log(
-              "Error fetching newly inserted user:",
+          if (fetchNewUserError || !newUserData) {
+            console.error(
+              "Failed to fetch user after insert",
               fetchNewUserError
             );
             return;
           }
 
-          if (newUserData) {
-            console.log("yata!");
-            setUserId(newUserData.id);
-          }
-
-          /* -------------------------------------------------------------------------- */
+          setSupabaseId(newUserData.id);
+          setIsHydrated(true);
         } else {
-          // console.log("there's data");
-          setUserId(data.id);
+          setSupabaseId(data.id);
+          setIsHydrated(true);
         }
-      } catch (error) {
-        console.error("Unexpected error:", error);
+      } catch (err) {
+        console.error("Unexpected error:", err);
       }
     };
 
     checkUser();
-  }, [isLoaded, user, setUserId]);
+  }, [isLoaded, user, setClerkId, setSupabaseId]);
 
-  if (!isLoaded) return <CarraigeLoader />;
+  //The useEffect and this If-Statement are racing, so we set a hydration state, otherwise the Outlet will rerender without the global state being properly populated and errors will occur because calls will be made without proper arguments (supabaseId)
+
+  // when the useEffect sets the hydration state, the whole component rerenders
+  if (!isLoaded || !isHydrated) return <CarraigeLoader />;
 
   return <Outlet />;
 };

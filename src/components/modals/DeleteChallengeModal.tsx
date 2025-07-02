@@ -16,16 +16,15 @@ const DeleteChallengeModal = () => {
     toggleDeleteChallengeModalOpen,
   } = useModalsStore();
   const { fetchChallenges } = useChallengesStore();
-  const { userId } = useUserStore();
+  const supabaseId = useUserStore((s) => s.supabaseId);
 
   /* -------------------------- Handle Confirm Delete ------------------------- */
 
   const handleConfirmDelete = () => {
-    
-    if (deleteChallengeId && userId) {
+    if (deleteChallengeId && supabaseId) {
       handleDeleteChallenge(
         deleteChallengeId,
-        userId,
+        supabaseId,
         fetchChallenges,
         handleCloseDeleteChallengeModal
       );

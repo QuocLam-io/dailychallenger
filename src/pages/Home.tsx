@@ -47,7 +47,8 @@ const Home = () => {
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
 
-  const userId = useUserStore((s) => s.userId);
+  const clerkId = useUserStore((s) => s.clerkId);
+  const supabaseId = useUserStore((s) => s.supabaseId);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
   const deleteChallengeModalOpen = useModalsStore(
@@ -63,12 +64,9 @@ const Home = () => {
 
   useEffect(() => {
     // TODO: Add skeleton state
-    if (!userId) return;
-
-    if (userId) {
-      fetchChallenges(userId);
-    }
-  }, [userId]);
+    if (!supabaseId) return; // ensures valid UUID before fetching
+    fetchChallenges(supabaseId);
+  }, [supabaseId]);
 
   /* ----------------------- Mark Challenge Done Handler ---------------------- */
 
@@ -76,7 +74,7 @@ const Home = () => {
     console.log(challenge);
   };
   /* -------------------------------------------------------------------------- */
-  if (!userId) return <CarraigeLoader />;
+  if (!supabaseId) return <CarraigeLoader />;
 
   console.log(markDoneHandler, pastChallenges);
   return (
@@ -104,7 +102,7 @@ const Home = () => {
           <div className="dashboard-user_name">
             <p>{greeting}</p>
             {/* TODO: add feature to add name to clerk */}
-            <p>{user?.firstName ?? standinUserName}</p>
+            <p>{user?.firstName ?? standinUserName ?? clerkId}</p>
           </div>
           <div className="dashboard-user_streak">
             <p>Current streak</p>

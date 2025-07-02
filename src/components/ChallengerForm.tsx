@@ -30,7 +30,7 @@ interface ChallengerFormTypes {
 }
 
 const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
-  const userId = useUserStore((s) => s.userId);
+  const supabaseId = useUserStore((s) => s.supabaseId);
   const { fetchChallenges } = useChallengesStore();
   const [challenge, setChallenge] = useState<string>("");
   const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(
@@ -154,12 +154,12 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
     e.preventDefault();
 
-    if (!userId || !challenge || !deadline || !emoji) return;
+    if (!supabaseId || !challenge || !deadline || !emoji) return;
 
     const { data: existingChallenge } = await supabase
       .from("challenges")
       .select("id")
-      .eq("created_by", userId)
+      .eq("created_by", supabaseId)
       .eq("title", challenge)
       .single();
 
@@ -168,7 +168,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
     if (!challengeId) {
       const { data: newChallenge, error: insertError } = await supabase
         .from("challenges")
-        .insert({ title: challenge, created_by: userId })
+        .insert({ title: challenge, created_by: supabaseId })
         .select("id")
         .single();
 
@@ -182,7 +182,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
     const { error: logError } = await supabase.from("challenge_logs").insert({
       challenge_id: challengeId,
-      user_id: userId,
+      user_id: supabaseId,
       emoji,
       deadline: deadline.toISOString(),
       is_public: isPublic,
@@ -192,7 +192,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       console.error("Log submission error:", logError.message);
     } else {
       console.log("✅ Challenge + log submitted to test tables");
-      fetchChallenges(userId);
+      fetchChallenges(supabaseId);
       onClose();
     }
   };
