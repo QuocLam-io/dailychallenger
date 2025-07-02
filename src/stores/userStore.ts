@@ -1,11 +1,15 @@
 import { create } from "zustand";
 
 type UserStore = {
-  userId: string | null;
-  setUserId: (id: string) => void;
+  clerkId: string | null;
+  supabaseId: string | null;
+  setClerkId: (id: string) => void;
+  setSupabaseId: (id: string) => void;
 };
 
 export const useUserStore = create<UserStore>((set) => ({
-  userId: null,
-  setUserId: (id) => set({ userId: id }),
+  clerkId: null,
+  supabaseId: null,
+  setClerkId: (id) => set({ clerkId: id }),
+  setSupabaseId: (id) => set({ supabaseId: id }),
 }));

@@ -22,7 +22,7 @@ interface ChallengesProps {
   currentChallenges: Challenge[];
   pastChallenges: Challenge[];
   needsUserAction: Challenge[];
-  fetchChallenges: (userId: string) => Promise<void>;
+  fetchChallenges: (supabaseUserId: string) => Promise<void>;
 }
 
 const useChallengesStore = create<ChallengesProps>((set) => ({
@@ -30,12 +30,12 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
   currentChallenges: [],
   pastChallenges: [],
   needsUserAction: [],
-  fetchChallenges: async (userId: string) => {
+  fetchChallenges: async (supabaseUserId: string) => {
     try {
       const { data: logs, error: logError } = await supabase
         .from("challenge_logs")
         .select("*")
-        .eq("user_id", userId);
+        .eq("user_id", supabaseUserId);
 
       if (logError || !logs) {
         console.error("Failed to fetch challenge logs", logError);

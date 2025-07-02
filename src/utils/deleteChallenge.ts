@@ -3,8 +3,8 @@ import { supabase } from "@/supabase-client";
 
 export const handleDeleteChallenge = async (
   deleteChallengeId: string,
-  userId: string,
-  fetchChallenges: (userId: string) => void,
+  supabaseUserId: string,
+  fetchChallenges: (supabaseUserId: string) => void,
   handleCloseDeleteChallengeModal: () => void
 ) => {
   if (!deleteChallengeId) return;
@@ -20,5 +20,5 @@ export const handleDeleteChallenge = async (
   }
 
   handleCloseDeleteChallengeModal();
-  fetchChallenges(userId);
+  fetchChallenges(supabaseUserId);
 };
