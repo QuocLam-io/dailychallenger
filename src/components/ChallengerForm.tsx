@@ -278,7 +278,14 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                 type="text"
                 placeholder="Wake up at 6AM"
                 value={challenge}
-                onChange={(e) => setChallenge(e.target.value)}
+                onChange={(e) => {
+                  const input = e.target.value;
+                  if (input.length === 1) {
+                    setChallenge(input.toUpperCase());
+                  } else {
+                    setChallenge(input);
+                  }
+                }}
               />
             </div>
             <div className="challenger-form_deadline-setter">

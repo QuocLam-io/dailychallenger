@@ -33,14 +33,12 @@ const Home = () => {
     challenges,
     currentChallenges,
     pastChallenges,
-    needsUserAction,
     fetchChallenges,
   } = useChallengesStore();
   console.log(
     challenges,
     // currentChallenges,
-    //    pastChallenges,
-    needsUserAction,
+    // pastChallenges,
     "current"
   );
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
@@ -76,7 +74,7 @@ const Home = () => {
   /* -------------------------------------------------------------------------- */
   if (!supabaseId) return <CarraigeLoader />;
 
-  console.log(markDoneHandler, pastChallenges);
+  console.log(markDoneHandler);
   return (
     <main className="home_wrapper">
       <NavSpacer />
