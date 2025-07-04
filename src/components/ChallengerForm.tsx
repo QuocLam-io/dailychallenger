@@ -150,8 +150,6 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
   /* ------------------------ Submit Challenge Handler ------------------------ */
   const submitChallengeHandler = async (e: React.FormEvent) => {
-    // TODO:  retrigger fetch after adding
-
     e.preventDefault();
 
     if (!supabaseId || !challenge || !deadline || !emoji) return;
