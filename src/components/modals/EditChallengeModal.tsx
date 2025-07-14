@@ -1,5 +1,6 @@
 //Styling
 import { fadeInOut } from "@/constants/animations";
+import "./EditChallengeModal.scss";
 
 //Zustand
 import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
@@ -42,12 +43,12 @@ const EditChallengeModal = () => {
 
   return (
     <Overlay customClassName="flex-align-start portrait-align-center">
-      <div className="public-challenger-form_container">
-        <form onSubmit={handleSubmit} className="public-challenger-form">
-          <div className="public-challenger-form_header">
+      <div className="challenger-edit-form_container">
+        <form onSubmit={handleSubmit} className="challenger-edit-form">
+          <div className="challenger-edit-form_header">
             <button
               type="button"
-              className="emoji-trigger challenger-form_header_emoji-btn"
+              className="emoji-trigger challenger-edit-form_header_emoji-btn"
               onClick={() => setShowEmojiPicker((prev) => !prev)}
             >
               {emoji}
@@ -74,13 +75,13 @@ const EditChallengeModal = () => {
             </AnimatePresence>
             <button
               type="button"
-              className="public-challenger-form_close-button"
+              className="challenger-edit-form_close-button"
               onClick={toggleEditChallengeModalOpen}
             >
               <img src={CloseXBW} alt="Close challenger form button" />
             </button>
           </div>
-          <div className="public-challenger-form_body">
+          <div className="challenger-edit-form_body">
             <div className="input-wrapper">
               {!challenge && <span className="blinking-caret"></span>}
               <input
@@ -93,7 +94,7 @@ const EditChallengeModal = () => {
               />
             </div>
           </div>
-          <div className="public-challenger-form_footer">
+          <div className="challenger-edit-form_footer">
             <button disabled={!challenge} type="submit">
               <p>Save</p>
               <img src={ArrowRight} alt="Save challenge arrow icon" />
