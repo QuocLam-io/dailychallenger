@@ -91,7 +91,7 @@ const ChallengeCard = ({ challenge }: Props) => {
     <div className="challenge-card_wrapper">
       <Link
         onClick={() => setChallengeDetailsPageChallenge(challenge)}
-        // to={`/challenge-details/${challenge.id}`}
+        to={`/challenge-details/${challenge.id}`}
       >
         <span>{challenge.emoji}</span>
         <div className="titles">

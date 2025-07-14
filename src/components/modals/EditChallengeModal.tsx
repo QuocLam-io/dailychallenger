@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 //Styling
 import { fadeInOut } from "@/constants/animations";
 import "./EditChallengeModal.scss";
@@ -24,12 +25,30 @@ const EditChallengeModal = () => {
   );
 
   /* ---------------------------------- Emoji --------------------------------- */
-  //TODO: handle click outside
   const [emoji, setEmoji] = useState(
     challengeDetailsPageChallenge?.emoji || "⛳️"
   );
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-  const emojiPickerRef = useRef(null);
+  const emojiPickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target as Node)
+      ) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    if (showEmojiPicker) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showEmojiPicker]);
 
   /* ------------------------------ Handle Submit ----------------------------- */
 
