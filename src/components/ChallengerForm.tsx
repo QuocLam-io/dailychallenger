@@ -154,6 +154,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
     if (!supabaseId || !challenge || !deadline || !emoji) return;
 
+    //Check challenges table if challenge exists
     const { data: existingChallenge } = await supabase
       .from("challenges")
       .select("id")
@@ -163,6 +164,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
     let challengeId = existingChallenge?.id;
 
+    //If challenge doesn't exist in challenges table, make one
     if (!challengeId) {
       const { data: newChallenge, error: insertError } = await supabase
         .from("challenges")
@@ -178,6 +180,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       challengeId = newChallenge?.id;
     }
 
+    //Make a challenge_log in challenge logs table
     const { error: logError } = await supabase.from("challenge_logs").insert({
       challenge_id: challengeId,
       user_id: supabaseId,
