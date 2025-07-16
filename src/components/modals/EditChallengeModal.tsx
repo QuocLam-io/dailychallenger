@@ -60,13 +60,15 @@ const EditChallengeModal = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+  //Ugh I'd better get used to these null guards because of ts
+   if (!(challenge && emoji && supabaseId && challengeDetailsPageChallenge)) return;
+
     await editChallengeHandler(
       supabaseId,
       challenge,
       emoji,
       challengeDetailsPageChallenge
     );
-
   };
 
   return (
