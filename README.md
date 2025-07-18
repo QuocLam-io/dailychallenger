@@ -155,19 +155,30 @@ Deno.serve(async (_req) => {
 
   const now = new Date().toISOString();
 
-  const { error } = await supabase
+  const { data, error: selectError } = await supabase
     .from("challenge_logs")
-    .update({
-      is_failed: true,
-      failed_at: supabase.fn.cast("deadline", "timestamptz"),
-    })
+    .select("id, deadline")
     .lte("deadline", now)
     .eq("completed", false)
     .eq("is_failed", false);
 
-  if (error) {
-    console.error("Failed to update challenge logs:", error);
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  if (selectError) {
+    console.error("Select error:", selectError);
+    return new Response(JSON.stringify({ error: selectError.message }), { status: 500 });
+  }
+
+  for (const row of data) {
+    const { error: updateError } = await supabase
+      .from("challenge_logs")
+      .update({
+        is_failed: true,
+        failed_at: row.deadline, 
+      })
+      .eq("id", row.id);
+
+    if (updateError) {
+      console.error(`Update failed for row ${row.id}:`, updateError);
+    }
   }
 
   return new Response(JSON.stringify({ message: "Marked failed challenge logs" }), {
