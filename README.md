@@ -54,7 +54,7 @@ Powered by a modern, optimized tech stack for real-world scalability, the platfo
 
 👉 **Microservice Authentication**: 3rd-party authentication powered by Clerk, offering seamless sign-up, sign-in, user profile management, and support for existing email addresses.
 
-👉 **Home Page**: Highlighted books and newly added books with 3D effects.
+👉 **Public Section**: Experience Daily Challenger without an account! The public section lets anyone try out the core challenge features, create a challenge, and see how the platform works—no sign-in required. Perfect for quick demos, sharing with friends, or testing the product before joining the community.
 
 ## <a name="quick-start">🤸 Quick Start</a>
 
