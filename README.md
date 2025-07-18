@@ -144,25 +144,37 @@ export default usePublicStore;
 
 </details>
 <details>
-<summary><code>Github Actions Cron Job</code></summary>
+<summary><code>Supabase Edge Function Cron Job</code></summary>
 
-```yaml
-# Github Actions Cron Job
-name: Ping Supabase API
+```typescript
+Deno.serve(async (_req) => {
+  const supabase = createClient(
+    Deno.env.get("PROJECT_URL")!,
+    Deno.env.get("SERVICE_ROLE_KEY")!
+  );
 
-on:
-  schedule:
-    - cron: "0 0 */2 * *" # Runs every 2 days at midnight (UTC)
-  workflow_dispatch: # Allows manual triggering
+  const now = new Date().toISOString();
 
-jobs:
-  ping-api:
-    runs-on: ubuntu-latest
-    steps:****
-      - name: Send request to Supabase API
-        run: |
-          curl -X GET "https://acfwjcgwlkveknfqthsn.supabase.co/rest/v1/users" \
-          -H "apikey: ${{ secrets.SUPABASE_API_KEY }}"
+  const { error } = await supabase
+    .from("challenge_logs")
+    .update({
+      is_failed: true,
+      failed_at: supabase.fn.cast("deadline", "timestamptz"),
+    })
+    .lte("deadline", now)
+    .eq("completed", false)
+    .eq("is_failed", false);
+
+  if (error) {
+    console.error("Failed to update challenge logs:", error);
+    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  }
+
+  return new Response(JSON.stringify({ message: "Marked failed challenge logs" }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
+});
 ```
 
 </details>
