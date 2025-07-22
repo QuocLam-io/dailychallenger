@@ -1,7 +1,9 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-Deno.serve(async (_req) => {
+Deno.serve(async (req) => {
+  console.log("Edge function triggered with method:", req.method);
+
   const supabase = createClient(
     Deno.env.get("PROJECT_URL")!,
     Deno.env.get("SERVICE_ROLE_KEY")!
@@ -13,7 +15,7 @@ Deno.serve(async (_req) => {
     .from("challenge_logs")
     .select("id, deadline")
     .lte("deadline", now)
-    .eq("completed", false)
+    .eq("is_completed", false)
     .eq("is_failed", false);
 
   if (selectError) {
@@ -35,8 +37,8 @@ Deno.serve(async (_req) => {
     }
   }
 
-  return new Response(JSON.stringify({ message: "Marked failed challenge logs" }), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  return new Response(
+    JSON.stringify({ message: "Marked failed challenge logs", count: data.length }),
+    { status: 200, headers: { "Content-Type": "application/json" } }
+  );
 });
