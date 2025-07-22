@@ -159,12 +159,14 @@ Deno.serve(async (_req) => {
     .from("challenge_logs")
     .select("id, deadline")
     .lte("deadline", now)
-    .eq("completed", false)
+    .eq("is_completed", false)
     .eq("is_failed", false);
 
   if (selectError) {
     console.error("Select error:", selectError);
-    return new Response(JSON.stringify({ error: selectError.message }), { status: 500 });
+    return new Response(JSON.stringify({ error: selectError.message }), {
+      status: 500,
+    });
   }
 
   for (const row of data) {
@@ -172,7 +174,7 @@ Deno.serve(async (_req) => {
       .from("challenge_logs")
       .update({
         is_failed: true,
-        failed_at: row.deadline, 
+        failed_at: row.deadline,
       })
       .eq("id", row.id);
 
@@ -181,10 +183,13 @@ Deno.serve(async (_req) => {
     }
   }
 
-  return new Response(JSON.stringify({ message: "Marked failed challenge logs" }), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  return new Response(
+    JSON.stringify({ message: "Marked failed challenge logs" }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 });
 ```
 
@@ -250,7 +255,6 @@ const PrivateRoutesWrapper = () => {
 
         setUserId(user.id);
         console.log("blub");
-
       } catch (error) {
         console.error("Unexpected error:", error);
       }
@@ -264,23 +268,19 @@ const PrivateRoutesWrapper = () => {
   return <Outlet />;
 };
 
- {/* Private Routes */}
-          <Route
-            path="/home"
-            element={
-              isSignedIn ? (
-                <PrivateRoutesWrapper />
-              ) : (
-                <Navigate to="/" replace />
-              )
-            }
-          >
-            {/* <Route path="/home" element={<Home />} /> */}
-            <Route index element={<Home />} />
-            {/* Future private routes */}
-            {/* <Route path="profile" element={<Profile />} /> */}
-            {/* <Route path="settings" element={<Settings />} /> */}
-          </Route>
+{
+  /* Private Routes */
+}
+<Route
+  path="/home"
+  element={isSignedIn ? <PrivateRoutesWrapper /> : <Navigate to="/" replace />}
+>
+  {/* <Route path="/home" element={<Home />} /> */}
+  <Route index element={<Home />} />
+  {/* Future private routes */}
+  {/* <Route path="profile" element={<Profile />} /> */}
+  {/* <Route path="settings" element={<Settings />} /> */}
+</Route>;
 ```
 
 </details>
@@ -305,7 +305,9 @@ const NavSpacer = () => {
     }
   }, []);
 
-  return <div  className="nav-spacer_wrapper" style={{ height }} aria-hidden="true" />;
+  return (
+    <div className="nav-spacer_wrapper" style={{ height }} aria-hidden="true" />
+  );
 };
 ```
 
