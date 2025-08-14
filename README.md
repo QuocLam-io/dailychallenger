@@ -56,69 +56,6 @@ Powered by a modern, optimized tech stack for real-world scalability, the platfo
 
 👉 **Public Section**: Experience Daily Challenger without an account! The public section lets anyone try out the core challenge features, create a challenge, and see how the platform works—no sign-in required. Perfect for quick demos, sharing with friends, or testing the product before joining the community.
 
-## <a name="quick-start">🤸 Quick Start</a>
-
-Follow these steps to set up the project locally on your machine.
-
-**Prerequisites**
-
-Make sure you have the following installed on your machine:
-
-- [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/) (Node Package Manager)
-
-**Cloning the Repository**
-
-```bash
-git clone https://github.com/adrianhajdin/university-library-jsm.git
-cd university-library-jsm
-```
-
-**Installation**
-
-Install the project dependencies using npm:
-
-```bash
-npm install
-```
-
-**Set Up Environment Variables**
-
-Create a new file named `.env` in the root of your project and add the following content:
-
-```env
-NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY=
-IMAGEKIT_PRIVATE_KEY=
-NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT=
-
-NEXT_PUBLIC_API_ENDPOINT=
-NEXT_PUBLIC_PROD_API_ENDPOINT=
-
-DATABASE_URL=
-
-UPSTASH_REDIS_URL=
-UPSTASH_REDIS_TOKEN=
-
-AUTH_SECRET=
-
-# Required for workflow
-QSTASH_URL=
-QSTASH_TOKEN=
-
-# RESEND_TOKEN=
-RESEND_TOKEN=
-```
-
-Replace the placeholder values with your actual ImageKit, NeonDB, Upstash, and Resend credentials. You can obtain these credentials by signing up on the [ImageKit](https://bit.ly/49zmXkt), [NeonDB](https://fyi.neon.tech/1jsm), [Upstash](https://upstash.com/?utm_source=jsmastery1), and [Resend](https://resend.com/).
-
-**Running the Project**
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
 
 ## <a name="snippets">🕸️ Snippets</a>
 
