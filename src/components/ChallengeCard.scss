@@ -43,6 +43,18 @@
       font-weight: 400;
       line-height: 12px;
       letter-spacing: 0.1px;
+
+      .challenge-status-completed {
+        color: #16a34a; // green-600
+      }
+
+      .challenge-status-failed {
+        color: #dc2626; // red-600
+      }
+
+      .challenge-status-overdue {
+        color: #dc2626; // red-600 (same as failed)
+      }
     }
   }
   }

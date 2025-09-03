@@ -13,7 +13,7 @@ import addUserDisabled from "@/assets/user-add-disabled.svg";
 //Router
 import { Link } from "react-router-dom";
 //Utils
-import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
+import { getDeadlineDisplay, getPastChallengeDisplay } from "@/utils/deadlineDisplay";
 //Types
 import { Challenge } from "@/stores/challengesStore";
 //Zustand
@@ -37,6 +37,11 @@ const ChallengeCard = ({ challenge }: Props) => {
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
   const { activeTab } = useDashboardStore();
+
+  // Calculate display info for past challenges
+  const pastChallengeDisplay = activeTab === "past" 
+    ? getPastChallengeDisplay(challenge.completed_at, challenge.failed_at, challenge.deadline)
+    : null;
 
   /* --------------- Toggle Challenge as Complete/Undo Complete --------------- */
   const completeChallengeHandler = (e: React.MouseEvent, id: string) => {
@@ -96,7 +101,18 @@ const ChallengeCard = ({ challenge }: Props) => {
         <span>{challenge.emoji}</span>
         <div className="titles">
           <h4>{challenge.title}</h4>
-          <p>{getDeadlineDisplay(new Date(challenge.deadline))} left</p>
+          <p>
+            {pastChallengeDisplay ? (
+              <>
+                <span className={`challenge-status-${pastChallengeDisplay.status}`}>
+                  {pastChallengeDisplay.verb}
+                </span>
+                {pastChallengeDisplay.rest}
+              </>
+            ) : (
+              `${getDeadlineDisplay(new Date(challenge.deadline))} left`
+            )}
+          </p>
         </div>
       </Link>
       <div className="card-status">
