@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 //Utils
 import { getGreeting } from "@/utils/getGreeting";
+import { calculateCurrentStreak } from "@/utils/calculateStreak";
 //Styles
 import "./Home.scss";
 import { AnimatePresence } from "framer-motion";
@@ -44,6 +45,7 @@ const Home = () => {
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = getGreeting(isNewUser);
+  const currentStreak = calculateCurrentStreak(challenges);
 
   const clerkId = useUserStore((s) => s.clerkId);
   const supabaseId = useUserStore((s) => s.supabaseId);
@@ -104,7 +106,7 @@ const Home = () => {
           </div>
           <div className="dashboard-user_streak">
             <p>Current streak</p>
-            <p>0 days</p>
+            <p>{currentStreak} days</p>
             <p>Longest streak: 0 days</p>
             <div className="dashboard-user_streak-cheers">
               <p>No cheers yet</p>
