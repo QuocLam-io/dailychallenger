@@ -140,6 +140,8 @@
     }
 
     &_new-cta {
+      @include flex-column;
+      align-items: center;
       padding: 40px 16px 24px;
       text-align: center;
 
@@ -191,7 +193,5 @@
       line-height: 18px;
       letter-spacing: 0.14px;
     }
-
   }
-
 }
