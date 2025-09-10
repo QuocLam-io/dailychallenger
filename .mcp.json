@@ -8,6 +8,16 @@
         "@upstash/context7-mcpclaude"
       ],
       "env": {}
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@playwright",
+        "npx",
+        "@playwright/mcp@latest"
+      ],
+      "env": {}
     }
   }
 }
