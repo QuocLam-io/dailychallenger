@@ -13,8 +13,6 @@
       "type": "stdio",
       "command": "npx",
       "args": [
-        "@playwright",
-        "npx",
         "@playwright/mcp@latest"
       ],
       "env": {}
