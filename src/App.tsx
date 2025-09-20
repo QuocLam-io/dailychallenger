@@ -14,6 +14,7 @@ import Navbar from "./components/Navbar.tsx";
 import LandingPage from "./pages/LandingPage.tsx";
 import UnderConstruction from "./pages/UnderConstruction.tsx";
 import Home from "./pages/Home.tsx";
+import ChallengeDetailsPage from "./pages/ChallengeDetailsPage.tsx";
 
 function App() {
   const { isSignedIn } = useAuth();
@@ -44,7 +45,7 @@ function App() {
             element={isSignedIn ? <PrivateRoutesWrapper /> : <Navigate to="/" replace />}
           >
             <Route path="/home" element={<Home />} />
-            <Route path="challenge-details/:id" element={<div>Challenge Details Page</div>} />
+            <Route path="challenge-details/:id" element={<ChallengeDetailsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

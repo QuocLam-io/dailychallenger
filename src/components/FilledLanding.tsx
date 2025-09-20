@@ -14,6 +14,8 @@ import usePublicStore from "../stores/usePublicStore.ts";
 import Overlay from "./Overlay";
 import { PublicChallengeTypes } from "../pages/LandingPage";
 import { PublicChallengerForm } from "./EmptyLanding";
+//Utils
+import { formatCountdownTime } from "../utils/countdownTimer";
 
 interface FilledLandingProps {
   publicChallenge: PublicChallengeTypes;
@@ -73,16 +75,7 @@ const FilledLanding: React.FC<FilledLandingProps> = ({
 
   const countdownTimerHandler = () => {
     if (timeLeft > 0) {
-      const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-      const seconds = Math.floor((timeLeft / 1000) % 60);
-
-      setTimeLeftDisplay(
-        `${hours}:${String(minutes).padStart(2, "0")}:${String(
-          seconds
-        ).padStart(2, "0")}`
-      );
-
+      setTimeLeftDisplay(formatCountdownTime(timeLeft));
       setTimeLeft((prevTime) => prevTime - 1000);
     } else {
       setTimeLeftDisplay("Expired");

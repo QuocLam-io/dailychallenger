@@ -1,0 +1,294 @@
+@use "@/styles/_variables.scss" as *;
+
+.challenge-details-container {
+  @include flex-column;
+  min-height: 100svh;
+  padding: 88px 24px 0;
+
+  .challenge-details-hero {
+    @include flex-column(24px);
+
+    .challenge-emoji {
+      font-size: 80px;
+      line-height: 80px;
+      display: block;
+    }
+
+    &-text {
+      @include flex-column(4px);
+
+      h2 {
+        color: rgba(26, 26, 26, 0.8);
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 24px;
+        letter-spacing: 0.16px;
+      }
+
+      p {
+        color: rgba(26, 26, 26, 0.9);
+        font-family: "Ultra";
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 56px;
+      }
+    }
+  }
+
+  .challenge-details-timer {
+    @include flex-column(4px);
+    padding: 20px 16px 16px 16px;
+    margin-top: auto;
+    margin-bottom: 40px;
+    border-radius: 8px;
+    background: #f1f5f9;
+
+    p {
+      font-family: "Work Sans";
+      font-weight: 700;
+      color: rgba(26, 26, 26, 0.6);
+      line-height: 24px;
+      letter-spacing: 0.16px;
+    }
+
+    p + p {
+      color: rgba(26, 26, 26, 0.8);
+      font-family: "Ultra";
+      font-size: 40px;
+      line-height: 56px;
+      letter-spacing: 2px;
+      font-weight: 400;
+    }
+  }
+
+  .challenge-details-footer {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    margin: 12px 0 24px;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 8px;
+      background: #1a1a1a;
+      box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      border: none;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+
+      p {
+        color: var(--color-50, #fafafa);
+        font-feature-settings: "liga" off, "clig" off;
+        font-family: "Work Sans";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0.16px;
+      }
+
+      &:disabled {
+        pointer-events: none;
+        opacity: 0.6;
+      }
+    }
+
+    .challenge-complete-btn {
+      position: relative;
+      z-index: 0;
+      transition: all 0.5s;
+      overflow: clip;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -10;
+        transform: translateX(-200%) translateY(0%) scale(2.5);
+        border-radius: 40%;
+        background-color: #03781f;
+        transition: transform 0.4s;
+      }
+
+      &.ripple-active::before {
+        transform: translateX(0%) translateY(0%) scale(2.5);
+      }
+    }
+
+    .challenge-action-menu-wrapper {
+      position: relative;
+
+      button {
+        width: auto;
+        padding: 16px;
+        background: transparent;
+        box-shadow: none;
+        transition: background 0.4s ease;
+
+        img {
+          min-width: 24px;
+          height: 24px;
+        }
+      }
+
+      .bg-active-grey {
+        background: rgba(26, 26, 26, 0.08);
+      }
+
+      &[aria-expanded="true"] .challenge-action-menu {
+        height: auto;
+        visibility: visible;
+      }
+
+      .challenge-action-menu {
+        position: absolute;
+        bottom: 100%;
+        margin-bottom: 20px;
+        right: 0;
+        width: 224px;
+        background: var(--color-slate-white, #fff);
+        box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.09);
+        border-radius: 6px;
+        border: 1px solid var(--slate-100, #f1f5f9);
+        height: 0;
+        overflow: clip;
+        visibility: hidden;
+        transition: height 0.5s ease, visibility 2s;
+
+        ul {
+          @include flex-column;
+          align-items: flex-start;
+          font-family: Inter;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 20px;
+
+          img {
+            width: 16px;
+            height: 16px;
+          }
+
+          li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 13px;
+            width: 100%;
+            transition: background 0.4s ease;
+            cursor: pointer;
+            color: var(--slate-700, #334155);
+            font-family: "Inter";
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+
+            p {
+              color: var(--slate-700, #334155);
+            }
+
+            &:hover {
+              background: rgba(26, 26, 26, 0.08);
+            }
+          }
+        }
+      }
+    }
+
+    .challenge-action-btns {
+      display: none;
+    }
+  }
+
+  @media (min-width: $portrait) {
+    align-items: center;
+    padding: 112px 48px 64px;
+    gap: 48px;
+
+    .challenge-details-hero {
+      align-items: center;
+      gap: 40px;
+
+      .challenge-emoji {
+        font-size: 120px;
+        line-height: 120px;
+      }
+
+      &-text {
+        align-items: center;
+        gap: 16px;
+
+        h2 {
+          font-size: 24px;
+          line-height: 32px;
+          letter-spacing: 0.24px;
+        }
+
+        p {
+          text-align: center;
+          font-size: 64px;
+          line-height: 80px;
+        }
+      }
+    }
+
+    .challenge-details-timer {
+      width: 378px;
+      align-items: center;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .challenge-details-footer {
+      flex-direction: column;
+      margin: auto 0 0;
+      width: 426px;
+
+      button {
+        padding: 20px 24px;
+
+        p {
+          font-size: 18px;
+          letter-spacing: 0.18px;
+        }
+      }
+
+      .challenge-action-menu-wrapper {
+        display: none;
+      }
+
+      .challenge-action-btns {
+        display: flex;
+        gap: 12px;
+
+        button {
+          background: transparent;
+          box-shadow: none;
+          transition: box-shadow 0.3s ease;
+          cursor: pointer;
+
+          img {
+            width: 24px;
+            height: 24px;
+          }
+
+          p {
+            color: rgba(26, 26, 26, 0.8);
+          }
+
+          &:hover {
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+          }
+        }
+      }
+    }
+  }
+}
