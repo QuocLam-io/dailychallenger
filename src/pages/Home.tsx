@@ -49,6 +49,7 @@ const Home = () => {
 
   const clerkId = useUserStore((s) => s.clerkId);
   const supabaseId = useUserStore((s) => s.supabaseId);
+  const longestStreak = useUserStore((s) => s.longestStreak);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
   const deleteChallengeModalOpen = useModalsStore(
@@ -107,7 +108,7 @@ const Home = () => {
           <div className="dashboard-user_streak">
             <p>Current streak</p>
             <p>{currentStreak} days</p>
-            <p>Longest streak: 0 days</p>
+            <p>Longest streak: {longestStreak} days</p>
             <div className="dashboard-user_streak-cheers">
               <p>No cheers yet</p>
               {/* Pictures of friends cheering will be here */}
