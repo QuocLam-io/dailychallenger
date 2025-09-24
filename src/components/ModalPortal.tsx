@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import { useModalsStore } from "@/stores/modalsStore";
 import DeleteChallengeModal from "@/components/modals/DeleteChallengeModal";
 import EditChallengeModal from "@/components/modals/EditChallengeModal";
 
 const ModalPortal: React.FC = () => {
-  const { deleteChallengeModalOpen, editChallengeModalOpen } = useModalsStore();
+  const location = useLocation();
+  const {
+    deleteChallengeModalOpen,
+    editChallengeModalOpen,
+    toggleDeleteChallengeModalOpen,
+    toggleEditChallengeModalOpen,
+    setDeleteChallengeId
+  } = useModalsStore();
+
+  useEffect(() => {
+    // Reset modal states when route changes
+    if (deleteChallengeModalOpen) {
+      toggleDeleteChallengeModalOpen();
+      setDeleteChallengeId(null);
+    }
+    if (editChallengeModalOpen) {
+      toggleEditChallengeModalOpen();
+    }
+  }, [location.pathname]);
 
   // Get or create the portal container
   const getPortalContainer = () => {
