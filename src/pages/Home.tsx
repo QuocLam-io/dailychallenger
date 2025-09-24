@@ -1,5 +1,5 @@
 //React
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 //Utils
 import { getGreeting } from "@/utils/getGreeting";
 import { calculateCurrentStreak } from "@/utils/calculateStreak";
@@ -44,7 +44,7 @@ const Home = () => {
   );
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
-  const greeting = getGreeting(isNewUser);
+  const greeting = useMemo(() => getGreeting(isNewUser), [isNewUser]);
   const currentStreak = calculateCurrentStreak(challenges);
 
   const clerkId = useUserStore((s) => s.clerkId);
