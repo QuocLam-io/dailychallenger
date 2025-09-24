@@ -39,7 +39,7 @@ const DeleteChallengeModal = () => {
   };
 
   return (
-    <Overlay>
+    <Overlay onOverlayClick={handleCloseDeleteChallengeModal}>
       <div className="delete-challenge-modal">
         <h2>Delete this challenge?</h2>
         <p>Are you sure you want to delete this challenge?</p>

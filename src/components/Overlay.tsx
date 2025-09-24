@@ -5,15 +5,25 @@ import { motion } from "framer-motion";
 interface OverlayProps {
   children: React.ReactNode;
   customClassName?: string;
+  onOverlayClick?: () => void;
 }
 
 const Overlay: React.FC<OverlayProps> = ({
   children,
   customClassName,
+  onOverlayClick,
 }) => {
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    // Only close if clicking on the overlay itself, not on children
+    if (e.target === e.currentTarget && onOverlayClick) {
+      onOverlayClick();
+    }
+  };
+
   return (
     <motion.div
       className={`overlay-wrapper ${customClassName}`}
+      onClick={handleOverlayClick}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

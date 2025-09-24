@@ -72,7 +72,10 @@ const EditChallengeModal = () => {
   };
 
   return (
-    <Overlay customClassName="flex-align-start portrait-align-center">
+    <Overlay
+      customClassName="flex-align-start portrait-align-center"
+      onOverlayClick={toggleEditChallengeModalOpen}
+    >
       <div className="challenger-edit-form_container">
         <form onSubmit={handleSubmit} className="challenger-edit-form">
           <div className="challenger-edit-form_header">
