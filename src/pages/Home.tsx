@@ -14,7 +14,6 @@ import { useUser } from "@clerk/clerk-react";
 //Zustand
 import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
-import { useModalsStore } from "@/stores/modalsStore";
 import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
 //Types
 import type { Challenge } from "@/stores/challengesStore";
@@ -26,8 +25,6 @@ import ChallengerForm from "@/components/ChallengerForm.tsx";
 import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
 import ChallengeCard from "@/components/ChallengeCard";
 import DashboardCTAFooter from "@/components/dashboard/DashboardCTAFooter";
-import DeleteChallengeModal from "@/components/modals/DeleteChallengeModal";
-import EditChallengeModal from "@/components/modals/EditChallengeModal";
 
 const Home = () => {
   const {
@@ -52,12 +49,6 @@ const Home = () => {
   const longestStreak = useUserStore((s) => s.longestStreak);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
-  const deleteChallengeModalOpen = useModalsStore(
-    (s) => s.deleteChallengeModalOpen
-  );
-  const editChallengeModalOpen = useModalsStore(
-    (s) => s.editChallengeModalOpen
-  );
 
   const { activeTab } = useDashboardStore();
 
@@ -189,8 +180,6 @@ const Home = () => {
         {isChallengerFormOpen && (
           <ChallengerForm onClose={() => setIsChallengerFormOpen(false)} />
         )}
-        {deleteChallengeModalOpen && <DeleteChallengeModal />}
-        {editChallengeModalOpen && <EditChallengeModal />}
       </AnimatePresence>
     </main>
   );

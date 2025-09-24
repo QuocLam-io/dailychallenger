@@ -15,6 +15,7 @@ import LandingPage from "./pages/LandingPage.tsx";
 import UnderConstruction from "./pages/UnderConstruction.tsx";
 import Home from "./pages/Home.tsx";
 import ChallengeDetailsPage from "./pages/ChallengeDetailsPage.tsx";
+import ModalPortal from "./components/ModalPortal.tsx";
 
 function App() {
   const { isSignedIn } = useAuth();
@@ -48,6 +49,7 @@ function App() {
             <Route path="challenge-details/:id" element={<ChallengeDetailsPage />} />
           </Route>
         </Routes>
+        <ModalPortal />
       </BrowserRouter>
     </>
   );
