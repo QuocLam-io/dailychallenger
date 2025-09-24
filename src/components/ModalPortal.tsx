@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { AnimatePresence } from "framer-motion";
 import { useModalsStore } from "@/stores/modalsStore";
 import DeleteChallengeModal from "@/components/modals/DeleteChallengeModal";
 import EditChallengeModal from "@/components/modals/EditChallengeModal";
@@ -21,10 +22,10 @@ const ModalPortal: React.FC = () => {
   const portalContainer = getPortalContainer();
 
   return ReactDOM.createPortal(
-    <>
-      {deleteChallengeModalOpen && <DeleteChallengeModal />}
-      {editChallengeModalOpen && <EditChallengeModal />}
-    </>,
+    <AnimatePresence>
+      {deleteChallengeModalOpen && <DeleteChallengeModal key="delete-modal" />}
+      {editChallengeModalOpen && <EditChallengeModal key="edit-modal" />}
+    </AnimatePresence>,
     portalContainer
   );
 };

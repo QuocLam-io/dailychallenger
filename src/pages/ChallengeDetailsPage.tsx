@@ -19,7 +19,8 @@ const ChallengeDetailsPage: React.FC = () => {
     setDeleteChallengeId,
   } = useModalsStore();
 
-  const [challengeActionMenuToggle, setChallengeActionMenuToggle] = useState(false);
+  const [challengeActionMenuToggle, setChallengeActionMenuToggle] =
+    useState(false);
   const [rippleTrigger, setRippleTrigger] = useState(false);
   const [timeLeftDisplay, setTimeLeftDisplay] = useState("Loading...");
   const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
@@ -75,7 +76,8 @@ const ChallengeDetailsPage: React.FC = () => {
       clearInterval(intervalIdRef.current);
     }
 
-    // TODO: Implement actual completion logic via API
+    // TODO: Implement actual completion logic for the done btn
+    // TODO: the edit btn doesn't disappear after clicking Done, so don't forget to handle that
     console.log("Challenge completed:", challenge.id);
   };
 
@@ -101,7 +103,11 @@ const ChallengeDetailsPage: React.FC = () => {
       {rippleTrigger && <Fireworks autorun={{ speed: 1 }} />}
 
       <div className="challenge-details-hero">
-        <span className="challenge-emoji" role="img" aria-label="Challenge emoji">
+        <span
+          className="challenge-emoji"
+          role="img"
+          aria-label="Challenge emoji"
+        >
           {challenge.emoji}
         </span>
         <div className="challenge-details-hero-text">
@@ -115,11 +121,17 @@ const ChallengeDetailsPage: React.FC = () => {
         <p>{timeLeftDisplay}</p>
       </div>
 
-      <div className={`challenge-details-footer ${rippleTrigger ? "flex-column" : ""}`}>
+      <div
+        className={`challenge-details-footer ${
+          rippleTrigger ? "flex-column" : ""
+        }`}
+      >
         <button
           disabled={rippleTrigger || challenge.is_failed}
           onClick={completeChallengeHandler}
-          className={`challenge-complete-btn ${rippleTrigger ? "ripple-active" : ""}`}
+          className={`challenge-complete-btn ${
+            rippleTrigger ? "ripple-active" : ""
+          }`}
         >
           <img src={CheckmarkBW} alt="Check mark icon" />
           <p>{rippleTrigger ? "Good show!" : "Mark as done"}</p>
@@ -133,7 +145,9 @@ const ChallengeDetailsPage: React.FC = () => {
           >
             <button
               className={challengeActionMenuToggle ? "bg-active-grey" : ""}
-              onClick={() => setChallengeActionMenuToggle(!challengeActionMenuToggle)}
+              onClick={() =>
+                setChallengeActionMenuToggle(!challengeActionMenuToggle)
+              }
             >
               <img src={VerticalEllipsis} alt="Vertical ellipsis icon" />
             </button>
@@ -143,17 +157,11 @@ const ChallengeDetailsPage: React.FC = () => {
               aria-label="Action menu"
             >
               <ul>
-                <li
-                  onClick={handleEditChallenge}
-                  role="menuitem"
-                >
+                <li onClick={handleEditChallenge} role="menuitem">
                   <img src={EditPencil} alt="Edit icon" />
                   <p>Edit</p>
                 </li>
-                <li
-                  onClick={handleDeleteChallenge}
-                  role="menuitem"
-                >
+                <li onClick={handleDeleteChallenge} role="menuitem">
                   <img src={DeleteTrashcan} alt="Delete icon" />
                   <p>Delete</p>
                 </li>
