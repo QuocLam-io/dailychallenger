@@ -155,10 +155,21 @@ const ChallengeCard = ({ challenge }: Props) => {
           <div className="dropdown-menu" role="menu" aria-label="Action menu">
             <ul>
               <li role="none">
-                <button role="menuitem" onClick={handleEditChallenge}>
-                  <img src={EditPencil} />
-                  <p>Edit</p>
-                </button>
+                {challenge.is_completed ? (
+                  <button
+                    className="dropdown_invite-button-disabled"
+                    role="menuitem"
+                  >
+                    <img src={EditPencil} />
+                    <p>Edit</p>
+                    <span>COMPLETED</span>
+                  </button>
+                ) : (
+                  <button role="menuitem" onClick={handleEditChallenge}>
+                    <img src={EditPencil} />
+                    <p>Edit</p>
+                  </button>
+                )}
               </li>
               {/* <li role="none">
                 <button role="menuitem">
