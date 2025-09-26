@@ -10,7 +10,7 @@ import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
 import { useModalsStore } from "@/stores/modalsStore";
 import { formatCountdownTime, getTimeLeft } from "@/utils/countdownTimer";
-import { completeChallengeHandler as completeChallenge } from "@/utils/completeChallenge";
+import { toggleChallengeCompletionHandler as completeChallenge } from "@/utils/completeChallenge";
 
 const ChallengeDetailsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ const ChallengeDetailsPage: React.FC = () => {
     }
 
     // Complete the challenge in Supabase
-    const success = await completeChallenge(user.id, challenge.id);
+    const success = await completeChallenge(user.id, challenge.id, challenge.is_completed);
 
     if (!success) {
       console.error("Failed to complete challenge");

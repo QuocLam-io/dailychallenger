@@ -23,6 +23,7 @@
     "emoji-picker-react": "^4.12.2",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.468.0",
+    "partycles": "^1.2.6",
     "react": "19.0.0",
     "react-canvas-confetti": "^2.0.7",
     "react-day-picker": "^9.6.7",

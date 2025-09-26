@@ -1,5 +1,7 @@
 //React
 import { useEffect, useRef } from "react";
+//Animations
+import { useReward } from "partycles";
 // Styles
 import "./ChallengeCard.scss";
 import greenCheckmark from "@/assets/checkmark-green-circle.svg";
@@ -13,7 +15,10 @@ import addUserDisabled from "@/assets/user-add-disabled.svg";
 //Router
 import { Link } from "react-router-dom";
 //Utils
-import { getDeadlineDisplay, getPastChallengeDisplay } from "@/utils/deadlineDisplay";
+import {
+  getDeadlineDisplay,
+  getPastChallengeDisplay,
+} from "@/utils/deadlineDisplay";
 import { toggleChallengeCompletionHandler as toggleChallengeCompletion } from "@/utils/completeChallenge";
 //Types
 import { Challenge } from "@/stores/challengesStore";
@@ -42,9 +47,14 @@ const ChallengeCard = ({ challenge }: Props) => {
   const { activeTab } = useDashboardStore();
 
   // Calculate display info for past challenges
-  const pastChallengeDisplay = activeTab === "past" 
-    ? getPastChallengeDisplay(challenge.completed_at, challenge.failed_at, challenge.deadline)
-    : null;
+  const pastChallengeDisplay =
+    activeTab === "past"
+      ? getPastChallengeDisplay(
+          challenge.completed_at,
+          challenge.failed_at,
+          challenge.deadline
+        )
+      : null;
 
   /* --------------- Toggle Challenge as Complete/Undo Complete --------------- */
   const completeChallengeHandler = async (e: React.MouseEvent, id: string) => {
@@ -52,16 +62,49 @@ const ChallengeCard = ({ challenge }: Props) => {
 
     if (!supabaseId) return;
 
+    const wasCompleted = challenge.is_completed;
+
     // Toggle completion status
-    const success = await toggleChallengeCompletion(supabaseId, id, challenge.is_completed);
+    const success = await toggleChallengeCompletion(
+      supabaseId,
+      id,
+      challenge.is_completed
+    );
 
     if (!success) {
       console.error("Failed to toggle challenge completion");
+    } else if (!wasCompleted) {
+      // Only trigger animation when completing (not uncompleting)
+      reward();
     }
   };
 
   /* ------------------------------ Dropdown Menu ----------------------------- */
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const doneButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Particle animation setup
+  const { reward } = useReward(doneButtonRef, "stars", {
+  "animationType": "stars",
+  "particleCount": 40,
+  "spread": 200,
+  "startVelocity": 4,
+  "elementSize": 15,
+  "lifetime": 150,
+  "physics": {
+    "gravity": .6,
+    "wind": 0,
+    "friction": 0.98
+  },
+  "effects": {
+    "twinkle": false
+  },
+  "colors": [
+    "#FFD700",
+    "#FFA500",
+    "#FF6347"
+  ]
+});
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -115,7 +158,9 @@ const ChallengeCard = ({ challenge }: Props) => {
           <p>
             {pastChallengeDisplay ? (
               <>
-                <span className={`challenge-status-${pastChallengeDisplay.status}`}>
+                <span
+                  className={`challenge-status-${pastChallengeDisplay.status}`}
+                >
                   {pastChallengeDisplay.verb}
                 </span>
                 {pastChallengeDisplay.rest}
@@ -130,6 +175,7 @@ const ChallengeCard = ({ challenge }: Props) => {
       </Link>
       <div className="card-status">
         <button
+          ref={doneButtonRef}
           onClick={(e) => completeChallengeHandler(e, challenge.id)}
           className="card-status-done"
         >
