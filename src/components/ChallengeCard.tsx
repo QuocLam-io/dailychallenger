@@ -14,6 +14,7 @@ import addUserDisabled from "@/assets/user-add-disabled.svg";
 import { Link } from "react-router-dom";
 //Utils
 import { getDeadlineDisplay, getPastChallengeDisplay } from "@/utils/deadlineDisplay";
+import { completeChallengeHandler as completeChallenge } from "@/utils/completeChallenge";
 //Types
 import { Challenge } from "@/stores/challengesStore";
 //Zustand
@@ -21,12 +22,14 @@ import { useDropdownStore } from "@/stores/dropdownStore";
 import { useModalsStore } from "@/stores/modalsStore";
 import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
 import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
+import { useUserStore } from "@/stores/userStore";
 
 type Props = {
   challenge: Challenge;
 };
 
 const ChallengeCard = ({ challenge }: Props) => {
+  const { supabaseId } = useUserStore();
   //TODO: time left utils for past challenges
   const {
     setDeleteChallengeId,
@@ -44,9 +47,17 @@ const ChallengeCard = ({ challenge }: Props) => {
     : null;
 
   /* --------------- Toggle Challenge as Complete/Undo Complete --------------- */
-  const completeChallengeHandler = (e: React.MouseEvent, id: string) => {
+  const completeChallengeHandler = async (e: React.MouseEvent, id: string) => {
     e.preventDefault();
-    console.log(id);
+
+    if (!supabaseId || challenge.is_completed) return;
+
+    // Call the completion API
+    const success = await completeChallenge(supabaseId, id);
+
+    if (!success) {
+      console.error("Failed to complete challenge");
+    }
   };
 
   /* ------------------------------ Dropdown Menu ----------------------------- */

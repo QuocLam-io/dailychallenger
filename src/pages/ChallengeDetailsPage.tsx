@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
 import "./ChallengeDetailsPage.scss";
 import CheckmarkBW from "@/assets/checkmark-bw-circle.png";
 import VerticalEllipsis from "@/assets/vertical-ellipsis-grey.png";
@@ -9,9 +10,11 @@ import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
 import { useModalsStore } from "@/stores/modalsStore";
 import { formatCountdownTime, getTimeLeft } from "@/utils/countdownTimer";
+import { completeChallengeHandler as completeChallenge } from "@/utils/completeChallenge";
 
 const ChallengeDetailsPage: React.FC = () => {
   const navigate = useNavigate();
+  const { user } = useUser();
   const { challengeDetailsPageChallenge } = useChallengeDetailsPageStore();
   const {
     toggleDeleteChallengeModalOpen,
@@ -66,8 +69,8 @@ const ChallengeDetailsPage: React.FC = () => {
     };
   }, [challenge, navigate]);
 
-  const completeChallengeHandler = () => {
-    if (!challenge || challenge.is_completed) return;
+  const completeChallengeHandler = async () => {
+    if (!challenge || challenge.is_completed || !user?.id) return;
 
     setRippleTrigger(true);
     setTimeLeftDisplay("Completed!");
@@ -76,9 +79,15 @@ const ChallengeDetailsPage: React.FC = () => {
       clearInterval(intervalIdRef.current);
     }
 
-    // TODO: Implement actual completion logic for the done btn
-    // TODO: the edit btn doesn't disappear after clicking Done, so don't forget to handle that
-    console.log("Challenge completed:", challenge.id);
+    // Complete the challenge in Supabase
+    const success = await completeChallenge(user.id, challenge.id);
+
+    if (!success) {
+      console.error("Failed to complete challenge");
+      // Optionally revert UI state on failure
+      setRippleTrigger(false);
+      setTimeLeftDisplay("Failed to complete");
+    }
   };
 
   const handleEditChallenge = () => {
