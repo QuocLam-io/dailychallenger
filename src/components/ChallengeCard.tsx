@@ -120,6 +120,8 @@ const ChallengeCard = ({ challenge }: Props) => {
                 </span>
                 {pastChallengeDisplay.rest}
               </>
+            ) : challenge.is_completed ? (
+              "Completed"
             ) : (
               `${getDeadlineDisplay(new Date(challenge.deadline))} left`
             )}
