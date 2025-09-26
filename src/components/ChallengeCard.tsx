@@ -14,7 +14,7 @@ import addUserDisabled from "@/assets/user-add-disabled.svg";
 import { Link } from "react-router-dom";
 //Utils
 import { getDeadlineDisplay, getPastChallengeDisplay } from "@/utils/deadlineDisplay";
-import { completeChallengeHandler as completeChallenge } from "@/utils/completeChallenge";
+import { toggleChallengeCompletionHandler as toggleChallengeCompletion } from "@/utils/completeChallenge";
 //Types
 import { Challenge } from "@/stores/challengesStore";
 //Zustand
@@ -50,13 +50,13 @@ const ChallengeCard = ({ challenge }: Props) => {
   const completeChallengeHandler = async (e: React.MouseEvent, id: string) => {
     e.preventDefault();
 
-    if (!supabaseId || challenge.is_completed) return;
+    if (!supabaseId) return;
 
-    // Call the completion API
-    const success = await completeChallenge(supabaseId, id);
+    // Toggle completion status
+    const success = await toggleChallengeCompletion(supabaseId, id, challenge.is_completed);
 
     if (!success) {
-      console.error("Failed to complete challenge");
+      console.error("Failed to toggle challenge completion");
     }
   };
 

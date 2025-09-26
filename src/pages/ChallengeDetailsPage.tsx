@@ -180,10 +180,12 @@ const ChallengeDetailsPage: React.FC = () => {
         )}
 
         <div className="challenge-action-btns">
-          <button onClick={handleEditChallenge}>
-            <img src={EditPencil} alt="Pencil icon" />
-            <p>Edit</p>
-          </button>
+          {!rippleTrigger && !challenge.is_failed && (
+            <button onClick={handleEditChallenge}>
+              <img src={EditPencil} alt="Pencil icon" />
+              <p>Edit</p>
+            </button>
+          )}
           {!rippleTrigger && !challenge.is_failed && (
             <button onClick={handleDeleteChallenge}>
               <img src={DeleteTrashcan} alt="Trashcan icon" />
