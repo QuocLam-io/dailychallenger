@@ -210,7 +210,7 @@
 
   @media (min-width: $portrait) {
     align-items: center;
-    padding: 112px 48px 64px;
+    padding: 112px 48px 0;
     gap: 48px;
 
     .challenge-details-hero {
@@ -249,7 +249,7 @@
 
     .challenge-details-footer {
       flex-direction: column;
-      margin: auto 0 0;
+      margin: 0;
       width: 426px;
 
       button {
