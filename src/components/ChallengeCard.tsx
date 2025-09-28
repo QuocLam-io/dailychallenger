@@ -84,27 +84,26 @@ const ChallengeCard = ({ challenge }: Props) => {
   const doneButtonRef = useRef<HTMLButtonElement>(null);
 
   // Particle animation setup
-  const { reward } = useReward(doneButtonRef, "stars", {
-  "animationType": "stars",
-  "particleCount": 40,
-  "spread": 200,
-  "startVelocity": 4,
-  "elementSize": 15,
-  "lifetime": 150,
-  "physics": {
-    "gravity": .6,
-    "wind": 0,
-    "friction": 0.98
-  },
-  "effects": {
-    "twinkle": false
-  },
-  "colors": [
-    "#FFD700",
-    "#FFA500",
-    "#FF6347"
-  ]
-});
+  const { reward } = useReward(doneButtonRef as React.RefObject<HTMLElement>, "stars", {
+    particleCount: 40,
+    spread: 200,
+    startVelocity: 4,
+    elementSize: 15,
+    lifetime: 150,
+    physics: {
+      gravity: .6,
+      wind: 0,
+      friction: 0.98
+    },
+    effects: {
+      twinkle: false
+    },
+    colors: [
+      "#FFD700",
+      "#FFA500",
+      "#FF6347"
+    ]
+  });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
