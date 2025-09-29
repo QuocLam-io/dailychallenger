@@ -15,8 +15,6 @@ import { useUser } from "@clerk/clerk-react";
 import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
 import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
-//Types
-import type { Challenge } from "@/stores/challengesStore";
 //Components
 import NavSpacer from "@/components/NavSpacer";
 import CarraigeLoader from "@/components/CarraigeLoader";
@@ -60,15 +58,8 @@ const Home = () => {
     fetchChallenges(supabaseId);
   }, [supabaseId]);
 
-  /* ----------------------- Mark Challenge Done Handler ---------------------- */
-
-  const markDoneHandler = (challenge: Challenge) => {
-    console.log(challenge);
-  };
   /* -------------------------------------------------------------------------- */
   if (!supabaseId) return <CarraigeLoader />;
-
-  console.log(markDoneHandler);
   return (
     <main className="home_wrapper">
       <NavSpacer />
