@@ -10,7 +10,7 @@ import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
 import { useModalsStore } from "@/stores/modalsStore";
 import { formatCountdownTime, getTimeLeft } from "@/utils/countdownTimer";
-import { toggleChallengeCompletionHandler as completeChallenge } from "@/utils/completeChallenge";
+import { toggleChallengeCompletion as completeChallenge } from "@/middleware/challenges";
 
 const ChallengeDetailsPage: React.FC = () => {
   const navigate = useNavigate();

@@ -28,7 +28,7 @@ const updateLongestStreak = async (supabaseId: string) => {
   }
 };
 
-export const toggleChallengeCompletionHandler = async (
+export const toggleChallengeCompletion = async (
   supabaseId: string,
   challengeLogId: string,
   isCurrentlyCompleted: boolean

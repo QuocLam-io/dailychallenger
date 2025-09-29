@@ -19,7 +19,7 @@ import {
   getDeadlineDisplay,
   getPastChallengeDisplay,
 } from "@/utils/deadlineDisplay";
-import { toggleChallengeCompletionHandler as toggleChallengeCompletion } from "@/utils/completeChallenge";
+import { toggleChallengeCompletion } from "@/middleware/challenges";
 //Types
 import { Challenge } from "@/stores/challengesStore";
 //Zustand
