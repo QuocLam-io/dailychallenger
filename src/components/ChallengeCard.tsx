@@ -35,7 +35,6 @@ type Props = {
 
 const ChallengeCard = ({ challenge }: Props) => {
   const { supabaseId } = useUserStore();
-  //TODO: time left utils for past challenges
   const {
     setDeleteChallengeId,
     toggleDeleteChallengeModalOpen,

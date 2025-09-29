@@ -9,7 +9,6 @@ import CharlieChaplin from "../assets/charlie-chaplin.gif";
 const UnderConstruction = () => {
   const navigate = useNavigate();
   const closeHandler = () => {
-    //TODO: add conditional logic for authenticated user
     navigate("/");
   };
 
