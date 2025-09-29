@@ -128,6 +128,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   //Emoji
   const [emoji, setEmoji] = useState<string>("⛳️");
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -152,7 +153,10 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const submitChallengeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!supabaseId || !challenge || !deadline || !emoji) return;
+    if (!supabaseId || !challenge || !deadline || !emoji || isSubmitting)
+      return;
+
+    setIsSubmitting(true);
 
     //Check challenges table if challenge exists
     const { data: existingChallenge } = await supabase
@@ -174,6 +178,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
       if (insertError) {
         console.error("Challenge creation error:", insertError.message);
+        setIsSubmitting(false);
         return;
       }
 
@@ -191,6 +196,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
     if (logError) {
       console.error("Log submission error:", logError.message);
+      setIsSubmitting(false);
     } else {
       console.log("✅ Challenge + log submitted to test tables");
       fetchChallenges(supabaseId);
@@ -327,11 +333,14 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
             </div>
           </div>
           <div className="challenger-form_footer">
-            {/* TODO: swap out for Button component */}
-            <button disabled={!challenge}>
-              <p>Create</p>
-              <img src={ArrowRight} alt="Create a challenge arrow icon" />
-            </button>
+            <Button
+              disabled={!challenge || isSubmitting}
+              icon={ArrowRight}
+              iconPosition="right"
+              className="challenger-form_submit-btn"
+            >
+              {isSubmitting ? "Creating..." : "Create"}
+            </Button>
           </div>
         </form>
         {/* ---------------------------- Suggestion Cards ----------------------------  */}

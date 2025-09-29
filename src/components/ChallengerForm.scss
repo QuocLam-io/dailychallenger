@@ -213,6 +213,15 @@
           cursor: not-allowed;
         }
       }
+
+      // Custom styling for Button component to match original footer button
+      .challenger-form_submit-btn {
+        &:disabled {
+          opacity: 1; // Override Button component's opacity
+          background: rgba(26, 26, 26, 0.15) !important;
+          cursor: not-allowed;
+        }
+      }
     }
   }
 
