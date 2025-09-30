@@ -8,8 +8,12 @@ import useChallengesStore from "@/stores/challengesStore";
 import { useUserStore } from "@/stores/userStore";
 //Util
 import { handleDeleteChallenge } from "@/utils/deleteChallenge";
+//Routing
+import { useNavigate, useLocation } from "react-router-dom";
 
 const DeleteChallengeModal = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     deleteChallengeId,
     setDeleteChallengeId,
@@ -22,11 +26,18 @@ const DeleteChallengeModal = () => {
 
   const handleConfirmDelete = () => {
     if (deleteChallengeId && supabaseId) {
+      const isOnDetailsPage = location.pathname.includes("challenge-details");
+
       handleDeleteChallenge(
         deleteChallengeId,
         supabaseId,
         fetchChallenges,
-        handleCloseDeleteChallengeModal
+        () => {
+          handleCloseDeleteChallengeModal();
+          if (isOnDetailsPage) {
+            navigate("/home");
+          }
+        }
       );
     }
   };

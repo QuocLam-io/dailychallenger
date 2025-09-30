@@ -47,6 +47,7 @@ Powered by a modern, optimized tech stack for real-world scalability, the platfo
 - Motion
 - Supabase
 - Zustand
+- Surge (SMS API)
 
 ## <a name="features">🔋 Features</a>
 
@@ -55,6 +56,8 @@ Powered by a modern, optimized tech stack for real-world scalability, the platfo
 👉 **Microservice Authentication**: 3rd-party authentication powered by Clerk, offering seamless sign-up, sign-in, user profile management, and support for existing email addresses.
 
 👉 **Public Section**: Experience Daily Challenger without an account! The public section lets anyone try out the core challenge features, create a challenge, and see how the platform works—no sign-in required. Perfect for quick demos, sharing with friends, or testing the product before joining the community.
+
+👉 **SMS Notifications**: Get instant text message notifications when you create a new challenge! Powered by Surge SMS API via Supabase Edge Functions, you can optionally provide a phone number to receive reminders with your challenge emoji, title, and deadline.
 
 
 ## <a name="snippets">🕸️ Snippets</a>

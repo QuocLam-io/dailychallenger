@@ -4,16 +4,20 @@ type UserStore = {
   clerkId: string | null;
   supabaseId: string | null;
   longestStreak: number;
+  role: string | null;
   setClerkId: (id: string) => void;
   setSupabaseId: (id: string) => void;
   setLongestStreak: (streak: number) => void;
+  setRole: (role: string) => void;
 };
 
 export const useUserStore = create<UserStore>((set) => ({
   clerkId: null,
   supabaseId: null,
   longestStreak: 0,
+  role: null,
   setClerkId: (id) => set({ clerkId: id }),
   setSupabaseId: (id) => set({ supabaseId: id }),
   setLongestStreak: (streak) => set({ longestStreak: streak }),
+  setRole: (role) => set({ role }),
 }));

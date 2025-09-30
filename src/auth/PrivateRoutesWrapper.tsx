@@ -29,6 +29,7 @@ const PrivateRoutesWrapper = () => {
   const setClerkId = useUserStore((s) => s.setClerkId);
   const setSupabaseId = useUserStore((s) => s.setSupabaseId);
   const setLongestStreak = useUserStore((s) => s.setLongestStreak);
+  const setRole = useUserStore((s) => s.setRole);
 
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -97,10 +98,12 @@ const PrivateRoutesWrapper = () => {
 
           setSupabaseId(newUserData.id);
           setLongestStreak(newUserData.longest_streak || 0);
+          setRole(newUserData.role);
           setIsHydrated(true);
         } else {
           setSupabaseId(data.id);
           setLongestStreak(data.longest_streak || 0);
+          setRole(data.role);
           setIsHydrated(true);
         }
       } catch (err) {
@@ -109,7 +112,7 @@ const PrivateRoutesWrapper = () => {
     };
 
     checkUser();
-  }, [isLoaded, user, setClerkId, setSupabaseId, setLongestStreak]);
+  }, [isLoaded, user, setClerkId, setSupabaseId, setLongestStreak, setRole]);
 
   //The useEffect and this If-Statement are racing, so we set a hydration state, otherwise the Outlet will rerender without the global state being properly populated and errors will occur because calls will be made without proper arguments (supabaseId)
 

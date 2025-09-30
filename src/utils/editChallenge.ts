@@ -59,9 +59,26 @@ export const editChallengeHandler = async (
     if (updateError) {
       console.error("Error updating challenge log:", updateError.message);
     } else {
-      setChallengeDetailsPageChallenge(null);
+      // Fetch updated challenge data
+      const { data: updatedChallenge } = await supabase
+        .from("challenge_logs")
+        .select(`
+          *,
+          challenges!inner(title)
+        `)
+        .eq("id", challengeDetailsPageChallenge.id)
+        .single();
+
+      if (updatedChallenge) {
+        const formattedChallenge = {
+          ...updatedChallenge,
+          title: updatedChallenge.challenges.title,
+        };
+        setChallengeDetailsPageChallenge(formattedChallenge);
+      }
+
       toggleEditChallengeModalOpen();
-      fetchChallenges(supabaseId);
+      await fetchChallenges(supabaseId);
     }
 
     return;
@@ -80,9 +97,26 @@ export const editChallengeHandler = async (
     if (updateError) {
       console.error("Error updating challenge log:", updateError.message);
     } else {
-      setChallengeDetailsPageChallenge(null);
+      // Fetch updated challenge data
+      const { data: updatedChallenge } = await supabase
+        .from("challenge_logs")
+        .select(`
+          *,
+          challenges!inner(title)
+        `)
+        .eq("id", challengeDetailsPageChallenge.id)
+        .single();
+
+      if (updatedChallenge) {
+        const formattedChallenge = {
+          ...updatedChallenge,
+          title: updatedChallenge.challenges.title,
+        };
+        setChallengeDetailsPageChallenge(formattedChallenge);
+      }
+
       toggleEditChallengeModalOpen();
-      fetchChallenges(supabaseId);
+      await fetchChallenges(supabaseId);
     }
   }
 };

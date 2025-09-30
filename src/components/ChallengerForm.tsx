@@ -11,6 +11,10 @@ import { supabase } from "@/supabase-client";
 import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
 
+//SMS
+import { sendSurgeSMS } from "@/utils/sendSurgeSMS";
+
+
 //Styles
 import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
@@ -31,7 +35,9 @@ interface ChallengerFormTypes {
 
 const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const supabaseId = useUserStore((s) => s.supabaseId);
+  const userRole = useUserStore((s) => s.role);
   const { fetchChallenges } = useChallengesStore();
+  const isAdmin = userRole === "admin" || userRole === "superadmin";
   const [challenge, setChallenge] = useState<string>("");
   const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(
     getTomorrow
@@ -130,6 +136,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
 
   useEffect(() => {
     function clickOutsideEmojiHandler(event: MouseEvent) {
@@ -199,6 +206,15 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       setIsSubmitting(false);
     } else {
       console.log("✅ Challenge + log submitted to test tables");
+
+      // Send SMS notification if phone number provided
+      if (phoneNumber) {
+        await sendSurgeSMS({
+          phoneNumber,
+          message: `${emoji} Challenge created: "${challenge}" - Complete by ${deadlineDisplay}`,
+        });
+      }
+
       fetchChallenges(supabaseId);
       onClose();
     }
@@ -295,6 +311,17 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                 }}
               />
             </div>
+            {isAdmin && (
+              <div className="input-wrapper">
+                <input
+                  aria-label="Phone number input"
+                  type="tel"
+                  placeholder="Phone number (optional)"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+              </div>
+            )}
             <div className="challenger-form_deadline-setter">
               <div className="deadline-setter_date-setting">
                 <p>Do it by</p>
