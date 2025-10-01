@@ -40,7 +40,7 @@ const Home = () => {
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = useMemo(() => getGreeting(isNewUser), [isNewUser]);
-  const currentStreak = calculateCurrentStreak(challenges);
+  const currentStreak = useMemo(() => calculateCurrentStreak(challenges), [challenges]);
 
   const clerkId = useUserStore((s) => s.clerkId);
   const supabaseId = useUserStore((s) => s.supabaseId);

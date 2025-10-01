@@ -38,13 +38,17 @@ export const toggleChallengeCompletion = async (
   if (!supabaseId || !challengeLogId) return;
 
   // Toggle completion status
+  // Use local date at start of day in UTC to match streak calculation
+  const now = new Date();
+  const localDateInUTC = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+
   const updateData = isCurrentlyCompleted
     ? {
         completed_at: null,
         is_completed: false,
       }
     : {
-        completed_at: new Date().toISOString(),
+        completed_at: localDateInUTC.toISOString(),
         is_completed: true,
       };
 

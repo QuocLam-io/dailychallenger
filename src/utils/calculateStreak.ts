@@ -19,13 +19,13 @@ export const calculateCurrentStreak = (challenges: Challenge[]): number => {
     return 0;
   }
 
-  // Group challenges by completion date (using UTC date to match database timestamps)
+  // Group challenges by completion date (using local date)
   const challengesByDate = new Map<string, Challenge[]>();
 
   completedChallenges.forEach(challenge => {
     const date = new Date(challenge.completed_at);
-    // Use UTC date components since database stores UTC timestamps
-    const dateKey = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
+    // Use local date components
+    const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     if (!challengesByDate.has(dateKey)) {
       challengesByDate.set(dateKey, []);
     }
@@ -35,23 +35,23 @@ export const calculateCurrentStreak = (challenges: Challenge[]): number => {
   const completionDates = Array.from(challengesByDate.keys())
     .map(dateStr => {
       const [year, month, day] = dateStr.split('-').map(Number);
-      const date = new Date(Date.UTC(year, month - 1, day));
+      const date = new Date(year, month - 1, day);
       return date;
     })
     .sort((a, b) => b.getTime() - a.getTime()); // Sort newest first
 
   console.log('Unique completion dates:', completionDates.map(d => d.toISOString().split('T')[0]));
 
-  // Calculate current streak using UTC dates
+  // Calculate current streak using local dates
   let currentStreak = 0;
   const now = new Date();
-  const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
   const yesterday = new Date(today);
-  yesterday.setUTCDate(yesterday.getUTCDate() - 1);
+  yesterday.setDate(yesterday.getDate() - 1);
 
-  console.log('Today (UTC):', today.toISOString().split('T')[0]);
-  console.log('Yesterday (UTC):', yesterday.toISOString().split('T')[0]);
+  console.log('Today (local):', today.toISOString().split('T')[0]);
+  console.log('Yesterday (local):', yesterday.toISOString().split('T')[0]);
 
   // Check if there's activity today or yesterday to start the streak
   if (completionDates.length > 0) {
@@ -75,7 +75,7 @@ export const calculateCurrentStreak = (challenges: Challenge[]): number => {
           currentStreak++;
           console.log(`Match! Streak is now ${currentStreak}`);
           streakDate = new Date(streakDate);
-          streakDate.setUTCDate(streakDate.getUTCDate() - 1); // Move to previous day in UTC
+          streakDate.setDate(streakDate.getDate() - 1); // Move to previous day
         } else if (completionDate.getTime() < streakDate.getTime()) {
           // There's a gap in the streak, stop counting
           console.log('Gap found, breaking');
@@ -101,13 +101,13 @@ export const calculateLongestStreak = (challenges: Challenge[]): number => {
     return 0;
   }
 
-  // Group challenges by completion date (using UTC date to match database timestamps)
+  // Group challenges by completion date (using local date)
   const challengesByDate = new Map<string, Challenge[]>();
 
   completedChallenges.forEach(challenge => {
     const date = new Date(challenge.completed_at);
-    // Use UTC date components since database stores UTC timestamps
-    const dateKey = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
+    // Use local date components
+    const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     if (!challengesByDate.has(dateKey)) {
       challengesByDate.set(dateKey, []);
     }
@@ -117,7 +117,7 @@ export const calculateLongestStreak = (challenges: Challenge[]): number => {
   const completionDates = Array.from(challengesByDate.keys())
     .map(dateStr => {
       const [year, month, day] = dateStr.split('-').map(Number);
-      const date = new Date(Date.UTC(year, month - 1, day));
+      const date = new Date(year, month - 1, day);
       return date;
     })
     .sort((a, b) => a.getTime() - b.getTime()); // Sort oldest first
@@ -132,11 +132,11 @@ export const calculateLongestStreak = (challenges: Challenge[]): number => {
       // First date, start a new streak
       currentStreakLength = 1;
       expectedDate = new Date(completionDate);
-      expectedDate.setUTCDate(expectedDate.getUTCDate() + 1);
+      expectedDate.setDate(expectedDate.getDate() + 1);
     } else if (completionDate.getTime() === expectedDate.getTime()) {
       // Consecutive day, continue streak
       currentStreakLength++;
-      expectedDate.setUTCDate(expectedDate.getUTCDate() + 1);
+      expectedDate.setDate(expectedDate.getDate() + 1);
     } else {
       // Gap found, check if this was the longest streak so far
       longestStreak = Math.max(longestStreak, currentStreakLength);
@@ -144,7 +144,7 @@ export const calculateLongestStreak = (challenges: Challenge[]): number => {
       // Start new streak from current date
       currentStreakLength = 1;
       expectedDate = new Date(completionDate);
-      expectedDate.setUTCDate(expectedDate.getUTCDate() + 1);
+      expectedDate.setDate(expectedDate.getDate() + 1);
     }
   }
 
