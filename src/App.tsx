@@ -15,6 +15,7 @@ import LandingPage from "./pages/LandingPage.tsx";
 import UnderConstruction from "./pages/UnderConstruction.tsx";
 import Home from "./pages/Home.tsx";
 import ChallengeDetailsPage from "./pages/ChallengeDetailsPage.tsx";
+import PrivacyPage from "./pages/PrivacyPage.tsx";
 import ModalPortal from "./components/ModalPortal.tsx";
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           >
             <Route path="/" element={<LandingPage />} />
             <Route path="/under-construction" element={<UnderConstruction />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
           </Route>
           {/* All Private Routes - protected by PrivateRoutesWrapper */}
           <Route
