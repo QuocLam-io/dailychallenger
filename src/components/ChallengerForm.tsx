@@ -12,7 +12,7 @@ import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
 
 //SMS
-import { sendSurgeSMS } from "@/utils/sendSurgeSMS";
+import { sendSurgeSMS } from "@/middleware/sms/sendSurgeSMS";
 
 
 //Styles
