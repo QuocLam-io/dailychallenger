@@ -2,8 +2,9 @@
 
 .under-construction {
   @include flex-column(40px);
+  position: relative;
   min-height: 100svh;
-  padding: 104px 24px 0;
+  padding: 104px 24px 140px;
   // border: $border;
 
   &-text {
