@@ -15,6 +15,7 @@ Deno.serve(async (req) => {
     .from("challenge_logs")
     .select("id, deadline")
     .lte("deadline", now)
+    .is("completed_at", null)
     .eq("is_completed", false)
     .eq("is_failed", false);
 

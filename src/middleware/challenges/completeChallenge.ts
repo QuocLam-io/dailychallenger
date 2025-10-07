@@ -52,6 +52,8 @@ export const toggleChallengeCompletion = async (
         is_completed: true,
       };
 
+  console.log("Updating challenge_logs with:", updateData, "for challengeLogId:", challengeLogId);
+
   const { error: updateError } = await supabase
     .from("challenge_logs")
     .update(updateData)
@@ -61,6 +63,7 @@ export const toggleChallengeCompletion = async (
     console.error("Error toggling challenge completion:", updateError.message);
     return false;
   } else {
+    console.log("Successfully updated challenge_logs");
     // Refresh the challenges data
     await fetchChallenges(supabaseId);
 

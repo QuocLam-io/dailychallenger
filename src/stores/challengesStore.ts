@@ -42,6 +42,8 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
         return;
       }
 
+      console.log("Fetched challenge logs from DB:", logs);
+
       const challengeIds = logs.map((log) => log.challenge_id);
 
       const { data: challengeData, error: challengeError } = await supabase
