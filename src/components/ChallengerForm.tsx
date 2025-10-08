@@ -209,9 +209,10 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
       // Send SMS notification if phone number provided
       if (phoneNumber) {
+        const userName = useUserStore.getState().firstName || "I";
         await sendSurgeSMS({
           phoneNumber,
-          message: `${emoji} Challenge created: "${challenge}" - Complete by ${deadlineDisplay}`,
+          message: `${emoji} ${userName}'${userName.endsWith('s') ? '' : 's'} doing the challenge: "${challenge}" by ${deadlineDisplay}`,
         });
       }
 
