@@ -30,6 +30,8 @@ const PrivateRoutesWrapper = () => {
   const setSupabaseId = useUserStore((s) => s.setSupabaseId);
   const setLongestStreak = useUserStore((s) => s.setLongestStreak);
   const setRole = useUserStore((s) => s.setRole);
+  const setFirstName = useUserStore((s) => s.setFirstName);
+  const setLastName = useUserStore((s) => s.setLastName);
 
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -43,6 +45,8 @@ const PrivateRoutesWrapper = () => {
       const email = user.primaryEmailAddress?.emailAddress || null;
       const firstName = user.firstName || null;
       const lastName = user.lastName || null;
+      setFirstName(firstName);
+      setLastName(lastName);
       if (!email) return;
 
       /* ---------------------- If user in db, set to zustand --------------------- */
@@ -112,7 +116,7 @@ const PrivateRoutesWrapper = () => {
     };
 
     checkUser();
-  }, [isLoaded, user, setClerkId, setSupabaseId, setLongestStreak, setRole]);
+  }, [isLoaded, user, setClerkId, setSupabaseId, setLongestStreak, setRole, setFirstName, setLastName]);
 
   //The useEffect and this If-Statement are racing, so we set a hydration state, otherwise the Outlet will rerender without the global state being properly populated and errors will occur because calls will be made without proper arguments (supabaseId)
 
