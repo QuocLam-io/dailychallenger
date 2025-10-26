@@ -7,6 +7,9 @@ import { challengerExampleData } from "@/constants/challengerExampleData";
 //Supabase
 import { supabase } from "@/supabase-client";
 
+//Auth
+import { useUser } from "@clerk/clerk-react";
+
 //Zustand
 import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
@@ -34,10 +37,13 @@ interface ChallengerFormTypes {
 }
 
 const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
+  const { user } = useUser();
+  const clerkId = useUserStore((s) => s.clerkId);
   const supabaseId = useUserStore((s) => s.supabaseId);
   const userRole = useUserStore((s) => s.role);
   const { fetchChallenges } = useChallengesStore();
   const isAdmin = userRole === "admin" || userRole === "superadmin";
+  const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
   const [challenge, setChallenge] = useState<string>("");
   const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(
     getTomorrow
@@ -62,9 +68,6 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       );
     }
   }, []);
-
-  // TODO: make test for displayDate fn
-  // TODO: make test for getTomorrow fn
 
   const deadlineOptions = [
     {
@@ -209,7 +212,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
       // Send SMS notification if phone number provided
       if (phoneNumber) {
-        const userName = useUserStore.getState().firstName || "I";
+        const userName = user?.firstName ?? standinUserName ?? clerkId ?? "I";
         await sendSurgeSMS({
           phoneNumber,
           message: `${emoji} ${userName}'${userName.endsWith('s') ? '' : 's'} doing the challenge: "${challenge}" by ${deadlineDisplay}`,
