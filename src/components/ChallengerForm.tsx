@@ -41,6 +41,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const clerkId = useUserStore((s) => s.clerkId);
   const supabaseId = useUserStore((s) => s.supabaseId);
   const userRole = useUserStore((s) => s.role);
+  const firstName = useUserStore((s) => s.firstName);
+  const lastName = useUserStore((s) => s.lastName);
   const { fetchChallenges } = useChallengesStore();
   const isAdmin = userRole === "admin" || userRole === "superadmin";
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
@@ -212,7 +214,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
 
       // Send SMS notification if phone number provided
       if (phoneNumber) {
-        const userName = user?.firstName ?? standinUserName ?? clerkId ?? "I";
+        // Use firstName from Zustand (which can be updated by user) instead of Clerk
+        const userName = firstName ?? standinUserName ?? clerkId ?? "I";
         await sendSurgeSMS({
           phoneNumber,
           message: `${emoji} ${userName}'${userName.endsWith('s') ? '' : 's'} doing the challenge: "${challenge}" by ${deadlineDisplay}`,
@@ -317,6 +320,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
             </div>
             {isAdmin && (
               <div className="input-wrapper">
+                {!phoneNumber && <span className="blinking-caret"></span>}
                 <input
                   aria-label="Phone number input"
                   type="tel"

@@ -103,11 +103,17 @@ const PrivateRoutesWrapper = () => {
           setSupabaseId(newUserData.id);
           setLongestStreak(newUserData.longest_streak || 0);
           setRole(newUserData.role);
+          // Use Supabase names if they exist, otherwise fall back to Clerk names
+          setFirstName(newUserData.first_name ?? firstName);
+          setLastName(newUserData.last_name ?? lastName);
           setIsHydrated(true);
         } else {
           setSupabaseId(data.id);
           setLongestStreak(data.longest_streak || 0);
           setRole(data.role);
+          // Use Supabase names if they exist, otherwise fall back to Clerk names
+          setFirstName(data.first_name ?? firstName);
+          setLastName(data.last_name ?? lastName);
           setIsHydrated(true);
         }
       } catch (err) {

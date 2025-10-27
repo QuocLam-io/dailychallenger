@@ -23,7 +23,6 @@ const EmptyLanding: React.FC = () => {
     setPublicChallengerModalOpen(false);
   };
 
-  // console.log(publicChallengerModalOpen, "publicChallengerModalOpen");
 
   return (
     <div className="public-empty-container">

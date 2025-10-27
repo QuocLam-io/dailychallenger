@@ -5,7 +5,7 @@ import { getGreeting } from "@/utils/getGreeting";
 import { calculateCurrentStreak } from "@/utils/calculateStreak";
 //Styles
 import "./Home.scss";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import PlaceHolderAvatarGroup from "@/assets/PlaceHolderAvatarGroup.jpg";
 import plusCircle from "@/assets/plus-black-circle-white.png";
 import plusSoft from "@/assets/plus-white-circle-grey.svg";
@@ -15,6 +15,8 @@ import { useUser } from "@clerk/clerk-react";
 import { useUserStore } from "@/stores/userStore";
 import useChallengesStore from "@/stores/challengesStore";
 import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
+//Supabase
+import { supabase } from "@/supabase-client";
 //Components
 import NavSpacer from "@/components/NavSpacer";
 import CarraigeLoader from "@/components/CarraigeLoader";
@@ -31,12 +33,7 @@ const Home = () => {
     pastChallenges,
     fetchChallenges,
   } = useChallengesStore();
-  console.log(
-    challenges,
-    // currentChallenges,
-    // pastChallenges,
-    "current"
-  );
+
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
   const isNewUser = challenges.length === 0;
   const greeting = useMemo(() => getGreeting(isNewUser), [isNewUser]);
@@ -45,10 +42,20 @@ const Home = () => {
   const clerkId = useUserStore((s) => s.clerkId);
   const supabaseId = useUserStore((s) => s.supabaseId);
   const longestStreak = useUserStore((s) => s.longestStreak);
+  const firstName = useUserStore((s) => s.firstName);
+  const lastName = useUserStore((s) => s.lastName);
+  const setFirstName = useUserStore((s) => s.setFirstName);
+  const setLastName = useUserStore((s) => s.setLastName);
   const { user } = useUser();
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
 
   const { activeTab } = useDashboardStore();
+
+  // Name edit state
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [editFirstName, setEditFirstName] = useState("");
+  const [editLastName, setEditLastName] = useState("");
+  const [isSavingName, setIsSavingName] = useState(false);
 
   /* ----------------------- Fetch Challenges useEffect ----------------------- */
 
@@ -57,6 +64,51 @@ const Home = () => {
     if (!supabaseId) return; // ensures valid UUID before fetching
     fetchChallenges(supabaseId);
   }, [supabaseId]);
+
+  /* -------------------------- Name Edit Functions --------------------------- */
+
+  const handleEditName = () => {
+    setEditFirstName(firstName || "");
+    setEditLastName(lastName || "");
+    setIsEditingName(true);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditingName(false);
+    setEditFirstName("");
+    setEditLastName("");
+  };
+
+  const handleSaveName = async () => {
+    if (!supabaseId) return;
+
+    setIsSavingName(true);
+
+    try {
+      const { error } = await supabase
+        .from("users")
+        .update({
+          first_name: editFirstName || null,
+          last_name: editLastName || null,
+        })
+        .eq("id", supabaseId);
+
+      if (error) {
+        console.error("Error updating name:", error);
+        alert("Failed to update name. Please try again.");
+      } else {
+        // Update Zustand store
+        setFirstName(editFirstName || null);
+        setLastName(editLastName || null);
+        setIsEditingName(false);
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
+      alert("Failed to update name. Please try again.");
+    } finally {
+      setIsSavingName(false);
+    }
+  };
 
   /* -------------------------------------------------------------------------- */
   if (!supabaseId) return <CarraigeLoader />;
@@ -84,8 +136,57 @@ const Home = () => {
         <div className="dashboard-user">
           <div className="dashboard-user_name">
             <p>{greeting}</p>
-            {/* TODO: add feature to add name to clerk */}
-            <p>{user?.firstName ?? standinUserName ?? clerkId}</p>
+            <AnimatePresence mode="wait">
+              {isEditingName ? (
+                <motion.div
+                  key="edit-mode"
+                  className="dashboard-user_name-edit"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <input
+                    type="text"
+                    placeholder="First name"
+                    value={editFirstName}
+                    onChange={(e) => setEditFirstName(e.target.value)}
+                    disabled={isSavingName}
+                    autoFocus
+                  />
+                  <input
+                    type="text"
+                    placeholder="Last name"
+                    value={editLastName}
+                    onChange={(e) => setEditLastName(e.target.value)}
+                    disabled={isSavingName}
+                  />
+                  <div className="dashboard-user_name-edit-buttons">
+                    <button onClick={handleSaveName} disabled={isSavingName}>
+                      {isSavingName ? "Saving..." : "Save"}
+                    </button>
+                    <button onClick={handleCancelEdit} disabled={isSavingName}>
+                      Cancel
+                    </button>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.p
+                  key="display-mode"
+                  onClick={handleEditName}
+                  style={{ cursor: "pointer" }}
+                  title="Click to edit"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {firstName || lastName
+                    ? `${firstName || ""} ${lastName || ""}`.trim()
+                    : standinUserName ?? clerkId}
+                </motion.p>
+              )}
+            </AnimatePresence>
           </div>
           <div className="dashboard-user_streak">
             <p>Current streak</p>

@@ -56,6 +56,91 @@
           font-weight: 400;
           line-height: 30px;
         }
+
+        &-edit {
+          @include flex-column(8px);
+          margin-top: 4px;
+
+          input {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(26, 26, 26, 0.1);
+            border-radius: 8px;
+            color: rgba(26, 26, 26, 0.9);
+            font-family: "Work Sans";
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            transition: all 0.2s ease;
+
+            &:focus {
+              outline: none;
+              background: rgba(255, 255, 255, 1);
+              border-color: rgba(26, 26, 26, 0.2);
+            }
+
+            &::placeholder {
+              color: rgba(26, 26, 26, 0.5);
+              font-weight: 500;
+            }
+
+            &:disabled {
+              opacity: 0.6;
+              cursor: not-allowed;
+            }
+          }
+
+          &-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+
+            button {
+              flex: 1;
+              padding: 8px 16px;
+              border-radius: 8px;
+              font-family: "Work Sans";
+              font-size: 13px;
+              font-weight: 600;
+              line-height: 18px;
+              letter-spacing: 0.13px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+
+              &:first-child {
+                background: #1a1a1a;
+                color: #fafafa;
+                border: none;
+
+                &:hover:not(:disabled) {
+                  background: rgba(26, 26, 26, 0.85);
+                }
+
+                &:disabled {
+                  background: rgba(26, 26, 26, 0.15);
+                  cursor: not-allowed;
+                }
+              }
+
+              &:last-child {
+                background: transparent;
+                color: rgba(26, 26, 26, 0.8);
+                border: 1px solid rgba(26, 26, 26, 0.15);
+
+                &:hover:not(:disabled) {
+                  background: rgba(26, 26, 26, 0.05);
+                  border-color: rgba(26, 26, 26, 0.2);
+                }
+
+                &:disabled {
+                  opacity: 0.5;
+                  cursor: not-allowed;
+                }
+              }
+            }
+          }
+        }
       }
 
       &_streak {

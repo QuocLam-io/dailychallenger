@@ -306,7 +306,6 @@ const ExpiredPublicChallengerModal: React.FC<
     //test
   };
 
-  console.log(publicChallengerModalOpen, "publicChallengerModalOpen");
 
   return (
     <div className="expired-pc-modal">
