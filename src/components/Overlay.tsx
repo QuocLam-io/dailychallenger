@@ -1,6 +1,7 @@
 import React from "react";
 import "./Overlay.scss";
 import { motion } from "framer-motion";
+import { useLockBodyScroll } from "@/hooks/useLockBodyScroll";
 
 interface OverlayProps {
   children: React.ReactNode;
@@ -13,6 +14,9 @@ const Overlay: React.FC<OverlayProps> = ({
   customClassName,
   onOverlayClick,
 }) => {
+  // Lock body scroll when overlay is mounted
+  useLockBodyScroll();
+
   const handleOverlayClick = (e: React.MouseEvent) => {
     // Only close if clicking on the overlay itself, not on children
     if (e.target === e.currentTarget && onOverlayClick) {
