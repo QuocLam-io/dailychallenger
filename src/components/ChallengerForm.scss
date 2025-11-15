@@ -34,6 +34,36 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         cursor: pointer;
         border-radius: 8px;
+
+        // Custom styling for emoji picker
+        :global(.EmojiPickerReact) {
+          --epr-bg-color: #fff;
+          --epr-text-color: #1a1a1a;
+          --epr-search-input-bg-color: transparent;
+          --epr-search-border-color: rgba(26, 26, 26, 0.1);
+          --epr-hover-bg-color: rgba(0, 0, 0, 0.05);
+          --epr-focus-bg-color: rgba(0, 0, 0, 0.05);
+          border: none;
+
+          input.epr-search {
+            font-family: "Work Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid rgba(26, 26, 26, 0.1);
+            transition: border-color 0.2s ease;
+
+            &:focus {
+              border-color: rgba(26, 26, 26, 0.3);
+              outline: none;
+            }
+
+            &::placeholder {
+              color: rgba(26, 26, 26, 0.5);
+            }
+          }
+        }
       }
 
       .challenger-form_close-button {

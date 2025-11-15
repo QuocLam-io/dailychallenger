@@ -282,7 +282,9 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                       setEmoji(emojiData.emoji);
                       setShowEmojiPicker(false);
                     }}
-                    searchDisabled={true}
+                    searchDisabled={false}
+                    searchPlaceholder="Search emojis..."
+                    autoFocusSearch={true}
                     previewConfig={{ showPreview: false }}
                     height={350}
                     width={300}
