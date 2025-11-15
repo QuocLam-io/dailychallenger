@@ -297,7 +297,7 @@ interface ExpiredPublicChallengerModalProps {
 const ExpiredPublicChallengerModal: React.FC<
   ExpiredPublicChallengerModalProps
 > = ({ deletePublicChallenge }) => {
-  const { publicChallengerModalOpen, setPublicChallengerModalOpen } =
+  const { setPublicChallengerModalOpen } =
     usePublicStore((state) => state);
 
   const newChallengeHandler = () => {
