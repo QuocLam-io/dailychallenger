@@ -121,6 +121,20 @@
             line-height: 28px;
             // text-indent: 8px;
           }
+
+          &.error {
+            border-bottom: 2px solid #ef4444;
+          }
+        }
+
+        .error-message {
+          display: block;
+          margin-top: 4px;
+          padding-left: 12px;
+          color: #ef4444;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 16px;
         }
 
         &:has(input[value=""]) input {

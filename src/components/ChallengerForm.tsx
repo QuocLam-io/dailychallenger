@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { z } from "zod";
 //Utils & Constants
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 import { getTomorrow } from "@/utils/getTomorrow";
@@ -35,6 +36,20 @@ import Overlay from "@/components/Overlay.tsx";
 interface ChallengerFormTypes {
   onClose: () => void;
 }
+
+// Zod schema for phone number validation
+const phoneSchema = z.string().refine(
+  (val) => {
+    if (val === "") return true; // Allow empty since it's optional
+    // Remove all non-digit characters
+    const digitsOnly = val.replace(/\D/g, "");
+    // Should have exactly 10 digits (US phone number without country code)
+    return digitsOnly.length === 10;
+  },
+  {
+    message: "Phone number must be 10 digits",
+  }
+);
 
 const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const { user } = useUser();
@@ -141,6 +156,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const emojiPickerRef = useRef<HTMLDivElement>(null);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [phoneError, setPhoneError] = useState<string>("");
 
   useEffect(() => {
     function clickOutsideEmojiHandler(event: MouseEvent) {
@@ -160,12 +176,48 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
     };
   }, [showEmojiPicker]);
 
+  /* ----------------------- Phone Number Validation ----------------------- */
+  const validatePhoneNumber = (value: string) => {
+    const result = phoneSchema.safeParse(value);
+    if (!result.success) {
+      setPhoneError(result.error.errors[0].message);
+      return false;
+    }
+    setPhoneError("");
+    return true;
+  };
+
+  const formatPhoneNumber = (value: string) => {
+    // Remove all non-digit characters
+    const digits = value.replace(/\D/g, "");
+
+    // Apply formatting based on length
+    if (digits.length === 0) return "";
+    if (digits.length <= 3) return `(${digits}`;
+    if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+  };
+
+  const handlePhoneChange = (value: string) => {
+    const formatted = formatPhoneNumber(value);
+    setPhoneNumber(formatted);
+    // Clear error as user types
+    if (phoneError) {
+      setPhoneError("");
+    }
+  };
+
   /* ------------------------ Submit Challenge Handler ------------------------ */
   const submitChallengeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!supabaseId || !challenge || !deadline || !emoji || isSubmitting)
       return;
+
+    // Validate phone number if provided
+    if (phoneNumber && !validatePhoneNumber(phoneNumber)) {
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -325,10 +377,14 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                 <input
                   aria-label="Phone number input"
                   type="tel"
-                  placeholder="Phone number (optional)"
+                  placeholder="(555) 867-5309"
                   value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  onChange={(e) => handlePhoneChange(e.target.value)}
+                  className={phoneError ? "error" : ""}
                 />
+                {phoneError && (
+                  <span className="error-message">{phoneError}</span>
+                )}
               </div>
             )}
             <div className="challenger-form_deadline-setter">
