@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { z } from "zod";
+import CursorInput from "./CursorInput";
 //Utils & Constants
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 import { getTomorrow } from "@/utils/getTomorrow";
@@ -180,7 +181,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const validatePhoneNumber = (value: string) => {
     const result = phoneSchema.safeParse(value);
     if (!result.success) {
-      setPhoneError(result.error.errors[0].message);
+      setPhoneError(result.error.issues[0].message);
       return false;
     }
     setPhoneError("");
@@ -353,33 +354,28 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
             </button>
           </div>
           <div className="challenger-form_body">
-            <div className="input-wrapper">
-              {!challenge && <span className="blinking-caret"></span>}
-              <input
-                aria-label="Challenge input"
-                autoFocus
-                type="text"
-                placeholder="Wake up at 6AM"
-                value={challenge}
-                onChange={(e) => {
-                  const input = e.target.value;
-                  if (input.length === 1) {
-                    setChallenge(input.toUpperCase());
-                  } else {
-                    setChallenge(input);
-                  }
-                }}
-              />
-            </div>
+            <CursorInput
+              aria-label="Challenge input"
+              autoFocus
+              type="text"
+              placeholder="Wake up at 6AM"
+              value={challenge}
+              onChange={(input) => {
+                if (input.length === 1) {
+                  setChallenge(input.toUpperCase());
+                } else {
+                  setChallenge(input);
+                }
+              }}
+            />
             {isAdmin && (
-              <div className="input-wrapper">
-                {!phoneNumber && <span className="blinking-caret"></span>}
-                <input
+              <div className="input-wrapper phone-input-wrapper">
+                <CursorInput
                   aria-label="Phone number input"
                   type="tel"
                   placeholder="(555) 867-5309"
                   value={phoneNumber}
-                  onChange={(e) => handlePhoneChange(e.target.value)}
+                  onChange={handlePhoneChange}
                   className={phoneError ? "error" : ""}
                 />
                 {phoneError && (

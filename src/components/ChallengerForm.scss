@@ -142,6 +142,18 @@
         }
       }
 
+      .phone-input-wrapper {
+        .error-message {
+          display: block;
+          margin-top: 4px;
+          padding-left: 12px;
+          color: #ef4444;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 16px;
+        }
+      }
+
       .challenger-form_deadline-setter {
         @include flex-column(8px);
         // border: $border;
