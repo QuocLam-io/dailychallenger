@@ -14,12 +14,16 @@
   .cursor-input_overlay {
     position: absolute;
     top: 50%;
-    left: calc(var(--cursor-input-padding) - 0.5ch);
+    left: var(--cursor-input-padding);
     transform: translateY(-50%);
     display: flex;
     align-items: center;
     pointer-events: none;
     z-index: 1;
+  }
+
+  &.is-empty .cursor-input_overlay {
+    left: calc(var(--cursor-input-padding) - 0.5ch);
   }
 
   .cursor-input_mirror {

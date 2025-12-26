@@ -14,7 +14,7 @@ const CursorInput = ({
   ...props
 }: CursorInputProps) => {
   return (
-    <div className={`cursor-input ${className}`}>
+    <div className={`cursor-input ${className} ${value === "" ? "is-empty" : ""}`}>
       <div className="cursor-input_overlay">
         <span className="cursor-input_mirror">{value}</span>
         <span className="cursor-input_caret"></span>
