@@ -1,5 +1,6 @@
 .cursor-input {
-  --cursor-input-padding: 12px;
+  --cursor-input-padding: 16px; /* was 12px - testing clipping */
+  overflow: visible;
   --cursor-input-font-size: 20px;
   --cursor-input-font-weight: 500; /* was 600 - testing parenthesis visibility */
   --cursor-input-line-height: 28px;
@@ -60,6 +61,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     font-family: system-ui, -apple-system, sans-serif; /* TEMP: testing font issue */
+    overflow: visible;
 
     &::placeholder {
       color: var(--cursor-input-placeholder-color);
