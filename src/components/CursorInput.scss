@@ -1,8 +1,7 @@
 .cursor-input {
-  --cursor-input-padding: 16px; /* was 12px - testing clipping */
-  overflow: visible;
+  --cursor-input-padding: 12px;
   --cursor-input-font-size: 20px;
-  --cursor-input-font-weight: 500; /* was 600 - testing parenthesis visibility */
+  --cursor-input-font-weight: 600;
   --cursor-input-line-height: 28px;
   --cursor-input-color: var(--text-primary, #0f172a);
   --cursor-input-placeholder-color: rgba(26, 26, 26, 0.6);
@@ -11,6 +10,7 @@
   --cursor-input-caret-height: 24px;
 
   position: relative;
+  border: 2px solid green; /* DEBUG */
 
   .cursor-input_overlay {
     position: absolute;
@@ -21,6 +21,7 @@
     align-items: center;
     pointer-events: none;
     z-index: 1;
+    border: 2px solid blue; /* DEBUG */
   }
 
   &.is-empty .cursor-input_overlay {
@@ -56,12 +57,7 @@
     font-weight: var(--cursor-input-font-weight);
     line-height: var(--cursor-input-line-height);
     color: var(--cursor-input-color);
-    letter-spacing: 0.01em;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    font-family: system-ui, -apple-system, sans-serif; /* TEMP: testing font issue */
-    overflow: visible;
+    border: 2px solid red; /* DEBUG */
 
     &::placeholder {
       color: var(--cursor-input-placeholder-color);
