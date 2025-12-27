@@ -1,7 +1,7 @@
 .cursor-input {
   --cursor-input-padding: 12px;
   --cursor-input-font-size: 20px;
-  --cursor-input-font-weight: 600;
+  --cursor-input-font-weight: 500; /* was 600 - testing parenthesis visibility */
   --cursor-input-line-height: 28px;
   --cursor-input-color: var(--text-primary, #0f172a);
   --cursor-input-placeholder-color: rgba(26, 26, 26, 0.6);
@@ -59,6 +59,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    font-family: system-ui, -apple-system, sans-serif; /* TEMP: testing font issue */
 
     &::placeholder {
       color: var(--cursor-input-placeholder-color);
