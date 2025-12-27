@@ -12,11 +12,12 @@
   position: relative;
 
   .cursor-input_overlay {
+    display: none; /* TEMP: testing parenthesis issue */
     position: absolute;
     top: 50%;
     left: var(--cursor-input-padding);
     transform: translateY(-50%);
-    display: flex;
+    // display: flex;
     align-items: center;
     pointer-events: none;
     z-index: 1;
@@ -49,7 +50,7 @@
     background: transparent;
     border: none;
     outline: none;
-    caret-color: transparent;
+    caret-color: var(--cursor-input-caret-color); /* TEMP: was transparent */
     padding: var(--cursor-input-padding);
     font-size: var(--cursor-input-font-size);
     font-weight: var(--cursor-input-font-weight);
