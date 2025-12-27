@@ -143,6 +143,11 @@
       }
 
       .phone-input-wrapper {
+        // Override .input-wrapper input styles for CursorInput
+        .cursor-input input {
+          padding: 16px;
+        }
+
         .error-message {
           display: block;
           margin-top: 4px;
