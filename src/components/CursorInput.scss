@@ -32,6 +32,7 @@
     line-height: var(--cursor-input-line-height);
     color: transparent;
     white-space: pre;
+    letter-spacing: 0.01em;
   }
 
   .cursor-input_caret {
@@ -54,6 +55,7 @@
     font-weight: var(--cursor-input-font-weight);
     line-height: var(--cursor-input-line-height);
     color: var(--cursor-input-color);
+    letter-spacing: 0.01em;
 
     &::placeholder {
       color: var(--cursor-input-placeholder-color);
