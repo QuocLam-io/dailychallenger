@@ -369,7 +369,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               }}
             />
             {isAdmin && (
-              <div className="input-wrapper phone-input-wrapper">
+              <>
                 <CursorInput
                   aria-label="Phone number input"
                   type="text"
@@ -381,7 +381,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                 {phoneError && (
                   <span className="error-message">{phoneError}</span>
                 )}
-              </div>
+              </>
             )}
             <div className="challenger-form_deadline-setter">
               <div className="deadline-setter_date-setting">
