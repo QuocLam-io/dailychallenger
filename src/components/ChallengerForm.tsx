@@ -21,7 +21,7 @@ import { sendSurgeSMS } from "@/middleware/sms/sendSurgeSMS";
 
 
 //Styles
-// import "./ChallengerForm.scss";
+import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { fadeInOut } from "@/constants/animations";
 import CloseXBW from "../assets/close-x-bw.png";

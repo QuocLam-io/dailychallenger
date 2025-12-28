@@ -26,7 +26,7 @@ html {
 body {
   min-height: 100svh;
   font-feature-settings: "liga" off, "clig" off;
-  font-family: "Work Sans";
+  font-family: system-ui, -apple-system, sans-serif; /* testing iOS - was Work Sans */
   line-height: 24px;
   background: #fff;
 }
