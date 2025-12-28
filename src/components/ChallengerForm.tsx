@@ -372,7 +372,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               <div className="input-wrapper phone-input-wrapper">
                 <CursorInput
                   aria-label="Phone number input"
-                  type="tel"
+                  type="text"
                   placeholder="(555) 867-5309"
                   value={phoneNumber}
                   onChange={handlePhoneChange}
