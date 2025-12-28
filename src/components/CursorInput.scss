@@ -46,21 +46,22 @@
     animation: cursor-blink 1.2s ease-in-out infinite;
   }
 
-  input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    caret-color: transparent;
-    padding: var(--cursor-input-padding) !important; /* force override */
-    padding-left: var(--cursor-input-padding) !important;
-    font-size: var(--cursor-input-font-size);
-    font-weight: var(--cursor-input-font-weight);
-    line-height: var(--cursor-input-line-height);
-    color: var(--cursor-input-color);
-    border: 2px solid red; /* DEBUG */
-    -webkit-appearance: none;
-    text-indent: 0;
+  input,
+  input[type="tel"],
+  input[type="text"] {
+    all: unset !important; /* reset everything first */
+    display: block !important;
+    width: 100% !important;
+    background: transparent !important;
+    border: 2px solid red !important; /* DEBUG */
+    caret-color: transparent !important;
+    padding: var(--cursor-input-padding) !important;
+    font-size: var(--cursor-input-font-size) !important;
+    font-weight: var(--cursor-input-font-weight) !important;
+    line-height: var(--cursor-input-line-height) !important;
+    color: var(--cursor-input-color) !important;
+    -webkit-appearance: none !important;
+    box-sizing: border-box !important;
 
     &::placeholder {
       color: var(--cursor-input-placeholder-color);
