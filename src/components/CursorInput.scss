@@ -19,7 +19,7 @@
     display: flex;
     align-items: center;
     pointer-events: none;
-    z-index: -1; /* put behind input instead of in front */
+    z-index: 1;
   }
 
   &.is-empty .cursor-input_overlay {
@@ -50,11 +50,14 @@
     outline: none;
     caret-color: transparent;
     padding: var(--cursor-input-padding);
-    padding-left: calc(var(--cursor-input-padding) + 2px); /* iOS fix for ( clipping */
     font-size: var(--cursor-input-font-size);
     font-weight: var(--cursor-input-font-weight);
     line-height: var(--cursor-input-line-height);
     color: var(--cursor-input-color);
+    -webkit-text-size-adjust: 100%;
+    -webkit-appearance: none;
+    -webkit-text-fill-color: var(--cursor-input-color);
+    opacity: 1; /* iOS fix */
 
     &::placeholder {
       color: var(--cursor-input-placeholder-color);

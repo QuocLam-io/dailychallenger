@@ -354,7 +354,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
             </button>
           </div>
           <div className="challenger-form_body">
-            <CursorInput
+            {/* <CursorInput
               aria-label="Challenge input"
               autoFocus
               type="text"
@@ -367,7 +367,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                   setChallenge(input);
                 }
               }}
-            />
+            /> */}
+            <input type="text" placeholder="(Test) Wake up at 6AM" />
             {isAdmin && (
               <div className="input-wrapper phone-input-wrapper">
                 <CursorInput
