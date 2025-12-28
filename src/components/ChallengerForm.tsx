@@ -358,7 +358,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               aria-label="Challenge input"
               autoFocus
               type="text"
-              placeholder="Wake up at 6AM"
+              placeholder="(Test) Wake up at 6AM"
               value={challenge}
               onChange={(input) => {
                 if (input.length === 1) {
@@ -369,10 +369,10 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               }}
             />
             {isAdmin && (
-              <>
+              <div className="input-wrapper phone-input-wrapper">
                 <CursorInput
                   aria-label="Phone number input"
-                  type="text"
+                  type="tel"
                   placeholder="(555) 867-5309"
                   value={phoneNumber}
                   onChange={handlePhoneChange}
@@ -381,7 +381,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                 {phoneError && (
                   <span className="error-message">{phoneError}</span>
                 )}
-              </>
+              </div>
             )}
             <div className="challenger-form_deadline-setter">
               <div className="deadline-setter_date-setting">
