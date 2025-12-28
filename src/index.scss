@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* FIRST QUARTER - testing iOS
 *,
 *::before,
 *::after {
@@ -17,15 +16,12 @@
 :root {
   interpolate-size: allow-keywords;
 }
-*/
 
-/* testing iOS
 html {
-  hanging-punctuation: first last;
+  /* hanging-punctuation: first last; -- causes iOS to hide first ( in inputs */
   color-scheme: dark light;
   interpolate-size: allow-keywords;
 }
-*/
 
 body {
   min-height: 100svh;

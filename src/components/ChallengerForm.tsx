@@ -358,7 +358,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
               aria-label="Challenge input"
               autoFocus
               type="text"
-              placeholder="(Test) Wake up at 6AM"
+              placeholder="Wake up at 6AM"
               value={challenge}
               onChange={(input) => {
                 if (input.length === 1) {
