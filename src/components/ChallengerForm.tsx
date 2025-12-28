@@ -21,7 +21,7 @@ import { sendSurgeSMS } from "@/middleware/sms/sendSurgeSMS";
 
 
 //Styles
-import "./ChallengerForm.scss";
+// import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { fadeInOut } from "@/constants/animations";
 import CloseXBW from "../assets/close-x-bw.png";
@@ -354,7 +354,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
             </button>
           </div>
           <div className="challenger-form_body">
-            {/* <CursorInput
+            <CursorInput
               aria-label="Challenge input"
               autoFocus
               type="text"
@@ -367,8 +367,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                   setChallenge(input);
                 }
               }}
-            /> */}
-            <input type="text" placeholder="(Test) Wake up at 6AM" />
+            />
             {isAdmin && (
               <div className="input-wrapper phone-input-wrapper">
                 <CursorInput

@@ -54,10 +54,6 @@
     font-weight: var(--cursor-input-font-weight);
     line-height: var(--cursor-input-line-height);
     color: var(--cursor-input-color);
-    -webkit-text-size-adjust: 100%;
-    -webkit-appearance: none;
-    -webkit-text-fill-color: var(--cursor-input-color);
-    opacity: 1; /* iOS fix */
 
     &::placeholder {
       color: var(--cursor-input-placeholder-color);
