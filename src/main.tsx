@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 
 //Styles
-import "./index.scss";
+// import "./index.scss"; // testing iOS issue
 import App from "./App.tsx";
 //Auth
 import { ClerkProvider } from "@clerk/clerk-react";
