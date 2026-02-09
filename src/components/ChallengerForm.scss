@@ -155,42 +155,81 @@
       }
 
       .challenger-form_deadline-setter {
-        @include flex-column(8px);
-        // border: $border;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 8px 12px;
+        padding-left: 12px;
+        align-items: center;
+        color: rgba(26, 26, 26, 0.65);
 
-        .deadline-setter_date-setting {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding-left: 12px;
+        // Shared styles via classes
+        .setting-label {
           color: rgba(26, 26, 26, 0.65);
           font-family: Asap;
           font-size: 14px;
           font-weight: 600;
           line-height: 20px;
           letter-spacing: 0.15px;
-          overflow-x: clip;
-          // border: $maroon;
+          white-space: nowrap;
+        }
 
-          p {
+        .setting-pills {
+          display: flex;
+          gap: 4px;
+
+          button {
+            padding: 0.8076923077em 0.9230769231em;
+            font-family: "Work Sans";
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 15px;
+            letter-spacing: -0.26px;
             white-space: nowrap;
+            border-radius: 8px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.05);
+            }
+
+            &.selected {
+              background: var(--Slate-100, #f1f5f9);
+            }
           }
+        }
+
+        // "Do it by:" row — label + pills sit directly in the grid
+        .challenger-form_mode-selector {
+          display: contents;
+        }
+
+        // Animated sub-rows span both columns, use subgrid to align children
+        .deadline-setter_sub-row {
+          grid-column: 1 / -1;
+          display: grid;
+          grid-template-columns: subgrid;
+          align-items: center;
+          overflow: hidden;
+        }
+
+        // Single mode: "In:" + carousel
+        .deadline-setter_date-setting {
+          overflow-x: clip;
 
           .deadline-setter_date-setting_carousel {
             cursor: grab;
             width: 100%;
-            // border: $border;
 
             .deadline-setter_date-setting_carousel-inner {
               display: flex;
               gap: 4px;
-              // border: $lime;
 
               button {
                 padding: 0.8076923077em 0.9230769231em;
                 font-family: "Work Sans";
                 font-size: 13px;
-                line-height: 15px; /* 115.385% */
+                font-weight: 600;
+                line-height: 15px;
                 letter-spacing: -0.26px;
                 white-space: nowrap;
                 border-radius: 8px;
@@ -208,28 +247,36 @@
           }
         }
 
-        .deadline-setter_repeat-setting {
-          display: flex;
-          gap: 8px;
-          padding: 10px 12px;
-          color: rgba(26, 26, 26, 0.35);
-          font-family: Asap;
-          font-size: 14px;
-          font-weight: 600;
-          line-height: 20px;
-          letter-spacing: 0.15px;
-          cursor: not-allowed;
+        // Repeat mode: "Every:" + "Until:" rows
+        .deadline-setter_repeat-settings {
+          grid-column: 1 / -1;
+          display: grid;
+          grid-template-columns: subgrid;
+          gap: 8px 12px;
+          align-items: center;
+        }
 
-          span {
-            padding: 3px 6px 3px 7.25px;
-            color: rgba(26, 26, 26, 0.7);
-            font-family: "Work Sans";
-            font-size: 10px;
-            font-weight: 600;
-            line-height: 14px;
-            letter-spacing: 0.1px;
-            border-radius: 8px;
-            background: rgba(26, 26, 26, 0.05);
+        .deadline-setter_repeat-setting,
+        .deadline-setter_repeat-until {
+          display: contents;
+        }
+
+        .deadline-setter_repeat-until_date-btn {
+          padding: 0.8076923077em 0.9230769231em;
+          font-family: "Work Sans";
+          font-size: 13px;
+          font-weight: 600;
+          line-height: 15px;
+          letter-spacing: -0.26px;
+          white-space: nowrap;
+          border-radius: 8px;
+          cursor: pointer;
+          background: var(--Slate-100, #f1f5f9);
+          transition: background 0.2s ease;
+          justify-self: start;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.08);
           }
         }
       }

@@ -14,7 +14,7 @@ import { useUser } from "@clerk/clerk-react";
 
 //Zustand
 import { useUserStore } from "@/stores/userStore";
-import useChallengesStore from "@/stores/challengesStore";
+import useChallengesStore, { type RepeatFrequency, frequencyToDurationDays } from "@/stores/challengesStore";
 
 //SMS
 import { sendSurgeSMS } from "@/middleware/sms/sendSurgeSMS";
@@ -70,7 +70,12 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
     "1d" | "1w" | "custom"
   >("1d");
   const deadlineDisplay = getDeadlineDisplay(deadline);
-  const [isPublic, setIsPublic] = useState<boolean>(true);
+  const [isPublic, _setIsPublic] = useState<boolean>(true);
+
+  const [repeatFrequency, setRepeatFrequency] = useState<RepeatFrequency>(null);
+  const [repeatEndDate, setRepeatEndDate] = useState<Date | undefined>(undefined);
+  const [pseudoRepeatEndDate, setPseudoRepeatEndDate] = useState<Date | undefined>(undefined);
+  const [repeatCalendarOpen, setRepeatCalendarOpen] = useState<boolean>(false);
 
   const [calendarOpen, setCalendarOpen] = useState<boolean>(false);
 
@@ -150,6 +155,25 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       document.removeEventListener("mousedown", clickOutsideCalendarHandler);
     };
   }, [calendarOpen]);
+
+  // Repeat calendar
+  const repeatCalendarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function clickOutsideRepeatCalendarHandler(event: MouseEvent) {
+      if (
+        repeatCalendarOpen &&
+        repeatCalendarRef.current &&
+        !repeatCalendarRef.current.contains(event.target as Node)
+      ) {
+        setRepeatCalendarOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", clickOutsideRepeatCalendarHandler);
+    return () => {
+      document.removeEventListener("mousedown", clickOutsideRepeatCalendarHandler);
+    };
+  }, [repeatCalendarOpen]);
 
   //Emoji
   const [emoji, setEmoji] = useState<string>("⛳️");
@@ -249,20 +273,74 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
       challengeId = newChallenge?.id;
     }
 
-    //Make a challenge_log in challenge logs table
-    const { error: logError } = await supabase.from("challenge_logs").insert({
-      challenge_id: challengeId,
-      user_id: supabaseId,
-      emoji,
-      deadline: deadline.toISOString(),
-      is_public: isPublic,
-    });
+    // If repeating, create recurring_challenge record first
+    let recurringChallengeId: string | null = null;
+
+    if (repeatFrequency && repeatEndDate) {
+      const { data: recurringData, error: recurringError } = await supabase
+        .from("recurring_challenges")
+        .insert({
+          challenge_id: challengeId,
+          start_date: new Date().toISOString().split("T")[0],
+          duration_days: frequencyToDurationDays(repeatFrequency),
+          end_date: repeatEndDate.toISOString().split("T")[0],
+          created_by: supabaseId,
+        })
+        .select("id")
+        .single();
+
+      if (recurringError) {
+        console.error("Recurring challenge creation error:", recurringError.message);
+        setIsSubmitting(false);
+        return;
+      }
+
+      recurringChallengeId = recurringData?.id ?? null;
+    }
+
+    //Make challenge_log(s) in challenge logs table
+    const logs = [];
+
+    if (recurringChallengeId && repeatFrequency && repeatEndDate) {
+      // Generate all occurrences from now until end date
+      const intervalDays = frequencyToDurationDays(repeatFrequency);
+      const currentStart = new Date();
+      currentStart.setHours(0, 0, 0, 0);
+      const currentDeadline = new Date(deadline);
+      const end = new Date(repeatEndDate);
+
+      while (currentDeadline <= end) {
+        logs.push({
+          challenge_id: challengeId,
+          user_id: supabaseId,
+          emoji,
+          start_date: new Date(currentStart).toISOString().split("T")[0],
+          deadline: new Date(currentDeadline).toISOString(),
+          is_public: isPublic,
+          recurring_challenge_id: recurringChallengeId,
+        });
+        // Next occurrence: start = current deadline, deadline = start + interval
+        currentStart.setTime(currentDeadline.getTime());
+        currentDeadline.setDate(currentDeadline.getDate() + intervalDays);
+      }
+    } else {
+      // Single challenge — one log
+      logs.push({
+        challenge_id: challengeId,
+        user_id: supabaseId,
+        emoji,
+        deadline: deadline.toISOString(),
+        is_public: isPublic,
+      });
+    }
+
+    const { error: logError } = await supabase.from("challenge_logs").insert(logs);
 
     if (logError) {
       console.error("Log submission error:", logError.message);
       setIsSubmitting(false);
     } else {
-      console.log("✅ Challenge + log submitted to test tables");
+      console.log(`✅ Challenge submitted (${logs.length} log${logs.length > 1 ? "s" : ""})`);
 
       // Send SMS notification if phone number provided
       if (phoneNumber) {
@@ -302,6 +380,31 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                   setDeadline(pseudoDeadline);
                   setCalendarOpen(false);
                   setSelectedDeadlineType("custom");
+                }}
+              >
+                Done
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {repeatCalendarOpen && (
+            <motion.div
+              ref={repeatCalendarRef}
+              className="challenger-form_calendar-wrapper"
+              {...fadeInOut}
+            >
+              <Calendar
+                mode="single"
+                selected={pseudoRepeatEndDate}
+                onSelect={setPseudoRepeatEndDate}
+                disabled={(date) => date < new Date()}
+              />
+              <Button
+                className="challenger-form_calendar-btn-confirm"
+                onClick={() => {
+                  setRepeatEndDate(pseudoRepeatEndDate);
+                  setRepeatCalendarOpen(false);
                 }}
               >
                 Done
@@ -368,6 +471,123 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                 }
               }}
             />
+            {/* ---- Mode selector + conditional settings ---- */}
+            <div className="challenger-form_deadline-setter">
+              <div className="challenger-form_mode-selector">
+                <p className="setting-label">Do it by:</p>
+                <div className="setting-pills">
+                  <button
+                    type="button"
+                    className={!repeatFrequency ? "selected" : ""}
+                    onClick={() => {
+                      setRepeatFrequency(null);
+                      setRepeatEndDate(undefined);
+                      setRepeatCalendarOpen(false);
+                    }}
+                  >
+                    Once
+                  </button>
+                  <button
+                    type="button"
+                    className={repeatFrequency ? "selected" : ""}
+                    onClick={() => {
+                      if (!repeatFrequency) setRepeatFrequency("daily");
+                    }}
+                  >
+                    Repeatedly
+                  </button>
+                </div>
+              </div>
+              <AnimatePresence mode="wait">
+                {!repeatFrequency ? (
+                  <motion.div
+                    key="single-mode"
+                    className="deadline-setter_date-setting deadline-setter_sub-row"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <p className="setting-label">In:</p>
+                    <motion.div
+                      ref={carousel}
+                      className="deadline-setter_date-setting_carousel"
+                    >
+                      <motion.div
+                        drag="x"
+                        dragConstraints={{ right: 0, left: -carouselWidth }}
+                        className="deadline-setter_date-setting_carousel-inner"
+                      >
+                        {orderedDeadlineOptions.map(({ key, label, onClick }) => (
+                          <button
+                            key={key}
+                            type="button"
+                            className={
+                              selectedDeadlineType === key ? "selected" : ""
+                            }
+                            onClick={onClick}
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </motion.div>
+                    </motion.div>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="repeat-mode"
+                    className="deadline-setter_repeat-settings deadline-setter_sub-row"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <div className="deadline-setter_repeat-setting">
+                      <p className="setting-label">Every:</p>
+                      <div className="setting-pills">
+                        {(
+                          [
+                            { key: "daily", label: "Day" },
+                            { key: "weekly", label: "Week" },
+                            { key: "monthly", label: "Month" },
+                          ] as { key: RepeatFrequency; label: string }[]
+                        ).map((opt) => (
+                          <button
+                            key={opt.label}
+                            type="button"
+                            className={repeatFrequency === opt.key ? "selected" : ""}
+                            onClick={() => setRepeatFrequency(opt.key)}
+                          >
+                            {opt.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="deadline-setter_repeat-until">
+                      <p className="setting-label">Until:</p>
+                      <button
+                        type="button"
+                        className="deadline-setter_repeat-until_date-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setPseudoRepeatEndDate(repeatEndDate);
+                          setRepeatCalendarOpen(true);
+                        }}
+                      >
+                        {repeatEndDate
+                          ? repeatEndDate.toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })
+                          : "Pick end date"}
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            {/* ---- Phone input (admin only, last) ---- */}
             {isAdmin && (
               <div className="input-wrapper phone-input-wrapper">
                 <CursorInput
@@ -383,46 +603,10 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                 )}
               </div>
             )}
-            <div className="challenger-form_deadline-setter">
-              <div className="deadline-setter_date-setting">
-                <p>Do it by</p>
-                <motion.div
-                  ref={carousel}
-                  className="deadline-setter_date-setting_carousel"
-                >
-                  <motion.div
-                    drag="x"
-                    dragConstraints={{ right: 0, left: -carouselWidth }}
-                    className="deadline-setter_date-setting_carousel-inner"
-                  >
-                    {orderedDeadlineOptions.map(({ key, label, onClick }) => (
-                      <button
-                        key={key}
-                        type="button"
-                        className={
-                          selectedDeadlineType === key ? "selected" : ""
-                        }
-                        onClick={onClick}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </motion.div>
-                </motion.div>
-              </div>
-              <div className="deadline-setter_repeat-setting">
-                Does not repeat <span>COMING SOON</span>
-                <button
-                  onClick={() => {
-                    setIsPublic(false);
-                  }}
-                ></button>
-              </div>
-            </div>
           </div>
           <div className="challenger-form_footer">
             <Button
-              disabled={!challenge || isSubmitting}
+              disabled={!challenge || isSubmitting || !!(repeatFrequency && !repeatEndDate)}
               icon={ArrowRight}
               iconPosition="right"
               className="challenger-form_submit-btn"

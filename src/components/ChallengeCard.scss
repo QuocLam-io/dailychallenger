@@ -1,5 +1,10 @@
 @use "@/styles/_variables.scss" as *;
 
+.challenge-card_not-started {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 .challenge-card_wrapper {
   display: flex;
   align-items: center;
@@ -43,6 +48,20 @@
       font-weight: 400;
       line-height: 12px;
       letter-spacing: 0.1px;
+
+      .challenge-repeat-badge {
+        display: inline-block;
+        margin-right: 6px;
+        padding: 1px 5px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+        text-transform: capitalize;
+        color: rgba(26, 26, 26, 0.6);
+        background: rgba(26, 26, 26, 0.06);
+        border-radius: 4px;
+        vertical-align: middle;
+      }
 
       .challenge-status-completed {
         color: #16a34a; // green-600

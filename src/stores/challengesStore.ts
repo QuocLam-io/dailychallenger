@@ -15,13 +15,42 @@ export type Challenge = {
   title: string;
   user_id: string;
   is_dismissed: boolean;
+  recurring_challenge_id: string | null;
+  start_date: string | null;
 };
+
+export type RecurringChallenge = {
+  id: string;
+  challenge_id: string;
+  start_date: string;
+  duration_days: number;
+  end_date: string | null;
+  created_by: string;
+  created_at: string;
+};
+
+export type RepeatFrequency = "daily" | "weekly" | "monthly" | null;
+
+export function durationDaysToFrequency(days: number): RepeatFrequency {
+  if (days === 1) return "daily";
+  if (days === 7) return "weekly";
+  if (days === 30) return "monthly";
+  return null;
+}
+
+export function frequencyToDurationDays(freq: RepeatFrequency): number {
+  if (freq === "daily") return 1;
+  if (freq === "weekly") return 7;
+  if (freq === "monthly") return 30;
+  return 0;
+}
 
 interface ChallengesProps {
   challenges: Challenge[];
   currentChallenges: Challenge[];
   pastChallenges: Challenge[];
   needsUserAction: Challenge[];
+  recurringChallenges: RecurringChallenge[];
   fetchChallenges: (supabaseUserId: string) => Promise<void>;
 }
 
@@ -30,6 +59,7 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
   currentChallenges: [],
   pastChallenges: [],
   needsUserAction: [],
+  recurringChallenges: [],
   fetchChallenges: async (supabaseUserId: string) => {
     try {
       const { data: logs, error: logError } = await supabase
@@ -45,6 +75,9 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
       console.log("Fetched challenge logs from DB:", logs);
 
       const challengeIds = logs.map((log) => log.challenge_id);
+      const recurringIds = logs
+        .map((log) => log.recurring_challenge_id)
+        .filter(Boolean);
 
       const { data: challengeData, error: challengeError } = await supabase
         .from("challenges")
@@ -54,6 +87,20 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
       if (challengeError || !challengeData) {
         console.error("Failed to fetch challenge titles", challengeError);
         return;
+      }
+
+      let recurringData: RecurringChallenge[] = [];
+      if (recurringIds.length > 0) {
+        const { data, error: recurringError } = await supabase
+          .from("recurring_challenges")
+          .select("*")
+          .in("id", recurringIds);
+
+        if (recurringError) {
+          console.error("Failed to fetch recurring challenges", recurringError);
+        } else {
+          recurringData = data ?? [];
+        }
       }
 
       const now = new Date();
@@ -92,6 +139,7 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
         currentChallenges: current,
         pastChallenges: past,
         needsUserAction: needsUserAction,
+        recurringChallenges: recurringData,
       });
     } catch (err) {
       console.error("Unexpected error in fetchChallenges:", err);

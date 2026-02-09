@@ -21,7 +21,7 @@ import {
 } from "@/utils/deadlineDisplay";
 import { toggleChallengeCompletion } from "@/middleware/challenges";
 //Types
-import { Challenge } from "@/stores/challengesStore";
+import useChallengesStore, { Challenge, durationDaysToFrequency } from "@/stores/challengesStore";
 //Zustand
 import { useDropdownStore } from "@/stores/dropdownStore";
 import { useModalsStore } from "@/stores/modalsStore";
@@ -35,6 +35,15 @@ type Props = {
 
 const ChallengeCard = ({ challenge }: Props) => {
   const { supabaseId } = useUserStore();
+  const { recurringChallenges } = useChallengesStore();
+
+  const recurringMatch = challenge.recurring_challenge_id
+    ? recurringChallenges.find((r) => r.id === challenge.recurring_challenge_id)
+    : null;
+  const repeatLabel = recurringMatch
+    ? durationDaysToFrequency(recurringMatch.duration_days)
+    : null;
+  const hasStarted = !challenge.start_date || new Date(challenge.start_date) <= new Date();
   const {
     setDeleteChallengeId,
     toggleDeleteChallengeModalOpen,
@@ -145,7 +154,7 @@ const ChallengeCard = ({ challenge }: Props) => {
   };
 
   return (
-    <div className="challenge-card_wrapper">
+    <div className={`challenge-card_wrapper${!hasStarted ? " challenge-card_not-started" : ""}`}>
       <Link
         onClick={() => setChallengeDetailsPageChallenge(challenge)}
         to={`/challenge-details/${challenge.id}`}
@@ -154,6 +163,9 @@ const ChallengeCard = ({ challenge }: Props) => {
         <div className="titles">
           <h4>{challenge.title}</h4>
           <p>
+            {repeatLabel && (
+              <span className="challenge-repeat-badge">↻ {repeatLabel}</span>
+            )}
             {pastChallengeDisplay ? (
               <>
                 <span
@@ -163,6 +175,8 @@ const ChallengeCard = ({ challenge }: Props) => {
                 </span>
                 {pastChallengeDisplay.rest}
               </>
+            ) : !hasStarted ? (
+              `Starts ${new Date(challenge.start_date!).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`
             ) : challenge.is_completed ? (
               "Completed"
             ) : (
