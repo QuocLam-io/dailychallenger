@@ -66,3 +66,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `VITE_SUPABASE_KEY`: Supabase anon/public key
 - Clerk environment variables for authentication
 - use Context7 to check up-to-date docs when needed for implementing new libraries or frameworks, or adding features using them.
+
+---
+
+## Planned Feature: Cheers
+
+View friends' current challenges and cheer them on. Cheers show as avatars in the dashboard header.
+
+### Files to Create
+
+1. **`/src/types/social.ts`** - Types for FriendUser, Friendship, Cheer, FriendChallenge, ReceivedCheer
+
+2. **`/src/stores/socialStore.ts`** - Zustand store with:
+   - State: `friends`, `friendsChallenges`, `receivedCheers`
+   - Actions: `fetchFriends`, `fetchFriendsChallenges`, `fetchReceivedCheers`, `addCheer`, `removeCheer`
+
+3. **`/src/components/CheerButton.tsx`** - One-click cheer button with confetti animation (uses `partycles` like ChallengeCard)
+
+4. **`/src/components/FriendChallengeCard.tsx`** - Displays friend's challenge with CheerButton (simpler than ChallengeCard, no done/dropdown)
+
+5. **`/src/components/CheersAvatarGroup.tsx`** - Shows avatars of friends who cheered (replaces "No cheers yet" placeholder)
+
+### Files to Modify
+
+- **`/src/pages/Home.tsx`**:
+  - Replace lines 195-199 (placeholder) with `<CheersAvatarGroup />`
+  - Add friends' challenges section after line 248 (below user's current challenges)
+
+- **`/src/pages/Home.scss`** - Add `.dashboard_friends-challenges` styles
+
+### Implementation Order
+1. Types → 2. Store → 3. Components (CheerButton, FriendChallengeCard, CheersAvatarGroup) → 4. Update Home.tsx/scss
+
+### DB Tables (already exist)
+- `friendships` - user_id, friend_id, status (pending/accepted)
+- `cheers` - challenge_log_id, user_id

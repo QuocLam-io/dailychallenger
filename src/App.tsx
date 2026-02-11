@@ -25,7 +25,11 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          {/* Public Routes */}
+          {/* Public Routes - accessible to all users */}
+          <Route path="/under-construction" element={<UnderConstruction />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+
+          {/* Landing page - redirects signed-in users */}
           <Route
             path="/"
             element={
@@ -33,15 +37,11 @@ function App() {
                 <Navigate to="/home" replace />
               ) : (
                 <SignedOut>
-                  <Outlet />
+                  <LandingPage />
                 </SignedOut>
               )
             }
-          >
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/under-construction" element={<UnderConstruction />} />
-            <Route path="/privacy" element={<PrivacyPage />} />
-          </Route>
+          />
           {/* All Private Routes - protected by PrivateRoutesWrapper */}
           <Route
             element={isSignedIn ? <PrivateRoutesWrapper /> : <Navigate to="/" replace />}
@@ -49,6 +49,9 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="challenge-details/:id" element={<ChallengeDetailsPage />} />
           </Route>
+
+          {/* 404 - Catch all unmatched routes */}
+          <Route path="*" element={<UnderConstruction />} />
         </Routes>
         <ModalPortal />
       </BrowserRouter>
