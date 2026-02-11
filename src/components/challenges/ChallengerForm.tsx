@@ -182,6 +182,7 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const emojiPickerRef = useRef<HTMLDivElement>(null);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [phoneError, setPhoneError] = useState<string>("");
+  const [showPhoneInput, setShowPhoneInput] = useState<boolean>(false);
 
   useEffect(() => {
     function clickOutsideEmojiHandler(event: MouseEvent) {
@@ -587,22 +588,38 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
                 )}
               </AnimatePresence>
             </div>
-            {/* ---- Phone input (admin only, last) ---- */}
-            {isAdmin && (
-              <div className="input-wrapper phone-input-wrapper">
-                <CursorInput
-                  aria-label="Phone number input"
-                  type="tel"
-                  placeholder="(555) 867-5309"
-                  value={phoneNumber}
-                  onChange={handlePhoneChange}
-                  className={phoneError ? "error" : ""}
-                />
-                {phoneError && (
-                  <span className="error-message">{phoneError}</span>
-                )}
-              </div>
-            )}
+            {/* ---- Brag to friend (phone input) ---- */}
+            <div className="challenger-form_brag-section">
+              {!showPhoneInput ? (
+                <button
+                  type="button"
+                  className="challenger-form_brag-btn"
+                  onClick={() => setShowPhoneInput(true)}
+                >
+                  Obnoxiously tell a friend
+                </button>
+              ) : (
+                <motion.div
+                  className="input-wrapper phone-input-wrapper"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <p className="setting-label">Send a text to:</p>
+                  <CursorInput
+                    aria-label="Phone number input"
+                    type="tel"
+                    placeholder="(555) 867-5309"
+                    value={phoneNumber}
+                    onChange={handlePhoneChange}
+                    className={phoneError ? "error" : ""}
+                  />
+                  {phoneError && (
+                    <span className="error-message">{phoneError}</span>
+                  )}
+                </motion.div>
+              )}
+            </div>
           </div>
           <div className="challenger-form_footer">
             <Button

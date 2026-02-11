@@ -50,6 +50,7 @@ const ChallengeCard = ({ challenge }: Props) => {
   const hasStarted = !challenge.start_date || new Date(challenge.start_date) <= new Date();
   const {
     setDeleteChallengeId,
+    setDeleteRecurringChallengeId,
     toggleDeleteChallengeModalOpen,
     toggleEditChallengeModalOpen,
   } = useModalsStore();
@@ -145,9 +146,18 @@ const ChallengeCard = ({ challenge }: Props) => {
 
   /* ------------------------- Handle Delete Challenge ------------------------ */
 
-  const handleDeleteChallenge = () => {
-    toggleDeleteChallengeModalOpen();
+  const handleDeleteSingleChallenge = () => {
+    setDeleteRecurringChallengeId(null);
     setDeleteChallengeId(challenge.id);
+    toggleDeleteChallengeModalOpen();
+  };
+
+  const handleDeleteRecurringChallenge = () => {
+    if (challenge.recurring_challenge_id) {
+      setDeleteChallengeId(null);
+      setDeleteRecurringChallengeId(challenge.recurring_challenge_id);
+      toggleDeleteChallengeModalOpen();
+    }
   };
 
   /* ------------------------- Handle Edit Challenge ------------------------ */
@@ -250,11 +260,19 @@ const ChallengeCard = ({ challenge }: Props) => {
                 </button>
               </li>
               <li role="none">
-                <button onClick={() => handleDeleteChallenge()} role="menuitem">
+                <button onClick={handleDeleteSingleChallenge} role="menuitem">
                   <img src={DeleteTrashcan} />
-                  <p>Delete</p>
+                  <p>{challenge.recurring_challenge_id ? "Delete Single" : "Delete"}</p>
                 </button>
               </li>
+              {challenge.recurring_challenge_id && (
+                <li role="none">
+                  <button onClick={handleDeleteRecurringChallenge} role="menuitem">
+                    <img src={DeleteTrashcan} />
+                    <p>Delete Recurring</p>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </div>
