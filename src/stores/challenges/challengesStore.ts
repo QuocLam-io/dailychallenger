@@ -79,14 +79,22 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
           const deadlinePassed = new Date(c.deadline) < now;
           return deadlinePassed;
         })
-        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        .sort((a, b) => {
+          // Sort by created_at (newest first), with id as tiebreaker for stability
+          const timeDiff = new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+          return timeDiff !== 0 ? timeDiff : a.id.localeCompare(b.id);
+        });
 
       const current = enriched
         .filter((c) => {
           const deadlinePassed = new Date(c.deadline) < now;
           return !deadlinePassed;
         })
-        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        .sort((a, b) => {
+          // Sort by deadline (soonest first), with id as tiebreaker for stability
+          const timeDiff = new Date(a.deadline).getTime() - new Date(b.deadline).getTime();
+          return timeDiff !== 0 ? timeDiff : a.id.localeCompare(b.id);
+        });
 
       const needsUserAction = enriched.filter((c) => {
         const deadlinePassed = new Date(c.deadline) < now;
