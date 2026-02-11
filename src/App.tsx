@@ -3,7 +3,6 @@ import {
   Routes,
   Route,
   BrowserRouter,
-  Outlet,
   Navigate,
 } from "react-router-dom";
 //Auth
