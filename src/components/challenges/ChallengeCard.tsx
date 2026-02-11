@@ -4,14 +4,14 @@ import { useEffect, useRef } from "react";
 import { useReward } from "partycles";
 // Styles
 import "./ChallengeCard.scss";
-import greenCheckmark from "@/assets/checkmark-green-circle.svg";
-import greyCheckmark from "@/assets/checkmark-grey-circle.svg";
-import greyEllipsis from "@/assets/vertical-ellipsis-grey.png";
-import EditPencil from "@/assets/edit-pencil-grey.png";
-import DeleteTrashcan from "@/assets/delete-trashcan-grey.png";
+import greenCheckmark from "@/assets/icons/checkmark-green-circle.svg";
+import greyCheckmark from "@/assets/icons/checkmark-grey-circle.svg";
+import greyEllipsis from "@/assets/images/vertical-ellipsis-grey.png";
+import EditPencil from "@/assets/images/edit-pencil-grey.png";
+import DeleteTrashcan from "@/assets/images/delete-trashcan-grey.png";
 // @ts-expect-error: This import is temporarily unused, but may be used in the future for the Invite button.
-import addUser from "@/assets/user-add.svg";
-import addUserDisabled from "@/assets/user-add-disabled.svg";
+import addUser from "@/assets/icons/user-add.svg";
+import addUserDisabled from "@/assets/icons/user-add-disabled.svg";
 //Router
 import { Link } from "react-router-dom";
 //Utils
@@ -21,13 +21,17 @@ import {
 } from "@/utils/deadlineDisplay";
 import { toggleChallengeCompletion } from "@/middleware/challenges";
 //Types
-import useChallengesStore, { Challenge, durationDaysToFrequency } from "@/stores/challengesStore";
+import type { Challenge } from "@/types";
+import { durationDaysToFrequency } from "@/types";
 //Zustand
-import { useDropdownStore } from "@/stores/dropdownStore";
-import { useModalsStore } from "@/stores/modalsStore";
-import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
-import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
-import { useUserStore } from "@/stores/userStore";
+import {
+  useChallengesStore,
+  useChallengeDetailsPageStore,
+  useDropdownStore,
+  useModalsStore,
+  useDashboardStore,
+  useUserStore,
+} from "@/stores";
 
 type Props = {
   challenge: Challenge;

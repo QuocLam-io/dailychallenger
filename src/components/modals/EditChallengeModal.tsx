@@ -5,18 +5,15 @@ import { fadeInOut } from "@/constants/animations";
 import "./EditChallengeModal.scss";
 
 //Zustand
-import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
-import { useModalsStore } from "@/stores/modalsStore";
-import { useUserStore } from "@/stores/userStore";
+import { useChallengeDetailsPageStore, useModalsStore, useUserStore } from "@/stores";
 
 //Utils
 import { editChallengeHandler } from "@/utils/editChallenge";
 
 //Components
-import Overlay from "../Overlay";
-import CloseXBW from "@/assets/close-x-bw.png";
-import ArrowRight from "@/assets/arrow-right-bw.png";
-import "./EditChallengeModal.scss";
+import { Overlay } from "@/components/shared";
+import CloseXBW from "@/assets/images/close-x-bw.png";
+import ArrowRight from "@/assets/images/arrow-right-bw.png";
 import { useState, useRef } from "react";
 import EmojiPicker from "emoji-picker-react";
 import { motion, AnimatePresence } from "framer-motion";

@@ -1,19 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 // Zustand
-import usePublicStore from "../stores/usePublicStore.js";
+import { usePublicStore } from "@/stores";
 //Styling
 import "./EmptyLanding.scss";
 import { AnimatePresence } from "framer-motion";
-import StrongMan from "../assets/strongest-man-alive.png";
-import PlusCircle from "../assets/plus-black-circle-white.png";
-import PlusReverse from "../assets/plus-white-circle-black.png";
-import OldTimeyLamp from "../assets/old-timey-lamp.png";
-import CloseXBW from "../assets/close-x-bw.png";
-import ArrowRight from "../assets/arrow-right-bw.png";
+import StrongMan from "@/assets/images/strongest-man-alive.png";
+import PlusCircle from "@/assets/images/plus-black-circle-white.png";
+import PlusReverse from "@/assets/images/plus-white-circle-black.png";
+import OldTimeyLamp from "@/assets/images/old-timey-lamp.png";
+import CloseXBW from "@/assets/images/close-x-bw.png";
+import ArrowRight from "@/assets/images/arrow-right-bw.png";
 
 //Components
-import Overlay from "./Overlay";
+import { Overlay } from "@/components/shared";
 
 const EmptyLanding: React.FC = () => {
   const { publicChallengerModalOpen, setPublicChallengerModalOpen } =

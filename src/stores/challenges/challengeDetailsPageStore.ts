@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Challenge } from "./challengesStore";
+import type { Challenge } from "@/types";
 
 interface ChallengeDetailsPageProps {
   challengeDetailsPageChallenge: Challenge | null;

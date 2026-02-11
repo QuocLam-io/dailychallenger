@@ -2,8 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import "./DashboardCTAFooter.scss";
 import { motion as m } from "framer-motion";
 
-import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
-import useChallengesStore from "@/stores/challengesStore";
+import { useDashboardStore, useChallengesStore } from "@/stores";
 
 const DashboardCTAFooter = () => {
   const { activeTab, setActiveTab } = useDashboardStore();

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { calculateCurrentStreak } from "@/utils/calculateStreak";
-import type { Challenge } from "@/stores/challengesStore";
+import type { Challenge } from "@/types";
 
 describe("calculateCurrentStreak", () => {
   it("should return 0 for empty array", () => {

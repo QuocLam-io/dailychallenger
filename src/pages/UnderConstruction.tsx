@@ -2,8 +2,8 @@
 import { useNavigate } from "react-router";
 //Styles
 import "./UnderConstruction.scss";
-import ArrowLeft from "../assets/arrow-left-bw.png";
-import CharlieChaplin from "../assets/charlie-chaplin.gif";
+import ArrowLeft from "@/assets/images/arrow-left-bw.png";
+import CharlieChaplin from "@/assets/gifs/charlie-chaplin.gif";
 
 
 const UnderConstruction = () => {

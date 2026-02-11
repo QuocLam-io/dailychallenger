@@ -1,4 +1,4 @@
-import type { Challenge } from "@/stores/challengesStore";
+import type { Challenge } from "@/types";
 
 export const calculateCurrentStreak = (challenges: Challenge[]): number => {
   // Filter completed challenges and sort by completion date (newest first)

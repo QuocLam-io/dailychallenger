@@ -1,4 +1,4 @@
-import NavSpacer from "@/components/NavSpacer";
+import { NavSpacer } from "@/components/shared";
 
 export default function PrivacyPage() {
   return (

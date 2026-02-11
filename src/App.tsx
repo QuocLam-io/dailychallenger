@@ -10,13 +10,12 @@ import {
 import { SignedOut, useAuth } from "@clerk/clerk-react";
 import PrivateRoutesWrapper from "./auth/PrivateRoutesWrapper.tsx";
 //Components
-import Navbar from "./components/Navbar.tsx";
+import { Navbar, ModalPortal } from "@/components/shared";
 import LandingPage from "./pages/LandingPage.tsx";
 import UnderConstruction from "./pages/UnderConstruction.tsx";
 import Home from "./pages/Home.tsx";
 import ChallengeDetailsPage from "./pages/ChallengeDetailsPage.tsx";
 import PrivacyPage from "./pages/PrivacyPage.tsx";
-import ModalPortal from "./components/ModalPortal.tsx";
 
 function App() {
   const { isSignedIn } = useAuth();

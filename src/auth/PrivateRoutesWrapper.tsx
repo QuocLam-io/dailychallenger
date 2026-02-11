@@ -5,12 +5,11 @@ import { Outlet } from "react-router-dom";
 //Auth
 import { useUser } from "@clerk/clerk-react";
 //Zustand
-import { useUserStore } from "@/stores/userStore.ts";
+import { useUserStore } from "@/stores/user";
 //Backend
-import { supabase } from "../supabase-client.ts";
-// import { createClient } from "@supabase/supabase-js";
+import { supabase } from "@/supabase-client";
 //Components
-import CarraigeLoader from "@/components/CarraigeLoader.tsx";
+import { CarraigeLoader } from "@/components/shared";
 
 //Types
 interface UserTypes {

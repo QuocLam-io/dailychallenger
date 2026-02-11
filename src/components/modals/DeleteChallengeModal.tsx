@@ -1,11 +1,9 @@
 //Styling
 import "./DeleteChallengeModal.scss";
 //Components
-import Overlay from "../Overlay";
+import { Overlay } from "@/components/shared";
 //Zustand
-import { useModalsStore } from "@/stores/modalsStore";
-import useChallengesStore from "@/stores/challengesStore";
-import { useUserStore } from "@/stores/userStore";
+import { useModalsStore, useChallengesStore, useUserStore } from "@/stores";
 //Util
 import { handleDeleteChallenge } from "@/utils/deleteChallenge";
 //Routing

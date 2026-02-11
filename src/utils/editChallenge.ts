@@ -2,9 +2,7 @@
 import { supabase } from "@/supabase-client";
 
 //Zustand
-import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
-import { useModalsStore } from "@/stores/modalsStore";
-import useChallengesStore from "@/stores/challengesStore";
+import { useChallengeDetailsPageStore, useModalsStore, useChallengesStore } from "@/stores";
 
 export const editChallengeHandler = async (
   supabaseId: string,

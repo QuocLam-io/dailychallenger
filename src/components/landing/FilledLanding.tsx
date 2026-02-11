@@ -2,20 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 //Styling
 import "./FilledLanding.scss";
 import { AnimatePresence } from "framer-motion";
-import OldTimeyLamp from "../assets/old-timey-lamp.png";
-import CheckmarkBW from "../assets/checkmark-bw-circle.png";
-import VerticalEllipsis from "../assets/vertical-ellipsis-grey.png";
-import EditPencil from "../assets/edit-pencil-grey.png";
-import DeleteTrashcan from "../assets/delete-trashcan-grey.png";
+import OldTimeyLamp from "@/assets/images/old-timey-lamp.png";
+import CheckmarkBW from "@/assets/images/checkmark-bw-circle.png";
+import VerticalEllipsis from "@/assets/images/vertical-ellipsis-grey.png";
+import EditPencil from "@/assets/images/edit-pencil-grey.png";
+import DeleteTrashcan from "@/assets/images/delete-trashcan-grey.png";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 // Zustand
-import usePublicStore from "../stores/usePublicStore.ts";
+import { usePublicStore } from "@/stores";
 //Components
-import Overlay from "./Overlay";
-import { PublicChallengeTypes } from "../pages/LandingPage";
+import { Overlay } from "@/components/shared";
+import { PublicChallengeTypes } from "@/pages/LandingPage";
 import { PublicChallengerForm } from "./EmptyLanding";
 //Utils
-import { formatCountdownTime } from "../utils/countdownTimer";
+import { formatCountdownTime } from "@/utils/countdownTimer";
 
 interface FilledLandingProps {
   publicChallenge: PublicChallengeTypes;

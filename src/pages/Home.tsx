@@ -6,25 +6,20 @@ import { calculateCurrentStreak } from "@/utils/calculateStreak";
 //Styles
 import "./Home.scss";
 import { AnimatePresence, motion } from "framer-motion";
-import PlaceHolderAvatarGroup from "@/assets/PlaceHolderAvatarGroup.jpg";
-import plusCircle from "@/assets/plus-black-circle-white.png";
-import plusSoft from "@/assets/plus-white-circle-grey.svg";
+import PlaceHolderAvatarGroup from "@/assets/images/PlaceHolderAvatarGroup.jpg";
+import plusCircle from "@/assets/images/plus-black-circle-white.png";
+import plusSoft from "@/assets/icons/plus-white-circle-grey.svg";
 //Auth
 import { useUser } from "@clerk/clerk-react";
 //Zustand
-import { useUserStore } from "@/stores/userStore";
-import useChallengesStore from "@/stores/challengesStore";
-import { useDashboardStore } from "@/stores/dashboard/dashboardStore";
+import { useUserStore } from "@/stores/user";
+import { useChallengesStore, useDashboardStore } from "@/stores";
 //Supabase
 import { supabase } from "@/supabase-client";
 //Components
-import NavSpacer from "@/components/NavSpacer";
-import CarraigeLoader from "@/components/CarraigeLoader";
-import Button from "@/components/Button";
-import ChallengerForm from "@/components/ChallengerForm.tsx";
-import DashboardEmptyExamples from "@/components/DashboardEmptyExamples.tsx";
-import ChallengeCard from "@/components/ChallengeCard";
-import DashboardCTAFooter from "@/components/dashboard/DashboardCTAFooter";
+import { NavSpacer, CarraigeLoader, Button } from "@/components/shared";
+import { ChallengerForm, ChallengeCard } from "@/components/challenges";
+import { DashboardEmptyExamples, DashboardCTAFooter } from "@/components/dashboard";
 
 const Home = () => {
   const {

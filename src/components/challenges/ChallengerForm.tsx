@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { z } from "zod";
-import CursorInput from "./CursorInput";
+import { CursorInput } from "@/components/shared";
 //Utils & Constants
 import { getDeadlineDisplay } from "@/utils/deadlineDisplay";
 import { getTomorrow } from "@/utils/getTomorrow";
@@ -13,8 +13,9 @@ import { supabase } from "@/supabase-client";
 import { useUser } from "@clerk/clerk-react";
 
 //Zustand
-import { useUserStore } from "@/stores/userStore";
-import useChallengesStore, { type RepeatFrequency, frequencyToDurationDays } from "@/stores/challengesStore";
+import { useUserStore, useChallengesStore } from "@/stores";
+import type { RepeatFrequency } from "@/types";
+import { frequencyToDurationDays } from "@/types";
 
 //SMS
 import { sendSurgeSMS } from "@/middleware/sms/sendSurgeSMS";
@@ -24,15 +25,14 @@ import { sendSurgeSMS } from "@/middleware/sms/sendSurgeSMS";
 import "./ChallengerForm.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { fadeInOut } from "@/constants/animations";
-import CloseXBW from "../assets/close-x-bw.png";
-import ArrowRight from "../assets/arrow-right-bw.png";
-import plusReverse from "@/assets/plus-white-circle-black.svg";
+import CloseXBW from "@/assets/images/close-x-bw.png";
+import ArrowRight from "@/assets/images/arrow-right-bw.png";
+import plusReverse from "@/assets/icons/plus-white-circle-black.svg";
 
 //Components
 import EmojiPicker from "emoji-picker-react";
 import { Calendar } from "@/components/ui/calendar";
-import Button from "./Button";
-import Overlay from "@/components/Overlay.tsx";
+import { Button, Overlay } from "@/components/shared";
 
 interface ChallengerFormTypes {
   onClose: () => void;

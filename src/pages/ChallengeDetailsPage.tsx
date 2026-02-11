@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import "./ChallengeDetailsPage.scss";
-import CheckmarkBW from "@/assets/checkmark-bw-circle.png";
-import VerticalEllipsis from "@/assets/vertical-ellipsis-grey.png";
-import EditPencil from "@/assets/edit-pencil-grey.png";
-import DeleteTrashcan from "@/assets/delete-trashcan-grey.png";
+import CheckmarkBW from "@/assets/images/checkmark-bw-circle.png";
+import VerticalEllipsis from "@/assets/images/vertical-ellipsis-grey.png";
+import EditPencil from "@/assets/images/edit-pencil-grey.png";
+import DeleteTrashcan from "@/assets/images/delete-trashcan-grey.png";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
-import { useChallengeDetailsPageStore } from "@/stores/challengeDetailsPageStore";
-import { useModalsStore } from "@/stores/modalsStore";
+import { useChallengeDetailsPageStore, useModalsStore } from "@/stores";
 import { formatCountdownTime, getTimeLeft } from "@/utils/countdownTimer";
 import { toggleChallengeCompletion as completeChallenge } from "@/middleware/challenges";
 

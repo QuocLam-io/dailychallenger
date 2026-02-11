@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
-import { useModalsStore } from "@/stores/modalsStore";
-import DeleteChallengeModal from "@/components/modals/DeleteChallengeModal";
-import EditChallengeModal from "@/components/modals/EditChallengeModal";
+import { useModalsStore } from "@/stores";
+import { DeleteChallengeModal, EditChallengeModal } from "@/components/modals";
 
 const ModalPortal: React.FC = () => {
   const location = useLocation();

@@ -2,8 +2,7 @@
 import { supabase } from "@/supabase-client";
 
 //Zustand
-import useChallengesStore from "@/stores/challengesStore";
-import { useUserStore } from "@/stores/userStore";
+import { useChallengesStore, useUserStore } from "@/stores";
 //Utils
 import { calculateLongestStreak } from "@/utils/calculateStreak";
 

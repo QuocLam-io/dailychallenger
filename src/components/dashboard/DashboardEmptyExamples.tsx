@@ -1,7 +1,7 @@
 import "./DashboardEmptyExamples.scss"
-import greenCheckmark from "@/assets/checkmark-green-circle.svg";
-import greyCheckmark from "@/assets/checkmark-grey-circle.svg";
-import greyEllipsis from "@/assets/vertical-ellipsis-grey.png";
+import greenCheckmark from "@/assets/icons/checkmark-green-circle.svg";
+import greyCheckmark from "@/assets/icons/checkmark-grey-circle.svg";
+import greyEllipsis from "@/assets/images/vertical-ellipsis-grey.png";
 
 const DashboardEmptyExamples = () => {
   
