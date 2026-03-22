@@ -286,6 +286,61 @@
     &_cards-container {
       @include flex-column;
     }
+
+    &_empty {
+      color: rgba(26, 26, 26, 0.5);
+      font-family: Asap;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0.12px;
+    }
+
+    &_connect {
+      @include flex-column(8px);
+      align-items: center;
+      padding: 32px 16px;
+      text-align: center;
+
+      p {
+        color: rgba(26, 26, 26, 0.7);
+        font-family: Asap;
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 18px;
+        letter-spacing: 0.13px;
+      }
+
+      &-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 4px;
+        padding: 8px 20px;
+        border-radius: 8px;
+        border: 1px solid rgba(26, 26, 26, 0.15);
+        background: transparent;
+        color: rgba(26, 26, 26, 0.35);
+        font-family: "Work Sans";
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 18px;
+        letter-spacing: 0.13px;
+        cursor: not-allowed;
+
+        span {
+          padding: 1px 6px;
+          border-radius: 8px;
+          background: rgba(26, 26, 26, 0.05);
+          color: rgba(26, 26, 26, 0.7);
+          font-family: "Work Sans";
+          font-size: 10px;
+          font-weight: 600;
+          line-height: 14px;
+          letter-spacing: 0.1px;
+        }
+      }
+    }
   }
 
   .dashboard-kyurem_cta {

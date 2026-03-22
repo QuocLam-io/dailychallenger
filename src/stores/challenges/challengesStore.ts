@@ -12,6 +12,7 @@ interface ChallengesProps {
   pastChallenges: Challenge[];
   needsUserAction: Challenge[];
   recurringChallenges: RecurringChallenge[];
+  isLoading: boolean;
   fetchChallenges: (supabaseUserId: string) => Promise<void>;
 }
 
@@ -21,7 +22,9 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
   pastChallenges: [],
   needsUserAction: [],
   recurringChallenges: [],
+  isLoading: true,
   fetchChallenges: async (supabaseUserId: string) => {
+    set({ isLoading: true });
     try {
       const { data: logs, error: logError } = await supabase
         .from("challenge_logs")
@@ -109,9 +112,11 @@ const useChallengesStore = create<ChallengesProps>((set) => ({
         pastChallenges: past,
         needsUserAction: needsUserAction,
         recurringChallenges: recurringData,
+        isLoading: false,
       });
     } catch (err) {
       console.error("Unexpected error in fetchChallenges:", err);
+      set({ isLoading: false });
     }
   },
 }));

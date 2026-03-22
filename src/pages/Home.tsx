@@ -16,7 +16,7 @@ import { useChallengesStore, useDashboardStore, useSocialStore } from "@/stores"
 //Supabase
 import { supabase } from "@/supabase-client";
 //Components
-import { NavSpacer, CarraigeLoader, Button } from "@/components/shared";
+import { NavSpacer, CarraigeLoader, Button, ChallengesSkeleton, Skeleton } from "@/components/shared";
 import { ChallengerForm, ChallengeCard } from "@/components/challenges";
 import { DashboardEmptyExamples, DashboardCTAFooter } from "@/components/dashboard";
 import { CheersAvatarGroup, FriendChallengeCard } from "@/components/social";
@@ -27,6 +27,7 @@ const Home = () => {
     currentChallenges,
     pastChallenges,
     fetchChallenges,
+    isLoading,
   } = useChallengesStore();
 
   const [isChallengerFormOpen, setIsChallengerFormOpen] = useState(false);
@@ -69,7 +70,6 @@ const Home = () => {
   /* ----------------------- Fetch Challenges useEffect ----------------------- */
 
   useEffect(() => {
-    // TODO: Add skeleton state
     if (!supabaseId) return; // ensures valid UUID before fetching
     fetchChallenges(supabaseId);
     fetchFriends(supabaseId);
@@ -185,70 +185,103 @@ const Home = () => {
         </div>
         <div className="dashboard-user">
           <div className="dashboard-user_name">
-            <p>{greeting}</p>
-            <AnimatePresence mode="wait">
-              {isEditingName ? (
-                <motion.div
-                  key="edit-mode"
-                  className="dashboard-user_name-edit"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <input
-                    type="text"
-                    placeholder="First name"
-                    value={editFirstName}
-                    onChange={(e) => setEditFirstName(e.target.value)}
-                    disabled={isSavingName}
-                    autoFocus
-                  />
-                  <input
-                    type="text"
-                    placeholder="Last name"
-                    value={editLastName}
-                    onChange={(e) => setEditLastName(e.target.value)}
-                    disabled={isSavingName}
-                  />
-                  <div className="dashboard-user_name-edit-buttons">
-                    <button onClick={handleSaveName} disabled={isSavingName}>
-                      {isSavingName ? "Saving..." : "Save"}
-                    </button>
-                    <button onClick={handleCancelEdit} disabled={isSavingName}>
-                      Cancel
-                    </button>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.p
-                  key="display-mode"
-                  onClick={handleEditName}
-                  style={{ cursor: "pointer" }}
-                  title="Click to edit"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {firstName || lastName
-                    ? `${firstName || ""} ${lastName || ""}`.trim()
-                    : standinUserName ?? clerkId}
-                </motion.p>
-              )}
-            </AnimatePresence>
+            {isLoading ? (
+              <>
+                <Skeleton width="80px" height="16px" />
+                <Skeleton width="140px" height="30px" borderRadius="6px" />
+              </>
+            ) : (
+              <>
+                <p>{greeting}</p>
+                <AnimatePresence mode="wait">
+                  {isEditingName ? (
+                    <motion.div
+                      key="edit-mode"
+                      className="dashboard-user_name-edit"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <input
+                        type="text"
+                        placeholder="First name"
+                        value={editFirstName}
+                        onChange={(e) => setEditFirstName(e.target.value)}
+                        disabled={isSavingName}
+                        autoFocus
+                      />
+                      <input
+                        type="text"
+                        placeholder="Last name"
+                        value={editLastName}
+                        onChange={(e) => setEditLastName(e.target.value)}
+                        disabled={isSavingName}
+                      />
+                      <div className="dashboard-user_name-edit-buttons">
+                        <button onClick={handleSaveName} disabled={isSavingName}>
+                          {isSavingName ? "Saving..." : "Save"}
+                        </button>
+                        <button onClick={handleCancelEdit} disabled={isSavingName}>
+                          Cancel
+                        </button>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.p
+                      key="display-mode"
+                      onClick={handleEditName}
+                      style={{ cursor: "pointer" }}
+                      title="Click to edit"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {firstName || lastName
+                        ? `${firstName || ""} ${lastName || ""}`.trim()
+                        : standinUserName ?? clerkId}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </>
+            )}
           </div>
           <div className="dashboard-user_streak">
             <p>Current streak</p>
             <p>{currentStreak} days</p>
             <p>Longest streak: {longestStreak} days</p>
             <div className="dashboard-user_streak-cheers">
-              <CheersAvatarGroup />
+              {isLoading ? (
+                <>
+                  <Skeleton width="58px" height="14px" />
+                  <Skeleton width="58px" height="24px" borderRadius="12px" />
+                </>
+              ) : (
+                <CheersAvatarGroup />
+              )}
             </div>
           </div>
         </div>
       </section>
-      {!challenges.length ? (
+      {isLoading ? (
+        <>
+          <section className="dashboard_challenges-display">
+            <div className="dashboard_challenges-display_header">
+              <h2>Challenges</h2>
+              <h3>Show your fellow chaps you are true to your word</h3>
+            </div>
+            <ChallengesSkeleton />
+          </section>
+          <section className="dashboard_friends-challenges">
+            <div className="dashboard_friends-challenges_header">
+              <h2>Friends’ Challenges</h2>
+              <h3>Give your mates a jolly good cheer</h3>
+            </div>
+            <ChallengesSkeleton />
+          </section>
+        </>
+      ) : !challenges.length ? (
         <DashboardEmptyExamples />
       ) : (
         <>
@@ -296,12 +329,12 @@ const Home = () => {
               </div>
             </div>
           </section>
-          {friendsChallenges.length > 0 && (
-            <section className="dashboard_friends-challenges">
-              <div className="dashboard_friends-challenges_header">
-                <h2>Friends’ Challenges</h2>
-                <h3>Give your mates a jolly good cheer</h3>
-              </div>
+          <section className="dashboard_friends-challenges">
+            <div className="dashboard_friends-challenges_header">
+              <h2>Friends’ Challenges</h2>
+              <h3>Give your mates a jolly good cheer</h3>
+            </div>
+            {friendsChallenges.length > 0 ? (
               <div className="dashboard_friends-challenges_cards-container">
                 {friendsChallenges.map((fc) => (
                   <FriendChallengeCard
@@ -312,13 +345,28 @@ const Home = () => {
                   />
                 ))}
               </div>
-            </section>
-          )}
+            ) : friends.length > 0 ? (
+              <p className="dashboard_friends-challenges_empty">
+                Your mates are resting — no active challenges at the moment.
+              </p>
+            ) : (
+              <div className="dashboard_friends-challenges_connect">
+                <p>No mates yet? Every gentleman starts somewhere.</p>
+                <button
+                  className="dashboard_friends-challenges_connect-btn"
+                  disabled
+                >
+                  Invite friends
+                  <span>COMING SOON</span>
+                </button>
+              </div>
+            )}
+          </section>
         </>
       )}
 
       {/* Footer */}
-      {!challenges.length ? (
+      {isLoading ? null : !challenges.length ? (
         <section className="dashboard-kyurem_cta">
           <h2>New are you? Start here:</h2>
           <Button
