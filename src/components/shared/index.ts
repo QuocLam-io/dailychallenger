@@ -6,3 +6,5 @@ export { default as CursorInput } from "./CursorInput";
 export { default as LoadingWrapper } from "./LoadingWrapper";
 export { default as Overlay } from "./Overlay";
 export { default as ModalPortal } from "./ModalPortal";
+export { default as Skeleton } from "./Skeleton";
+export { default as DashboardSkeleton, ChallengesSkeleton } from "./DashboardSkeleton";
