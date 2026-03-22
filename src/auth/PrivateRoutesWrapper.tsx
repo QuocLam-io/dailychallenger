@@ -20,6 +20,7 @@ interface UserTypes {
   last_name: string | null;
   role: "user" | "admin" | "superadmin";
   longest_streak: number;
+  avatar_url: string | null;
   created_at?: string;
 }
 
@@ -44,6 +45,7 @@ const PrivateRoutesWrapper = () => {
       const email = user.primaryEmailAddress?.emailAddress || null;
       const firstName = user.firstName || null;
       const lastName = user.lastName || null;
+      const avatarUrl = user.imageUrl || null;
       setFirstName(firstName);
       setLastName(lastName);
       if (!email) return;
@@ -68,6 +70,7 @@ const PrivateRoutesWrapper = () => {
             email,
             first_name: firstName,
             last_name: lastName,
+            avatar_url: avatarUrl,
             role: "user",
           };
 
@@ -107,6 +110,14 @@ const PrivateRoutesWrapper = () => {
           setLastName(newUserData.last_name ?? lastName);
           setIsHydrated(true);
         } else {
+          // Sync avatar_url from Clerk on each login
+          if (avatarUrl && avatarUrl !== data.avatar_url) {
+            await supabase
+              .from("users")
+              .update({ avatar_url: avatarUrl })
+              .eq("id", data.id);
+          }
+
           setSupabaseId(data.id);
           setLongestStreak(data.longest_streak || 0);
           setRole(data.role);

@@ -1,0 +1,38 @@
+@use "@/styles/_variables.scss" as *;
+
+.cheers-avatar-group_avatars {
+  display: flex;
+}
+
+.cheers-avatar-group_avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #f1f5f9;
+  color: #fff;
+  font-family: "Work Sans";
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  margin-left: -6px;
+  overflow: hidden;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.cheers-avatar-group_overflow {
+  background: rgba(26, 26, 26, 0.15);
+  color: rgba(26, 26, 26, 0.8);
+  font-size: 8px;
+}

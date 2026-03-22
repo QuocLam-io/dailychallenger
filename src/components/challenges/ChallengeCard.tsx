@@ -9,9 +9,7 @@ import greyCheckmark from "@/assets/icons/checkmark-grey-circle.svg";
 import greyEllipsis from "@/assets/images/vertical-ellipsis-grey.png";
 import EditPencil from "@/assets/images/edit-pencil-grey.png";
 import DeleteTrashcan from "@/assets/images/delete-trashcan-grey.png";
-// @ts-expect-error: This import is temporarily unused, but may be used in the future for the Invite button.
 import addUser from "@/assets/icons/user-add.svg";
-import addUserDisabled from "@/assets/icons/user-add-disabled.svg";
 //Router
 import { Link } from "react-router-dom";
 //Utils
@@ -31,7 +29,9 @@ import {
   useModalsStore,
   useDashboardStore,
   useUserStore,
+  useSocialStore,
 } from "@/stores";
+import { getInitials, getAvatarColor } from "@/utils/avatar";
 
 type Props = {
   challenge: Challenge;
@@ -58,6 +58,10 @@ const ChallengeCard = ({ challenge }: Props) => {
   const { openDropdownId, toggleDropdownId } = useDropdownStore();
   const isOpen = openDropdownId === challenge.id;
   const { activeTab } = useDashboardStore();
+  const { receivedCheers } = useSocialStore();
+  const cardCheers = receivedCheers.filter(
+    (c) => c.challenge_log_id === challenge.id
+  );
 
   // Calculate display info for past challenges
   const pastChallengeDisplay =
@@ -199,6 +203,39 @@ const ChallengeCard = ({ challenge }: Props) => {
           </p>
         </div>
       </Link>
+      {cardCheers.length > 0 && (
+        <div className="card-cheers">
+          {cardCheers.slice(0, 3).map((cheer) => {
+            const initials = getInitials(cheer.first_name, cheer.last_name);
+            const color = getAvatarColor(cheer.user_id);
+            const name =
+              `${cheer.first_name ?? ""} ${cheer.last_name ?? ""}`.trim();
+            return (
+              <div
+                key={cheer.user_id}
+                className="card-cheers_avatar"
+                style={
+                  cheer.avatar_url
+                    ? undefined
+                    : { backgroundColor: color }
+                }
+                title={name}
+              >
+                {cheer.avatar_url ? (
+                  <img src={cheer.avatar_url} alt={name} />
+                ) : (
+                  initials
+                )}
+              </div>
+            );
+          })}
+          {cardCheers.length > 3 && (
+            <div className="card-cheers_avatar card-cheers_overflow">
+              +{cardCheers.length - 3}
+            </div>
+          )}
+        </div>
+      )}
       <div className="card-status">
         <button
           ref={doneButtonRef}
@@ -243,18 +280,12 @@ const ChallengeCard = ({ challenge }: Props) => {
                   </button>
                 )}
               </li>
-              {/* <li role="none">
-                <button role="menuitem">
-                  <img src={addUser} />
-                  <p>Invite</p>
-                </button>
-              </li> */}
               <li role="none">
                 <button
                   className="dropdown_invite-button-disabled"
                   role="menuitem"
                 >
-                  <img src={addUserDisabled} />
+                  <img src={addUser} />
                   <p>Invite</p>
                   <span>COMING SOON</span>
                 </button>
