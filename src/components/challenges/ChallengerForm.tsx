@@ -56,10 +56,8 @@ const ChallengerForm = ({ onClose }: ChallengerFormTypes) => {
   const { user } = useUser();
   const clerkId = useUserStore((s) => s.clerkId);
   const supabaseId = useUserStore((s) => s.supabaseId);
-  const userRole = useUserStore((s) => s.role);
   const firstName = useUserStore((s) => s.firstName);
   const { fetchChallenges } = useChallengesStore();
-  const isAdmin = userRole === "admin" || userRole === "superadmin";
   const standinUserName = user?.primaryEmailAddress?.emailAddress.split("@")[0];
   const [challenge, setChallenge] = useState<string>("");
   const [pseudoDeadline, setPseudoDeadline] = useState<Date | undefined>(

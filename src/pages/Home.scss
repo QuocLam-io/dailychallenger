@@ -260,6 +260,34 @@
     }
   }
 
+  .dashboard_friends-challenges {
+    @include flex-column(16px);
+    padding: 0 16px 60px;
+
+    &_header {
+      @include flex-column(4px);
+      color: rgba(26, 26, 26, 0.9);
+      font-family: Asap;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 28px;
+      }
+
+      h3 {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0.12px;
+      }
+    }
+
+    &_cards-container {
+      @include flex-column;
+    }
+  }
+
   .dashboard-kyurem_cta {
     @include flex-column(12px);
     align-items: center;

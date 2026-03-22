@@ -6,3 +6,4 @@ export * from "./challenges";
 export * from "./landing";
 export * from "./dashboard";
 export * from "./modals";
+export * from "./social";

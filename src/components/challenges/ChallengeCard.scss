@@ -77,6 +77,46 @@
     }
   }
   }
+  .card-cheers {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+    flex-shrink: 0;
+
+    &_avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid #fff;
+      color: #fff;
+      font-family: "Work Sans";
+      font-size: 7px;
+      font-weight: 700;
+      line-height: 1;
+      margin-left: -5px;
+      overflow: hidden;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &_overflow {
+      background: rgba(26, 26, 26, 0.15);
+      color: rgba(26, 26, 26, 0.8);
+      font-size: 7px;
+    }
+  }
+
   .card-status {
     display: flex;
     // padding-top: 4px;
